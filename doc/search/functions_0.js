@@ -1,0 +1,10 @@
+var searchData=
+[
+  ['_5fmxml_5fentity_5fcb',['_mxml_entity_cb',['../mxml-entity_8c.html#af010164698dac9cb9c0e769ad7e83327',1,'_mxml_entity_cb(const char *name):&#160;mxml-entity.c'],['../mxml-private_8h.html#af010164698dac9cb9c0e769ad7e83327',1,'_mxml_entity_cb(const char *name):&#160;mxml-entity.c']]],
+  ['_5fmxml_5fglobal',['_mxml_global',['../mxml-private_8c.html#a5b7abe63889d975f9163b5bd867cfde2',1,'_mxml_global(void):&#160;mxml-private.c'],['../mxml-private_8h.html#a5b7abe63889d975f9163b5bd867cfde2',1,'_mxml_global(void):&#160;mxml-private.c']]],
+  ['_5fmxml_5fsnprintf',['_mxml_snprintf',['../config_8h.html#a284d93a1544fba241d604700af0bb09e',1,'_mxml_snprintf(char *, size_t, const char *,...):&#160;mxml-string.c'],['../mxml-string_8c.html#aded2439d1d8416021387902b8a6ae8db',1,'_mxml_snprintf(char *buffer, size_t bufsize, const char *format,...):&#160;mxml-string.c']]],
+  ['_5fmxml_5fstrdup',['_mxml_strdup',['../config_8h.html#a180a927a620ca5e1e90e21437926cfa8',1,'_mxml_strdup(const char *):&#160;mxml-string.c'],['../mxml-string_8c.html#a68454ae2bf97977f6a2833fda353af74',1,'_mxml_strdup(const char *s):&#160;mxml-string.c']]],
+  ['_5fmxml_5fstrdupf',['_mxml_strdupf',['../config_8h.html#aca917da535aa6549501625d95d02fff9',1,'_mxml_strdupf(const char *,...):&#160;mxml-string.c'],['../mxml-string_8c.html#ab319191582e6fdce994d646caaf3b1c9',1,'_mxml_strdupf(const char *format,...):&#160;mxml-string.c']]],
+  ['_5fmxml_5fvsnprintf',['_mxml_vsnprintf',['../config_8h.html#ae6e6f8c12edb6c357fd5dee9b550c598',1,'_mxml_vsnprintf(char *, size_t, const char *, va_list):&#160;mxml-string.c'],['../mxml-string_8c.html#a9ad0ba5d21f4668e8f5866ca73dc1ea1',1,'_mxml_vsnprintf(char *buffer, size_t bufsize, const char *format, va_list ap):&#160;mxml-string.c']]],
+  ['_5fmxml_5fvstrdupf',['_mxml_vstrdupf',['../config_8h.html#a6bdbca301422efa000efd33b91e49f49',1,'_mxml_vstrdupf(const char *, va_list):&#160;mxml-string.c'],['../mxml-string_8c.html#aeafa003bbc66a72aa2ca2024bd545189',1,'_mxml_vstrdupf(const char *format, va_list ap):&#160;mxml-string.c']]]
+];
