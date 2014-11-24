@@ -1,7 +1,5 @@
 /ssl_debug_build
 /test
-/extras/resources
-/conf
 /lib
 /.settings
 /.cproject
