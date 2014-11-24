@@ -1,5 +1,5 @@
 Faversham hall
 =============
 
-A simple 2d detective game
+A 2d detective game
 
