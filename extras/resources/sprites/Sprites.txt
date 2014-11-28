@@ -1,0 +1,46 @@
+  ____             _ _         _____    _ _ _   _                _  ___  _ 
+ / ___| _ __  _ __(_) |_ ___  | ____|__| (_) |_(_)_ __   __ _   / |/ _ \/ |
+ \___ \| '_ \| '__| | __/ _ \ |  _| / _` | | __| | '_ \ / _` |  | | | | | |
+  ___) | |_) | |  | | ||  __/ | |__| (_| | | |_| | | | | (_| |  | | |_| | |
+ |____/| .__/|_|  |_|\__\___| |_____\__,_|_|\__|_|_| |_|\__, |  |_|\___/|_|
+       |_|                                              |___/                                  
+*------------------------------------------------------------------------*
+ 
+*------------------------------------------------------------------------*    
+                      
+Transparent pixels must be erased out, will not remove white.
+
+Sprites MUST remain the same place once they have been coded
+
+Sprites MUST have no gap between them ( enless you leave a whole tile space )
+
+Sprites MUST be saved under extras/resources/sprites with the characters name, no spaces, or capitals as a .png
+	i.e cook.png
+	    
+Sprites cannot be rotated in the game so you will have to draw the same animation in diffrent rotations
+
+Sprites must have animation 6 frames long
+
+Sprites animation frames must be 16x16 pixels or 16x32 havent decided yet.
+
+Sprites animation must be on a new row
+
+Animations Must be in the files in THIS ORDER
+
+Player must have these animations
+	- Idle
+	- Idle rare
+	- walking up
+	- walking down
+	- walking left
+	- walking right
+	- found clue
+
+NPC must have this
+	- idle
+	- idle rare
+
+Servant must have this
+	- idle
+	- idle rare
+	- sweeping

@@ -1,0 +1,38 @@
+  ____  _       _               _____    _ _ _   _                _  ___  _ 
+ |  _ \(_) __ _| | ___   __ _  | ____|__| (_) |_(_)_ __   __ _   / |/ _ \/ |
+ | | | | |/ _` | |/ _ \ / _` | |  _| / _` | | __| | '_ \ / _` |  | | | | | |
+ | |_| | | (_| | | (_) | (_| | | |__| (_| | | |_| | | | | (_| |  | | |_| | |
+ |____/|_|\__,_|_|\___/ \__, | |_____\__,_|_|\__|_|_| |_|\__, |  |_|\___/|_|
+                        |___/                            |___/                              
+*------------------------------------------------------------------------------------*
+ 
+*------------------------------------------------------------------------------------*    
+
+Dialogs MUST be made in a PLAIN text editor like notepad NOT word e.c.t
+
+Dialogs MUST be saved under extras/resources/dialog with the characters name, no spaces, or capitals with the extention .ini
+	i.e cook.ini
+
+Dialogs MUST reach a catogory that has a options count of 0 to end the dialog
+
+Dialogs catogory do not matter so long as the important ones are the same accoss all characters
+                    
+Dialogs MUST use the following format.
+
+
+[starting_catogory_that_will_be_in_all_files_no_spaces_please]
+text = "this is the text to display on screen and can be as long as you wish however will ony be displayed one page at a time so don't make it to long"
+option_count = 2 the number of options the user can have
+option_text_1 = "The Option text that the user will select"
+option_goto_1 = "catogory_name_to_go_to_if_they_pick_the_first_option"
+option_text_2 = "The Option text that the user will select"
+option_goto_2 = "catogory_name_to_go_to_if_they_pick_the_first_option"
+
+[catogory_name_to_go_to_if_they_pick_the_first_option]
+text = "this does not matter as both of the options will end up here"
+option_count = 0
+
+
+
+
+Sorry for the pain..... should realy use lua binding or xml but don't have time :( 

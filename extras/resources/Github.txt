@@ -1,0 +1,64 @@
+   ____ _ _   _           _        _  ___  _ 
+  / ___(_) |_| |__  _   _| |__    / |/ _ \/ |
+ | |  _| | __| '_ \| | | | '_ \   | | | | | |
+ | |_| | | |_| | | | |_| | |_) |  | | |_| | |
+  \____|_|\__|_| |_|\__,_|_.__/   |_|\___/|_|
+                                             
+*------------------------------------------------------------------------*
+ 
+*------------------------------------------------------------------------*    
+                 
+Do NOT COMMIT TO MASTER
+
+BINARY FILES WILL NOT MERGE LIKE TEXT SO PLEASE DON'T EDIT THEM AT THE SAME TIME
+	THIS INCLUES .png
+
+MAKE A BRANCH FOR EACH TASK AND MERGE TO MASTER WHEN FINSHED
+
+CHECK BRANCHES FIRST BEFORE WORKING ON THE SAME TASK
+
+A TASK IS SOMTHING LIKE "MOVEMENT" NOT "WEEK 1 - PAUL"
+
+PLEASE DO NOT REVERT CHANGES ON MASTER! WITHOUT CONSULTING THE ENTIRE GROUP!
+
+COMMIT OFTEN AND COMMIT EARLY DO NOT COMMIT A DAYS WORK IN ONE GO! AND ADD MEANINGFUL MESSAGES I.E "FIXED TYPO IN COOK.INI, UNDER INTRO CATEGORY"
+
+TRY TO COMMIT TO THE RELEVANT BRANCH TO THE TASK.
+
+FEEL FREE TO FORK AND HAVE A PLAY WITH ANYTHING, JUST TRY NOT TO BREAK THE MAIN REPO!
+
+DON'T COMMIT OR PULL FROM A BRANCH CALLED 'upstream'
+
+ASK IF YOU DONT'T KNOW!
+
+GIT HUB FOR WINDOWS CAN BE FOUND AT: https://windows.github.com/
+				MAC: https://mac.github.com/
+			      LINIX: https://wiki.gnome.org/Apps/Gitg/
+
+*------------------------------------------------------------------------*
+			USEFUL COMMANDS
+*------------------------------------------------------------------------*   
+
+git clone url_to_repo			     - downloads the repo to a local folder
+
+git status				     - current status of local repo
+
+git pull orign branch_name                   - Downloads the changed files in the repo on that branch 
+
+git add .				     - Adds all files to be commited
+git commit -m "Message!"		     - commits the file
+git push orign branch_name		     - uploads the commit to the branch
+
+git checkout branch_name		     - switches to a branch
+
+git checkout -b branch_name		     - creates a new branch
+
+git merge branch_name			     - merges the branch_name into your branch
+
+git reset --hard			     - resets your local file to match the last commit
+
+git stash				     - save local files safly, use this before git reset to save changes
+
+git stash pop				     - returns the local files from stash
+
+git revert --no-commit commit_hash           - revert current branch to a previous commit, then do a git commit, and git push

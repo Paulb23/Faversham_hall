@@ -1,0 +1,79 @@
+  __  __               _____    _ _ _   _                 _  ___  _ 
+ |  \/  | __ _ _ __   | ____|__| (_) |_(_)_ __   __ _    / |/ _ \/ |
+ | |\/| |/ _` | '_ \  |  _| / _` | | __| | '_ \ / _` |   | | | | | |
+ | |  | | (_| | |_) | | |__| (_| | | |_| | | | | (_| |   | | |_| | |
+ |_|  |_|\__,_| .__/  |_____\__,_|_|\__|_|_| |_|\__, |   |_|\___/|_|
+              |_|                               |___/                         
+*------------------------------------------------------------------------*
+ 
+*------------------------------------------------------------------------*    
+                      
+Maps MUST be made with: http://www.mapeditor.org/
+
+Maps MUST have the orientation set to "Orthogonal" 
+
+Maps MUST have be saved with the format base64( zlib compression )
+
+Maps MUST have tile render order to Right Down
+
+Maps MUST have a tile size of 16x16 pixels
+
+Maps CAN  be any size, the game will support scrolling.
+
+Maps MUST be saved under extras/resources/maps with the room name, no spaces, or capitals
+	i.e kitchen.tmx	    
+
+*------------------------------------------------------------------------*
+
+  ALL THESE LAYERS MUST APPEAR AFTER THE NORMAL MAP LAYERS IN THIS OREDER
+	
+	- collsion
+	- characters
+	- puzzle
+        - other
+
+*------------------------------------------------------------------------*   
+
+Maps MUST have a layer called "collision" typed exactly like that
+	This MUST not be visible! (Can be when editing else you won't see it :P)
+
+	This MUST use the tile set extras/resources/tiles/other/collision.png
+
+	All collision tiles are to be marked with the red tile
+
+
+*------------------------------------------------------------------------*
+
+*------------------------------------------------------------------------*   
+
+Maps MUST have a layer called "characters" typed exactly like that
+	This MUST not be visible! (Can be when editing else you won't see it :P)
+
+	This MUST use the tile set extras/resources/tiles/other/characters.png
+
+
+*------------------------------------------------------------------------*
+
+*------------------------------------------------------------------------*   
+
+Maps MUST have a layer called "puzzle" typed exactly like that
+	This MUST not be visible! (Can be when editing else you won't see it :P)
+
+	This MUST use the tile set extras/resources/tiles/other/puzzle.png
+
+
+*------------------------------------------------------------------------*
+
+*------------------------------------------------------------------------*   
+
+Maps MUST have a layer called "other" typed exactly like that
+	This MUST not be visible! (Can be when editing else you won't see it :P)
+
+	This MUST use the tile set extras/resources/tiles/other/other.png
+
+*------------------------------------------------------------------------*
+
+*------------------------------------------------------------------------*
+
+
+OPEN extras/resources/maps/test_map.tmx FOR EXAMPLE MAP, PLEASE DON'T EDIT THIS ONE!
