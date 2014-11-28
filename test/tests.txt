@@ -1,0 +1,39 @@
+  _____         _          _  ___  _ 
+ |_   _|__  ___| |_ ___   / |/ _ \/ |
+   | |/ _ \/ __| __/ __|  | | | | | |
+   | |  __/\__ \ |_\__ \  | | |_| | |
+   |_|\___||___/\__|___/  |_|\___/|_|
+                                     
+*------------------------------------------------------------------------*
+ 
+*------------------------------------------------------------------------*  
+
+Make sure you have mingw and SDl2 installed first
+
+	mingw: http://sourceforge.net/projects/mingw/files/Installer/
+		- download and run mingw-get-setup.exe and install in C:\
+
+        sdl2: https://www.libsdl.org/download-2.0.php
+		- download SDL2-devel-2.0.3-mingw.tar.gz (MinGW 32/64-bit)
+		- drop all folders inside i686-w64-mingw32 into C:\MinGW32
+		- drop all folders inside x86_w64-mingw32 into C:\MinGW
+
+One file per test
+
+Create a .c file inside tests/my_test_file.c
+
+The .c MUST have a main
+
+Then build_tests will compile the .c
+
+run_tests will run all of the tests
+
+build_and_run will compile and run all the tests
+
+just double click to run them
+
+OR cmd and run via command line 
+	cd into this directory
+
+and run the folowing command:
+	< bat_file_to_run > [ test_file_to_build_and_run (optional) ]
