@@ -57,10 +57,12 @@ git merge branch_name			     - merges the branch_name into your branch
 
 git branch -d branch_name		     - deletes a branch
 
+git checkout -b branch_name commit_hash      - recoves a deleted branch from the commit_hash
+
 git reset --hard			     - resets your local file to match the last commit
 
 git stash				     - save local files safly, use this before git reset to save changes
 
 git stash pop				     - returns the local files from stash
 
-git revert --no-commit commit_hash           - revert current branch to a previous commit, then do a git commit, and git push
+git revert --no-commit commit_hash           - revert current branch to a previous commit, then do a git commit, and git push !NO GOING BACK!
