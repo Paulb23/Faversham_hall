@@ -22,7 +22,6 @@
                                 New types
  ---------------------------------------------------------------------------*/
 
-extern char *RESOURCES_PATH;	/**< Path to resources	  */
 extern char *LOG_FILE_PATH;		/**< path to the log file */
 extern int LOGGIN;				/**< are we logging  	  */
 

@@ -19,6 +19,7 @@
 #include "../graphics/SSL_Image.h"
 #include "../misc/SSL_List.h"
 #include "../misc/SSL_Logger.h"
+#include "../misc/SSL_String.h"
 
 #include "../graphics/SSL_Window.h"
 #include <stdlib.h>
@@ -60,7 +61,7 @@ static void map_properties_handler(mxml_node_t *node, SSL_Tiled_Map *map) {
 		// load properties function
 }
 
-static void map_tileset_handeler(mxml_node_t *node, SSL_Tiled_Map *map, SSL_Window *window) {
+static void map_tileset_handeler(mxml_node_t *node, SSL_Tiled_Map *map, char *filePath, SSL_Window *window) {
 		SSL_Tileset *tileset = malloc(sizeof(SSL_Tileset));
 
 		if(!tileset) {
@@ -77,7 +78,7 @@ static void map_tileset_handeler(mxml_node_t *node, SSL_Tiled_Map *map, SSL_Wind
 
 		// TODO: Get size of for allocation
 		char path[9999];
-		sprintf(path, "%s%s", RESOURCES_PATH, mxmlElementGetAttr(node->child->next, "source"));
+		sprintf(path, "%s%s", filePath, mxmlElementGetAttr(node->child->next, "source"));
 		tileset->image =  SSL_Image_Load(path, map->map.tile_width,map->map.tile_height, window);
 
 		tileset->tiles = SSL_List_Create();
@@ -137,6 +138,7 @@ static void map_tile_layer_handeler(mxml_node_t *node, SSL_Tiled_Map *map) {
 	}
 }
 
+
 /*---------------------------------------------------------------------------
                             Function codes
  ---------------------------------------------------------------------------*/
@@ -187,7 +189,7 @@ SSL_Tiled_Map *SSL_Tiled_Map_Load(const char *file,  SSL_Window *window) {
 		if ( mxmlGetType(node) == MXML_ELEMENT) {
 
 			 if (!strcmp(node->value.element.name, "tileset")) {
-				 map_tileset_handeler(node, map, window);
+				 map_tileset_handeler(node, map, SSL_String_Substring(file, 0, SSL_String_Last_Index_Of(file, "/")), window);
 		      } else if (!strcmp(node->value.element.name, "layer")) {
 			 	  map_tile_layer_handeler(node, map);
 		      }

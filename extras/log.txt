@@ -1,4 +1,0 @@
-Fri Nov 21 21:29:40 2014
-: Failed to create SDL_Window OR SDL_Renderer!
-Sat Nov 22 02:19:00 2014
-: Failed to create SDL_Window OR SDL_Renderer!

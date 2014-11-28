@@ -27,6 +27,7 @@
 #include "misc/SSL_Color.h"
 #include "misc/SSL_Rectangle.h"
 #include "misc/SSL_List.h"
+#include "misc/SSL_String.h"
 
 #include "graphics/SSL_Window.h"
 #include "graphics/SSL_Image.h"

@@ -27,8 +27,6 @@
                             Function codes
  ---------------------------------------------------------------------------*/
 
-
-char *RESOURCES_PATH = "../extras/resources/";  /**< path to the resorces */
 char *LOG_FILE_PATH = "../extras/log.txt";		/**< path to the log file */
 int LOGGIN = 1;									/**< are we logging  */
 
