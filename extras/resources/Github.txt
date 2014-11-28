@@ -55,6 +55,8 @@ git checkout -b branch_name		     - creates a new branch
 
 git merge branch_name			     - merges the branch_name into your branch
 
+git branch -d branch_name		     - deletes a branch
+
 git reset --hard			     - resets your local file to match the last commit
 
 git stash				     - save local files safly, use this before git reset to save changes
