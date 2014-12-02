@@ -112,7 +112,7 @@ static void map_tile_layer_handeler(mxml_node_t *node, SSL_Tiled_Map *map) {
 	char base64DecodeOutput[9999];
 	b64_decode((char *)mxmlGetText(data, 0), base64DecodeOutput);
 
-	int tile_map[map->map.map_width * map->map.map_height];
+	int *tile_map = malloc(map->map.map_width * map->map.map_height * 4);
 
 	 uLongf outlen = map->map.map_width * map->map.map_height * 4;
 	 uncompress((Bytef *)tile_map, &outlen, (const Bytef *)base64DecodeOutput, strlen(base64DecodeOutput));
@@ -125,17 +125,6 @@ static void map_tile_layer_handeler(mxml_node_t *node, SSL_Tiled_Map *map) {
 
 	SSL_List_Add(map->layers, layer);
 	map->map.total_layers++;
-
-	SSL_Tile_Layer *layer_new = SSL_List_Get(map->layers, 1);
-	int *tiles_new;
-	tiles_new = layer_new->data;
-	int i, j;
-	 for ( i = 0; i < map->map.map_width;i++) {
-		 for ( j = 0; j < map->map.map_height;j++) {
-		     printf(" %i ", tiles_new[map->map.map_width * i + j] );
-		 }
-		 printf("\n");
-	}
 }
 
 
@@ -246,9 +235,9 @@ void SSL_Tiled_Draw_Map(SSL_Tiled_Map *map, int xOffset, int yOffset, SSL_Window
 
 						 SSL_Tileset *tileset;
 						 int k;
-						 for (k = 1; k <= SSL_List_Size(map->tilesets); k++) {
+						 for (k = 1; k < SSL_List_Size(map->tilesets); k++) {
 							 tileset = SSL_List_Get(map->tilesets, k+1);
-							 if (tiles[map->map.map_width * j + i] < tileset->firstGid) {
+							 if (tiles[map->map.map_width * j + i] < tileset->firstGid || tileset == NULL) {
 								 tileset = SSL_List_Get(map->tilesets, k);
 								 break;
 							 }
