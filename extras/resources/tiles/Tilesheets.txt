@@ -16,8 +16,8 @@ Tiles MUST remain the same place once the map has been made
 
 Tiles MUST have no gap between them ( enless you leave a whole tile space )
 
-Maps MUST be saved under extras/resources/tiles with the room name, no spaces, or capitals as a .png
-	i.e kitchen.png
+Maps MUST be saved under extras/resources/tiles with as a .png
+	i.e floor.png
 	    
 Tiles cannot be rotated in the game so you will have to draw the same tile in diffrent rotations
 
