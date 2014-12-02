@@ -56,7 +56,7 @@ typedef struct _SSL_Tile_Layer_ {
 	unsigned int width;
 	unsigned int height;
 	float opacity;
-	char visible;
+	unsigned char visible;
 	int *data;
 	SSL_Hashmap *properties;
 } SSL_Tile_Layer;

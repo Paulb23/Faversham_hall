@@ -100,10 +100,13 @@ static void map_tile_layer_handeler(mxml_node_t *node, SSL_Tiled_Map *map) {
 	layer->name = mxmlElementGetAttr(node, "name");
 	layer->width = atoi(mxmlElementGetAttr(node, "width"));
 	layer->height = atoi(mxmlElementGetAttr(node, "height"));
-	layer->visible = atoi(mxmlElementGetAttr(node, "visible"));
 	layer->opacity = atoi(mxmlElementGetAttr(node, "opacity"));
 
-	layer->visible = 1;
+	if(mxmlElementGetAttr(node, "visible") == NULL) {
+		layer->visible = 1;
+	} else {
+		layer->visible = 0;
+	}
 
 	mxml_node_t *data;
 	data = mxmlFindElement(node, node, "data", NULL, NULL, MXML_DESCEND);
@@ -245,7 +248,7 @@ void SSL_Tiled_Draw_Map(SSL_Tiled_Map *map, int xOffset, int yOffset, SSL_Window
 						 int frame = 1;
 
 						 if (k != 1) {
-							 frame = tiles[map->map.map_width * j + i] - tileset->firstGid;
+							 frame = tiles[map->map.map_width * j + i] - (tileset->firstGid + 1);
 						 } else {
 							 frame = tiles[map->map.map_width * j + i];
 						 }
