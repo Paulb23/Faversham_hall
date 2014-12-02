@@ -248,7 +248,7 @@ void SSL_Tiled_Draw_Map(SSL_Tiled_Map *map, int xOffset, int yOffset, SSL_Window
 						 int frame = 1;
 
 						 if (k != 1) {
-							 frame = tiles[map->map.map_width * j + i] - (tileset->firstGid + 1);
+							 frame = tiles[map->map.map_width * j + i] - (tileset->firstGid - 1);
 						 } else {
 							 frame = tiles[map->map.map_width * j + i];
 						 }
