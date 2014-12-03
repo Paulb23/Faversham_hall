@@ -71,6 +71,10 @@ Maps MUST have a layer called "other" typed exactly like that
 
 	This MUST use the tile set extras/resources/tiles/other/other.png
 
+	ALL loading point are to be marked with the blue tile
+	All lights are to be marked with the yellow tile
+	ALL intercation areas are to be marked with the green tile
+
 *------------------------------------------------------------------------*
 
 *------------------------------------------------------------------------*
