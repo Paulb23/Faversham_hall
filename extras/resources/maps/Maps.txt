@@ -75,5 +75,27 @@ Maps MUST have a layer called "other" typed exactly like that
 
 *------------------------------------------------------------------------*
 
+Maps MUST have an .ini file with the same name as the map EVEN IF EMPTY!
+	
+	They MUST be saved under extras/resources/maps/loading/map_name.ini
+	They MUST FOLLOW THE FOLLOWING FORMAT
+
+	[Tile x Position Tile Y Position]
+	load = "map_name_to_load.tmx"
+	startX = x_position_to_start_the_character_on 
+	startY = Y_position_to_start_the_character_on 
+
+	example:
+
+	[12]
+	load = "kitchen.tmx"
+	startX = 8
+	startY = 2
+
+	[18]
+	load = "storage.tmx"
+	startX = 24
+	startY = 7
+
 
 OPEN extras/resources/maps/test_map.tmx FOR EXAMPLE MAP, PLEASE DON'T EDIT THIS ONE!

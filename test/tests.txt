@@ -18,6 +18,18 @@ Make sure you have mingw and SDl2 installed first
 		- drop all folders inside i686-w64-mingw32 into C:\MinGW32
 		- drop all folders inside x86_w64-mingw32 into C:\MinGW
 
+	Sdl_image: https://www.libsdl.org/projects/SDL_image/
+		- download SDL2_image-devel-2.0.0-mingw.tar.gz (MinGW 32/64-bit)
+		- same as sdl 2 install with droping folders
+
+	sdl_mixer: http://www.libsdl.org/projects/SDL_mixer/
+		- download SDL2_mixer-devel-2.0.0-mingw.tar.gz  (MinGW 32/64-bit)
+		- same as sdl 2 install with droping folders
+
+	sdl_ttf: https://www.libsdl.org/projects/SDL_ttf/
+		- download SDL2_ttf-devel-2.0.12-mingw.tar.gz  (MinGW 32/64-bit)
+		- same as sdl 2 install with droping folders
+
 One file per test
 
 Create a .c file inside tests/my_test_file.c
