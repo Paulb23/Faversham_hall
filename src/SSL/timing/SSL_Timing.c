@@ -27,12 +27,12 @@ static int    loaded = 0;	/**< is the library already loaded*/
 static int    running = 0;  /**< run until this is false */
 static double s_fps = 0;	/**< internal fps counter */
 static double s_tick = 0;	/**< internal tick counter */
-static double s_delta = 0;	/**< internal delta counter */
+static float s_delta = 0;	/**< internal delta counter */
 static SDL_Thread *thread;	/**< the timer thread */
 
 
 static int    SSL_Uptime = 0;		/**< Time in seconds since the library was initialised */
-static double SSL_Delta = 0;		/**< Time since last update */
+static float SSL_Delta = 0;		/**< Time since last update */
 static double SSL_Fps = 0;			/**< Frames per second */
 static double SSL_Tick = 0;			/**< Tick updates for second */
 
@@ -66,13 +66,14 @@ static int update_time(void *data) {
 		s_fps++;										// Increases the frames per second counter
 		SSL_CanTick = 0;								// can no longer update
 
-		if (now > timer + 1000) {						// if a second has passed
+		if (SDL_GetTicks() - timer > 1000) {						// if a second has passed
 			timer += 1000;								// Increase the timer
 			SSL_Fps = s_fps;							// update the global frames per second counter
 			SSL_Tick = s_tick;							// update the global tick counter
 			s_fps = 0;									// set frames and ticks back to 0
 			s_tick = 0;
 			SSL_Uptime += 1;							// Increase the update counter
+
 		}
 
 	SDL_Delay(1);
@@ -128,8 +129,8 @@ int SSL_Get_Uptime() {
   Gets the current delta time / time since last update
 
 \-----------------------------------------------------------------------------*/
-double SSL_Get_Delta() {
-	return SSL_Uptime;
+float SSL_Get_Delta() {
+	return SSL_Delta;
 }
 
 

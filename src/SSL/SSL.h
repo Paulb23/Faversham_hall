@@ -21,12 +21,14 @@
 #include "files/iniparser.h"
 #include "files/SSL_Tiled.h"
 
+#include "data_structures/SSL_Hashmap.h"
+#include "data_structures/SSL_List.h"
+
+#include "wrappers/SSL_Keys.h"
+#include "wrappers/SSL_Color.h"
+#include "wrappers/SSL_Rectangle.h"
+
 #include "misc/SSL_Logger.h"
-#include "misc/SSL_Keys.h"
-#include "misc/SSL_Hashmap.h"
-#include "misc/SSL_Color.h"
-#include "misc/SSL_Rectangle.h"
-#include "misc/SSL_List.h"
 #include "misc/SSL_String.h"
 
 #include "graphics/SSL_Window.h"

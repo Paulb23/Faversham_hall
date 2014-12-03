@@ -21,6 +21,7 @@
 #include "../misc/SSL_Logger.h"
 
 #include <stdlib.h>
+#include <math.h>
 
 
 /*---------------------------------------------------------------------------
@@ -152,23 +153,14 @@ void SSL_Image_Draw(SSL_Image *image, int x, int y, int angle, int frame, SDL_Re
 		if (frame != 0) {
 
 			/* Calculate the coordinated of the frame */
-			int amountOfColumns = image->texture_width / image->frame_width;
+			int amountOfColumns = (image->texture_width / image->frame_width);
 
 			imageFrame.w = image->frame_width;
 			imageFrame.h = image->frame_height;
 
 			if (frame != 1) {
-
-				int i = 0;
-
-				for (i = 1; i <= frame - 1; i ++) {
-					imageFrame.x = imageFrame.x + image->frame_width;
-
-					if (!(i % amountOfColumns)) {
-						imageFrame.x = 0;
-						imageFrame.y = imageFrame.y + image->frame_height;
-					}
-				}
+				imageFrame.y = ((frame - 1) / amountOfColumns) * image->frame_height;
+				imageFrame.x = ((frame - 1) % amountOfColumns) * image->frame_width;
 			}
 		}
 

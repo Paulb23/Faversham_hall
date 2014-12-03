@@ -25,7 +25,7 @@
  */
 /* #include <unistd.h> */
 
-#include "dictionary.h"
+#include "../data_structures/dictionary.h"
 
 /*-------------------------------------------------------------------------*/
 /**

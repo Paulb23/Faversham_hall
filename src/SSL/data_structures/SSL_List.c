@@ -14,7 +14,7 @@
  ---------------------------------------------------------------------------*/
 
 #include "SSL_List.h"
-#include "SSL_Logger.h"
+#include "../misc/SSL_Logger.h"
 
 #include <stdlib.h>
 

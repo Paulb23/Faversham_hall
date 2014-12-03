@@ -19,7 +19,7 @@
  ---------------------------------------------------------------------------*/
 
 #include "SSL_Button.h"
-#include "../misc/SSL_List.h"
+#include "../data_structures/SSL_List.h"
 #include "../graphics/SSL_window.h"
 
 

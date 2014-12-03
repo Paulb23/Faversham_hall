@@ -15,6 +15,7 @@
 #include "SSL_window.h"
 #include "../misc/SSL_Logger.h"
 
+#include "SDL2/SDL_Image.h"
 #include <stdlib.h>
 #include <stdint.h>
 

@@ -13,7 +13,7 @@
  ---------------------------------------------------------------------------*/
 
 #include "SSL_Keyboard.h"
-#include "../misc/SSL_Keys.h"
+#include "../wrappers/SSL_Keys.h"
 
 #include "SDL2/SDL.h"
 

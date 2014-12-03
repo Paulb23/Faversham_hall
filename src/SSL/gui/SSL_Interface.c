@@ -16,8 +16,8 @@
 
 #include "SSL_Interface.h"
 #include "../misc/SSL_Logger.h"
-#include "../misc/SSL_List.h"
-#include "../misc/SSL_Color.h"
+#include "../data_structures/SSL_List.h"
+#include "../wrappers/SSL_Color.h"
 #include "../graphics/SSL_window.h"
 #include "../graphics/SSL_Image.h"
 #include "../input/SSL_Mouse.h"

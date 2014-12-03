@@ -17,8 +17,8 @@
  ---------------------------------------------------------------------------*/
 
 
-#include "../misc/SSL_Hashmap.h"
-#include "../misc/SSL_List.h"
+#include "../data_structures/SSL_Hashmap.h"
+#include "../data_structures/SSL_List.h"
 #include "../graphics/SSL_Image.h"
 
 
@@ -41,6 +41,7 @@ typedef struct _SSL_MAP_ {
 	unsigned int tile_width;			/**< Tile width			 	*/
 	unsigned int tile_height;			/**< Tile height		 	*/
 	unsigned int total_layers;			/**< Total number of layers */
+	unsigned int total_tilesets;		/**< Total tilesets			*/
 	SSL_Hashmap *properties;			/**< The map properties 	*/
 } SSL_Map;
 
@@ -140,6 +141,131 @@ SSL_Tiled_Map *SSL_Tiled_Map_Load(const char *file, SSL_Window *window);
 \-----------------------------------------------------------------------------*/
 void SSL_Tiled_Draw_Map(SSL_Tiled_Map *map, int xOffset, int yOffset, SSL_Window *window);
 
+
+/*!--------------------------------------------------------------------------
+  @brief    Gets a SSL_Tileset
+  @param    map			 map containing the tileset
+  @param    gid			 gid of the tile set to get
+  @return A SLL_Tileset object else -1
+
+  Gets a SSL_Tileset object from the SSL_Map with the given gid else -1
+
+\-----------------------------------------------------------------------------*/
+SSL_Tileset *SSL_Tiled_Get_Tileset(SSL_Tiled_Map *map, int gid);
+
+
+/*!--------------------------------------------------------------------------
+  @brief    Gets the map height in tiles
+  @param    map			 map to get the height of
+  @return Map height in tiles
+
+  Map height in tiles
+
+\-----------------------------------------------------------------------------*/
+unsigned int SSL_Tiled_Get_Height(SSL_Tiled_Map *map);
+
+
+/*!--------------------------------------------------------------------------
+  @brief    Gets the map width in tiles
+  @param    map			 map to get the width of
+  @return Map width in tiles
+
+  Map width in tiles
+
+\-----------------------------------------------------------------------------*/
+unsigned int SSL_Tiled_Get_Width(SSL_Tiled_Map *map);
+
+
+/*!--------------------------------------------------------------------------
+  @brief    Gets the map height in pixels
+  @param    map			 map to get the height of
+  @return Map height in pixels
+
+  Map height in pixels
+
+\-----------------------------------------------------------------------------*/
+int SSL_Tiled_Get_Height_px(SSL_Tiled_Map *map);
+
+
+/*!--------------------------------------------------------------------------
+  @brief    Gets the map width in pixels
+  @param    map			 map to get the width of
+  @return Map width in pixels
+
+  Map width in pixels
+
+\-----------------------------------------------------------------------------*/
+int SSL_Tiled_Get_Width_px(SSL_Tiled_Map *map);
+
+
+/*!--------------------------------------------------------------------------
+  @brief    Gets the tile width in pixels
+  @param    map			 map to get the tile width of
+  @return Tile width in pixels
+
+  Tile width in pixels
+
+\-----------------------------------------------------------------------------*/
+int SSL_Tiled_Get_Tile_Width(SSL_Tiled_Map *map);
+
+
+/*!--------------------------------------------------------------------------
+  @brief    Gets the tile height in pixels
+  @param    map			 map to get the tile height of
+  @return Tile height in pixels
+
+  Tile height in pixels
+
+\-----------------------------------------------------------------------------*/
+int SSL_Tiled_Get_Tile_Height(SSL_Tiled_Map *map);
+
+
+/*!--------------------------------------------------------------------------
+  @brief    Gets the number of layers in the map
+  @param    map			 map to get the number of layers
+  @return Number of layers
+
+  Number of layers
+
+\-----------------------------------------------------------------------------*/
+int SSL_Tiled_Get_Layercount(SSL_Tiled_Map *map);
+
+
+/*!--------------------------------------------------------------------------
+  @brief    Gets the number of tilesets in the map
+  @param    map			 map to get the number of tilesets
+  @return Number of tilesets
+
+  Number of tilesets
+
+\-----------------------------------------------------------------------------*/
+int SSL_Tiled_Get_Tileset_Count(SSL_Tiled_Map *map);
+
+
+/*!--------------------------------------------------------------------------
+  @brief    Gets the tile id at the location specified
+  @param    map			 map to get the number of tile id from
+  @param	x			 x position of the tile
+  @param	y			 y position of the tile
+  @param	layer_index	 layer number position of the tile
+  @return tile id at the location specified
+
+  Tile id at the location specified
+
+\-----------------------------------------------------------------------------*/
+int SSL_Tiled_Get_TileId(SSL_Tiled_Map *map, int x, int y, int layer_index);
+
+
+/*!--------------------------------------------------------------------------
+  @brief    Gets the layer index on the map
+  @param    map			 map to get the number of layer index from
+  @param	name		 name of the layer
+  @return layer index of the given layer name else -1
+
+  Layer index of the given layer name else -1
+
+\-----------------------------------------------------------------------------*/
+int SSL_Tiled_Get_LayerIndex(SSL_Tiled_Map *map, char *name);
 
 /*!--------------------------------------------------------------------------
   @brief    Destroys the map
