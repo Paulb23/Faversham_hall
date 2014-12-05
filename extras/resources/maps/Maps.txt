@@ -80,6 +80,8 @@ Maps MUST have a layer called "other" typed exactly like that
 *------------------------------------------------------------------------*
 
 Maps MUST have an .ini file with the same name as the map EVEN IF EMPTY!
+
+Comments are marked with semi-colons e.g   line_of_test ; this is a comment
 	
 	They MUST be saved under extras/resources/maps/loading/map_name.ini
 	They MUST FOLLOW THE FOLLOWING FORMAT
