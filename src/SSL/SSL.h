@@ -18,7 +18,7 @@
 
 #include "SSL_Settings.h"
 
-#include "files/iniparser.h"
+#include "files/SSL_IniFile.h"
 #include "files/SSL_Tiled.h"
 
 #include "data_structures/SSL_Hashmap.h"
@@ -62,5 +62,14 @@
 \-----------------------------------------------------------------------------*/
 int SSL_Init();
 
+
+/*!--------------------------------------------------------------------------
+  @brief    Stops the library
+  @return void
+
+  Stops the library
+
+\-----------------------------------------------------------------------------*/
+void SSL_Quit();
 
 #endif

@@ -22,16 +22,30 @@
                                 New types
  ---------------------------------------------------------------------------*/
 
+
 /*!--------------------------------------------------------------------------
-  @brief    SSL_List
+  @brief    SSL_List_Node
 
   This object contains a void pointer for the data and next point to the next
   element in the list
 
 \----------------------------------------------------------------------------*/
+typedef struct _SSL_List_Node_ {
+	void *data;							/**< data in the element */
+	struct _SSL_List_Node_ *next;		/**< next element */
+} SSL_List_Node;
+
+
+/*!--------------------------------------------------------------------------
+  @brief    SSL_List
+
+  This object contains a void pointer for the start of the list,
+  and the size of the list
+
+\----------------------------------------------------------------------------*/
 typedef struct _SSL_List_ {
-	void 			  *data;		/**< data in the element */
-	struct _SSL_List_ *next;		/**< next element */
+	unsigned int size;			/**<* size of the list */
+	SSL_List_Node *next;		/**< next element */
 } SSL_List;
 
 

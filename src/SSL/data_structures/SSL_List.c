@@ -22,7 +22,34 @@
                             Private functions
  ---------------------------------------------------------------------------*/
 
+/*!--------------------------------------------------------------------------
+  @brief    Creates a new SSL_List_Node object .
+  @return Pointer to a SSL_List_Node object on successful creation otherwise 0.
 
+  Creates a new SSL_List_Node object
+
+  If it cannot create the object it will return 0.
+
+\-----------------------------------------------------------------------------*/
+static SSL_List_Node *SSL_List_Node_Create() {
+
+	/* create a node */
+	SSL_List_Node *node = malloc(sizeof(SSL_List_Node));
+
+	/* check we could allocate memory */
+	if (!node) {
+		SSL_Log_Write("Failed to allocate memory for new List Node!");
+		free(node);
+		return 0;
+	}
+
+	/* set to 0 */
+	node->data = 0;
+	node->next = 0;
+
+	/* return the node */
+	return node;
+}
 
 /*---------------------------------------------------------------------------
                             Function codes
@@ -51,8 +78,8 @@ SSL_List *SSL_List_Create() {
 	}
 
 	/* point to empty */
-	list->data = 0;
-	list->next = 0;
+	list->size = 0;
+	list->next = SSL_List_Node_Create();
 
 	/* return list */
 	return list;
@@ -70,11 +97,13 @@ SSL_List *SSL_List_Create() {
 \-----------------------------------------------------------------------------*/
 void SSL_List_Add(SSL_List *list, void *data) {
 
+	SSL_List_Node *list_nodes = list->next;
+
 	/* loop until we hit the end of the list */
-	while((int)(list->next) != 0 ) list = list->next;
+	while((int)(list_nodes->next) != 0 ) list_nodes = list_nodes->next;
 
 	/* allocate memory */
-	SSL_List *tmp = SSL_List_Create();
+	SSL_List_Node *tmp = SSL_List_Node_Create();
 	tmp->data = malloc(sizeof(data));
 
 	/* fill in the data */
@@ -82,7 +111,8 @@ void SSL_List_Add(SSL_List *list, void *data) {
 	tmp->next = 0;
 
 	/* finally we can set the last next to point to the new element */
-	list->next = tmp;
+	list_nodes->next = tmp;
+	list->size++;
 }
 
 
@@ -99,7 +129,7 @@ int SSL_List_Get_Pos(SSL_List *list, void *data) {
 	int pos = 0;
 
 	/* loop until we find the data */
-	SSL_List *curr = list;
+	SSL_List_Node *curr = list->next;
 	while (curr->next != 0 && curr->data != data) {
 		pos++;
 		curr = curr->next;
@@ -122,14 +152,15 @@ int SSL_List_Get_Pos(SSL_List *list, void *data) {
 void *SSL_List_Get(SSL_List *list, int pos) {
 
 	/* loop until we find the pos */
+	SSL_List_Node *curr = list->next;
 	int i = 0;
-	while (i < pos && (int)(list->next) != 0) {
-		list = list->next;
+	while (i < pos && (int)(curr->next) != 0) {
+		curr = curr->next;
 		i++;
 	}
 
 	/* return */
-	return (i == pos) ? list->data : (void *)-1;
+	return (i == pos) ? curr->data : (void *)-1;
 }
 
 
@@ -184,16 +215,7 @@ float SSL_List_Get_Float(SSL_List *list, int pos) {
 
 \-----------------------------------------------------------------------------*/
 int SSL_List_Size(SSL_List *list) {
-	int size = 0;
-
-	/* loop until we reach the end */;
-	while ((int)(list->next) != 0) {
-		list = list->next;
-		size++;
-	}
-
-	/* return the size */
-	return size;
+	return list->size;
 }
 
 
@@ -209,8 +231,8 @@ int SSL_List_Size(SSL_List *list) {
 void SSL_List_Remove(SSL_List *list, void *data) {
 
 	/* Previous and next pointer to loop through the list */
-	SSL_List *pre;
-	SSL_List *curr = list;
+	SSL_List_Node *pre;
+	SSL_List_Node *curr = list->next;
 
 	/* loop until the end or we find the data */
 	while(curr->data != data && curr->next != 0) {
@@ -226,6 +248,9 @@ void SSL_List_Remove(SSL_List *list, void *data) {
 	/* else adjust the pointers and free memory */
 	pre->next = curr->next;
 	free(curr);
+	if (list->size > 0) {
+		list->size--;
+	}
 }
 
 
@@ -239,8 +264,8 @@ void SSL_List_Remove(SSL_List *list, void *data) {
 void SSL_List_Destroy(SSL_List *list) {
 
 	/* pointers to loop  */
-	SSL_List *pre;
-	SSL_List *curr = list;
+	SSL_List_Node *pre;
+	SSL_List_Node *curr = list->next;
 
 	/* loop and free each element */
 	while(curr->next != 0) {

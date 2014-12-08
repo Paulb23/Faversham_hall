@@ -24,7 +24,7 @@
 #include "../graphics/SSL_Window.h"
 #include <stdlib.h>
 #include <string.h>
-#include "mxml/mxml.h"
+#include "../ect/mxml/mxml.h"
 #include "../misc/base64.h"
 #include "zlib.h"
 #include "zconf.h"
