@@ -1,5 +1,29 @@
+/*-------------------------------------------------------------------------*/
+/**
+   @file    SSL_List.c
+   @author  P. Batty
+   @brief   Implements a the configuration system for the game
+
+   This module implements the configuration system for the game. Loads the ini
+   located at the path specified.
+*/
+/*--------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------
+                                Includes
+ ---------------------------------------------------------------------------*/
 #include "config.h"
 #include "../SSL/SSL.h"
+
+
+/*---------------------------------------------------------------------------
+                            Private functions
+ ---------------------------------------------------------------------------*/
+
+/*----------------------------------
+      Default values to use.
+ ----------------------------------*/
+
 
 static int SECTION_COUNT = 2;
 
@@ -16,6 +40,10 @@ static int vsync_default = 0;
 static int windowed_default = 1;
 static int borderless_default = 0;
 
+
+/*----------------------------------
+      Prints to file
+ ----------------------------------*/
 
 static void print_display_block(FILE *file) {
 	fprintf(file,
@@ -34,6 +62,9 @@ static void print_display_block(FILE *file) {
 }
 
 
+/*----------------------------------
+ ----------------------------------*/
+
 static void print_game_block(FILE *file) {
 	fprintf(file,
 	"[game]\n\n"
@@ -41,7 +72,7 @@ static void print_game_block(FILE *file) {
 	"smooth_texture_scaling = %i\t; 0 = nearest	1 = linear    2 = anisotropic\n"
 	"vsync = %i\t; 0 = off    1 = on\n"
 	"windowed = %i\t; 0 = full screen    1 = windowed\n"
-	"borderless = %i\t; 0 = border    1 = has borders\n"
+	"borderless = %i\t; 0 = border    1 = no borders\n"
 	,max_ticks_per_second_default
 	,smooth_texture_scaling_default
 	,vsync_default
@@ -50,6 +81,9 @@ static void print_game_block(FILE *file) {
 	);
 }
 
+
+/*----------------------------------
+ ----------------------------------*/
 
 static int create_config() {
 	FILE *file = fopen(CONFIG_PATH, "a");
@@ -65,6 +99,10 @@ static int create_config() {
 	return 0;
 }
 
+
+/*----------------------------------
+      checks for valid sections
+ ----------------------------------*/
 
 static void check_sections_exit(SSL_IniFile *ini) {
 	int i;
@@ -82,6 +120,10 @@ static void check_sections_exit(SSL_IniFile *ini) {
 	}
 }
 
+
+/*----------------------------------
+      Reads the file
+ ----------------------------------*/
 
 static void read_display_section(SSL_IniFile *ini) {
 	WINDOW_TITLE = SSL_IniFile_GetString(ini, "display", "title", (void *)-1);
@@ -116,6 +158,9 @@ static void read_display_section(SSL_IniFile *ini) {
 }
 
 
+/*----------------------------------
+ ----------------------------------*/
+
 static void read_game_section(SSL_IniFile *ini) {
 	MAX_TICKS_PER_SECOND = SSL_IniFile_GetInt(ini, "game", "max_ticks_per_second", (int)-1);
 	if (MAX_TICKS_PER_SECOND == -1) {
@@ -149,7 +194,22 @@ static void read_game_section(SSL_IniFile *ini) {
 }
 
 
+/*---------------------------------------------------------------------------
+                            Function codes
+ ---------------------------------------------------------------------------*/
+
+/*!--------------------------------------------------------------------------
+  @brief	Loads the config file for the program.
+  @param    path		 path to the file.
+  @return 	0 on success -1 on error
+
+  Loads the config file for the program. and fill in the variables located in
+  this header file. returns 0 on success -1 on error
+
+
+\-----------------------------------------------------------------------------*/
 int load_config(char *path) {
+	CONFIG_PATH = path;								// set the path
 	SSL_IniFile *ini = SSL_IniFIle_Create();		// create the ini reader
 
 	if (ini == (void *)-1) {						// check it was created
