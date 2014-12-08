@@ -16,6 +16,7 @@ static int vsync_default = 0;
 static int windowed_default = 1;
 static int borderless_default = 0;
 
+
 static void print_display_block(FILE *file) {
 	fprintf(file,
 		"[display]\n\n"
@@ -31,6 +32,7 @@ static void print_display_block(FILE *file) {
 		,window_res_height_default
 	);
 }
+
 
 static void print_game_block(FILE *file) {
 	fprintf(file,
@@ -48,6 +50,7 @@ static void print_game_block(FILE *file) {
 	);
 }
 
+
 static int create_config() {
 	FILE *file = fopen(CONFIG_PATH, "a");
 
@@ -61,6 +64,7 @@ static int create_config() {
 	fclose(file);
 	return 0;
 }
+
 
 static void check_sections_exit(SSL_IniFile *ini) {
 	int i;
@@ -77,6 +81,73 @@ static void check_sections_exit(SSL_IniFile *ini) {
 		}
 	}
 }
+
+
+static void read_display_section(SSL_IniFile *ini) {
+	WINDOW_TITLE = SSL_IniFile_GetString(ini, "display", "title", (void *)-1);
+	if (WINDOW_TITLE == (void *)-1) {
+		WINDOW_TITLE = title_default;
+		SSL_Log_Write("Error: ini missing window_title, reverting to default!");
+	}
+
+	WINDOW_WIDTH = SSL_IniFile_GetInt(ini, "display", "window_width", (int)-1);
+	if (WINDOW_WIDTH == -1) {
+		WINDOW_WIDTH = window_width_default;
+		SSL_Log_Write("Error: ini missing window_width, reverting to default!");
+	}
+
+	WINDOW_HEIGHT = SSL_IniFile_GetInt(ini, "display", "window_height", (int)-1);
+	if (WINDOW_HEIGHT == -1) {
+		WINDOW_HEIGHT = window_height_default;
+		SSL_Log_Write("Error: ini missing window_height, reverting to default!");
+	}
+
+	WINDOW_RES_WIDTH = SSL_IniFile_GetInt(ini, "display", "window_res_width", (int)-1);
+	if (WINDOW_RES_WIDTH == -1) {
+		WINDOW_RES_WIDTH = window_res_width_default;
+		SSL_Log_Write("Error: ini missing window_res_width, reverting to default!");
+	}
+
+	WINDOW_RES_HEIGHT = SSL_IniFile_GetInt(ini, "display", "window_res_height", (int)-1);
+	if (WINDOW_RES_HEIGHT == -1) {
+		WINDOW_RES_HEIGHT = window_res_height_default;
+		SSL_Log_Write("Error: ini missing window_res_height, reverting to default!");
+	}
+}
+
+
+static void read_game_section(SSL_IniFile *ini) {
+	MAX_TICKS_PER_SECOND = SSL_IniFile_GetInt(ini, "game", "max_ticks_per_second", (int)-1);
+	if (MAX_TICKS_PER_SECOND == -1) {
+		MAX_TICKS_PER_SECOND = max_ticks_per_second_default;
+		SSL_Log_Write("Error: ini missing max_ticks_per_second, reverting to default!");
+	}
+
+	TEXTURE_SCALING = SSL_IniFile_GetInt(ini, "game", "smooth_texture_scaling", (int)-1);
+	if (TEXTURE_SCALING == -1) {
+		TEXTURE_SCALING = smooth_texture_scaling_default;
+		SSL_Log_Write("Error: ini missing smooth_texture_scaling, reverting to default!");
+	}
+
+	VSYNC = SSL_IniFile_GetInt(ini, "game", "vsync", (int)-1);
+	if (VSYNC == -1) {
+		VSYNC = vsync_default;
+		SSL_Log_Write("Error: ini missing vsync, reverting to default!");
+	}
+
+	WINDOWED = SSL_IniFile_GetInt(ini, "game", "windowed", (int)-1);
+	if (WINDOWED == -1) {
+		WINDOWED = windowed_default;
+		SSL_Log_Write("Error: ini missing windowed, reverting to default!");
+	}
+
+	BORDERLESS = SSL_IniFile_GetInt(ini, "game", "borderless", (int)-1);
+	if (BORDERLESS == -1) {
+		BORDERLESS = borderless_default;
+		SSL_Log_Write("Error: ini missing borderless, reverting to default!");
+	}
+}
+
 
 int load_config(char *path) {
 	SSL_IniFile *ini = SSL_IniFIle_Create();		// create the ini reader
@@ -95,25 +166,10 @@ int load_config(char *path) {
 		return -1;
 	}
 
-	check_sections_exit(ini);
-													// read in the information
-													// if a key is missing use default and print error to log.
-	WINDOW_TITLE = SSL_IniFile_GetString(ini, "display", "title", (void *)-1);
-	if (WINDOW_TITLE == (void *)-1) {
-		WINDOW_TITLE = "this is the window title";
-		SSL_Log_Write("Error: ini missing window title, reverting to default!");
-	}
+	check_sections_exit(ini);						// check all sections exist
 
-	WINDOW_WIDTH = SSL_IniFile_GetInt(ini, "display", "window_width", (int)-1);
-	WINDOW_HEIGHT = SSL_IniFile_GetInt(ini, "display", "window_height", (int)-1);
-	WINDOW_RES_WIDTH = SSL_IniFile_GetInt(ini, "display", "window_res_width", (int)-1);
-	WINDOW_RES_HEIGHT = SSL_IniFile_GetInt(ini, "display", "window_res_height", (int)-1);
-
-	MAX_TICKS_PER_SECOND = SSL_IniFile_GetInt(ini, "game", "max_ticks_per_second", (int)-1);
-	TEXTURE_SCALING = SSL_IniFile_GetInt(ini, "game", "smooth_texture_scaling", (int)-1);
-	VSYNC = SSL_IniFile_GetInt(ini, "game", "vsync", (int)-1);
-	WINDOWED = SSL_IniFile_GetInt(ini, "game", "windowed", (int)-1);
-	BORDERLESS = SSL_IniFile_GetInt(ini, "game", "borderless", (int)-1);
+	read_display_section(ini);						// read in the sections
+	read_game_section(ini);
 
 	return 0;
 }

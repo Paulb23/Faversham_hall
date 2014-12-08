@@ -1,0 +1,5 @@
+
+Mon Dec 08 19:38:45 2014
+: Error: ini missing window title, reverting to default!
+Mon Dec 08 19:44:40 2014
+: Error: ini missing window_title, reverting to default!
