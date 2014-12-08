@@ -14,33 +14,47 @@ static int vsync_default = 0;
 static int windowed_default = 1;
 static int borderless_default = 0;
 
-static int create_config(SSL_IniFile *ini) {
-	FILE *file = fopen(CONFIG_PATH, "w");
-
+static void print_display_block(FILE *file) {
 	fprintf(file,
-	"[display]\n\n"
-	"title = \"%s\"\t; title of the window\n"
-	"window_width = %i\t; width of the window\n"
-	"window_height = %i\t; height of the window\n"
-	"window_res_width = %i\t; resolution width\n"
-	"window_res_height = %i\t; resolution height\n\n"
+		"[display]\n\n"
+		"title = \"%s\"\t; title of the window\n"
+		"window_width = %i\t; width of the window\n"
+		"window_height = %i\t; height of the window\n"
+		"window_res_width = %i\t; resolution width\n"
+		"window_res_height = %i\t; resolution height\n\n"
+		,title_default
+		,window_width_default
+		,window_height_default
+		,window_res_width_default
+		,window_res_height_default
+	);
+}
+
+static void print_game_block(FILE *file) {
+	fprintf(file,
 	"[game]\n\n"
 	"max_ticks_per_second = %i\t; number of logic updates per second\n"
 	"smooth_texture_scaling = %i\t; 0 = nearest	1 = linear    2 = anisotropic\n"
 	"vsync = %i\t; 0 = off    1 = on\n"
 	"windowed = %i\t; 0 = full screen    1 = windowed\n"
 	"borderless = %i\t; 0 = border    1 = has borders\n"
-	,title_default
-	, window_width_default
-	,window_height_default
-	,window_res_width_default
-	,window_res_height_default
 	,max_ticks_per_second_default
 	,smooth_texture_scaling_default
 	,vsync_default
 	,windowed_default
 	,borderless_default
 	);
+}
+
+static int create_config() {
+	FILE *file = fopen(CONFIG_PATH, "a");
+
+	if (!file) {
+		return -1;
+	}
+
+	print_display_block(file);
+	print_game_block(file);
 
 	fclose(file);
 	return 0;
@@ -54,7 +68,7 @@ int load_config(char *path) {
 		return -1;
 	}
 	if (access(CONFIG_PATH, F_OK) == -1) {			// check the config file exits
-		create_config(ini);							// else make it
+		create_config();							// else make it
 	}
 
 	SSL_IniFile_Load(ini, path);					// load it
