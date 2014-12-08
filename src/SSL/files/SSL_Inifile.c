@@ -24,15 +24,6 @@
                             Private functions
  ---------------------------------------------------------------------------*/
 
-static char *combine_cat_key(char *cat, char *key) {
-	char combined[strlen(cat) + strlen(key) + 2];
-	memset(combined, 0, strlen(cat) + strlen(key) + 2);
-	strcat(combined, cat);
-	strcat(combined, ":");
-	strcat(combined, key);
-	char *p = combined;
-	return p;
-}
 
 
 /*---------------------------------------------------------------------------
@@ -159,7 +150,9 @@ int SSL_IniFile_GetSection_KeyCount(SSL_IniFile *inifile, char *section) {
 
 \-----------------------------------------------------------------------------*/
 char *SSL_IniFile_GetString(SSL_IniFile *inifile, char *catogory, char *key, char *notFound) {
-	return iniparser_getstring(inifile->dictionary, combine_cat_key(catogory, key), notFound);
+	char combined[strlen(catogory) + strlen(key)];
+	sprintf(combined, "%s:%s", catogory, key);
+	return iniparser_getstring(inifile->dictionary, combined, notFound);
 }
 
 
@@ -176,7 +169,9 @@ char *SSL_IniFile_GetString(SSL_IniFile *inifile, char *catogory, char *key, cha
 
 \-----------------------------------------------------------------------------*/
 int SSL_IniFile_GetInt(SSL_IniFile *inifile, char *catogory, char *key, int notFound) {
-	return iniparser_getint(inifile->dictionary, combine_cat_key(catogory, key), notFound);
+	char combined[strlen(catogory) + strlen(key)];
+	sprintf(combined, "%s:%s", catogory, key);
+	return iniparser_getint(inifile->dictionary, combined, notFound);
 }
 
 
@@ -193,7 +188,9 @@ int SSL_IniFile_GetInt(SSL_IniFile *inifile, char *catogory, char *key, int notF
 
 \-----------------------------------------------------------------------------*/
 int SSL_IniFile_Getdouble(SSL_IniFile *inifile, char *catogory, char *key, double notFound) {
-	return iniparser_getdouble(inifile->dictionary, combine_cat_key(catogory, key), notFound);
+	char combined[strlen(catogory) + strlen(key)];
+	sprintf(combined, "%s:%s", catogory, key);
+	return iniparser_getdouble(inifile->dictionary, combined, notFound);
 }
 
 
@@ -210,7 +207,9 @@ int SSL_IniFile_Getdouble(SSL_IniFile *inifile, char *catogory, char *key, doubl
 
 \-----------------------------------------------------------------------------*/
 int SSL_IniFile_Getboolean(SSL_IniFile *inifile, char *catogory, char *key, int notFound) {
-	return iniparser_getboolean(inifile->dictionary, combine_cat_key(catogory, key), notFound);
+	char combined[strlen(catogory) + strlen(key)];
+	sprintf(combined, "%s:%s", catogory, key);
+	return iniparser_getboolean(inifile->dictionary, combined, notFound);
 }
 
 
@@ -227,7 +226,9 @@ int SSL_IniFile_Getboolean(SSL_IniFile *inifile, char *catogory, char *key, int 
 
 \-----------------------------------------------------------------------------*/
 int SSL_IniFile_Set(SSL_IniFile *inifile, char *catogory, char *key, char *value) {
-	return iniparser_set(inifile->dictionary, combine_cat_key(catogory, key), value);
+	char combined[strlen(catogory) + strlen(key)];
+	sprintf(combined, "%s:%s", catogory, key);
+	return iniparser_set(inifile->dictionary, combined, value);
 }
 
 
@@ -242,7 +243,9 @@ int SSL_IniFile_Set(SSL_IniFile *inifile, char *catogory, char *key, char *value
 
 \-----------------------------------------------------------------------------*/
 void SSL_IniFile_Unset(SSL_IniFile *inifile, char *catogory, char *key) {
-	iniparser_unset(inifile->dictionary, combine_cat_key(catogory, key));
+	char combined[strlen(catogory) + strlen(key)];
+	sprintf(combined, "%s:%s", catogory, key);
+	iniparser_unset(inifile->dictionary, combined);
 }
 
 
@@ -257,7 +260,9 @@ void SSL_IniFile_Unset(SSL_IniFile *inifile, char *catogory, char *key) {
 
 \-----------------------------------------------------------------------------*/
 int SSL_IniFile_Find(SSL_IniFile *inifile, char *catogory, char *key) {
-	return iniparser_find_entry(inifile->dictionary, combine_cat_key(catogory, key));
+	char combined[strlen(catogory) + strlen(key)];
+	sprintf(combined, "%s:%s", catogory, key);
+	return iniparser_find_entry(inifile->dictionary, combined);
 }
 
 

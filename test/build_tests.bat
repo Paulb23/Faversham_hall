@@ -3,8 +3,8 @@ echo Starting compile
 
 setlocal enabledelayedexpansion enableextensions
 set params=
-for /R ..\Faversham_hall\src\SSL\ %%f in (*.o) do (
- if "%%~nf"=="Faversham_hall" (
+for /R ..\Faversham_hall\src\ %%f in (*.o) do (
+ if not "%%~nf"=="Faversham_hall" (
  @set params=!params! "%%f"
  )
 )
