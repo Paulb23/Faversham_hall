@@ -1,6 +1,8 @@
 #ifndef CONFIG_H_
 #define CONFIG_H_
 
+char *CONFIG_PATH;
+
 char *WINDOW_TITLE;
 
 int WINDOW_WIDTH;

@@ -7,7 +7,10 @@
 int main(int argc, char *argv[]) {
 	printf("\n Starting Config Test ...\n");
 
-	load_config("../../conf/config.ini");
+	CONFIG_PATH = "../../conf/config.ini";
+
+	assert(load_config("../../conf/onfig.ini") == -1);
+	assert(load_config("../../conf/config.ini") != -1);
 
 	assert(strcmp(WINDOW_TITLE,"this is the window title") == 0);
 	assert(WINDOW_WIDTH == 800);
