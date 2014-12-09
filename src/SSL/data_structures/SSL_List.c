@@ -126,7 +126,7 @@ void SSL_List_Add(SSL_List *list, void *data) {
 
 \-----------------------------------------------------------------------------*/
 int SSL_List_Get_Pos(SSL_List *list, void *data) {
-	int pos = 0;
+	int pos = -1;
 
 	/* loop until we find the data */
 	SSL_List_Node *curr = list->next;
@@ -150,7 +150,7 @@ int SSL_List_Get_Pos(SSL_List *list, void *data) {
 
 \-----------------------------------------------------------------------------*/
 void *SSL_List_Get(SSL_List *list, int pos) {
-
+	pos++;
 	/* loop until we find the pos */
 	SSL_List_Node *curr = list->next;
 	int i = 0;

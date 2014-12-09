@@ -164,12 +164,13 @@ void SSL_Interface_Remove_Check_Box(SSL_Interface *interface, SSL_Check_box *che
 
 \-----------------------------------------------------------------------------*/
 void interface_draw(SSL_Interface *interface, SSL_Window *window) {
-	int i = 1;
+	int i = 0;
 	SSL_Text_Button *current_button;
 	SSL_Check_box *check_button;
 	SSL_Image_Button *image_button;
 
-	while ((current_button = SSL_List_Get(interface->buttons, i)) != (void *)-1) {
+	while (i < SSL_List_Size(interface->buttons)) {
+		current_button = SSL_List_Get(interface->buttons, i);
 
 		/* if it is a text button*/
 		if (current_button->button->type == TEXT_BUTTON) {
@@ -220,9 +221,10 @@ void interface_draw(SSL_Interface *interface, SSL_Window *window) {
 void interface_update(SSL_Interface *interface, SDL_Event event) {
 	SSL_Text_Button *button;
 
-	int i = 1;
+	int i = 0;
 
-	while ((button = SSL_List_Get(interface->buttons, i)) != (void *)-1) {
+	while (i < SSL_List_Size(interface->buttons)) {
+		button = SSL_List_Get(interface->buttons, i);
 
 		/*hover check */
 		if (SSL_Mouse_Hover_In_Area(button->button->position.x, button->button->position.y, button->button->position.w, button->button->position.h, event)) {
@@ -271,7 +273,7 @@ void interface_update(SSL_Interface *interface, SDL_Event event) {
   If it cannot destroy the object it will return 0.
 \-----------------------------------------------------------------------------*/
 int SSL_Interface_Destroy(SSL_Interface *interface) {
-	int i = 1;
+	int i = 0;
 	SSL_Text_Button * current_button;
 
 	/* loop and free all the buttons */
