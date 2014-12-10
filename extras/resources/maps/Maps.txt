@@ -28,6 +28,7 @@ Maps MUST be saved under extras/resources/maps with the room name, no spaces, or
   ALL THESE LAYERS MUST APPEAR AFTER THE NORMAL MAP LAYERS IN THIS OREDER
 	
 	- collsion
+	- lighting
 	- characters
 	- puzzle
         - other
@@ -50,6 +51,17 @@ Maps MUST have a layer called "characters" typed exactly like that
 	This MUST not be visible! (Can be when editing else you won't see it :P)
 
 	This MUST use the tile set extras/resources/tiles/other/characters.png
+
+*------------------------------------------------------------------------*
+
+*------------------------------------------------------------------------* 
+
+Maps MUST have a layer called "lighting" typed exactly like that
+	This MUST not be visible! (Can be when editing else you won't see it :P)
+
+	This MUST use the tile set extras/resources/tiles/other/lighting.png
+
+	All places that light cannot pass must be marked with this tile
 
 
 *------------------------------------------------------------------------*
