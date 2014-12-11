@@ -20,6 +20,7 @@
 #include "../data_structures/SSL_Hashmap.h"
 #include "../data_structures/SSL_List.h"
 #include "../graphics/SSL_Image.h"
+#include "../graphics/SSL_Light.h"
 
 
 /*---------------------------------------------------------------------------
@@ -108,6 +109,8 @@ typedef struct _SSL_Tiled_Map_ {
 	SSL_Map	 map;					/**<  The map information */
 	SSL_List *tilesets;				/**<  The tilesets */
 	SSL_List *layers;				/**<  The layers */
+	SSL_List *lights;				/**<  The lights */
+	SDL_Color color;				/**<  Default light colour of the world */
 } SSL_Tiled_Map;
 
 
@@ -140,6 +143,45 @@ SSL_Tiled_Map *SSL_Tiled_Map_Load(const char *file, SSL_Window *window);
 
 \-----------------------------------------------------------------------------*/
 void SSL_Tiled_Draw_Map(SSL_Tiled_Map *map, int xOffset, int yOffset, SSL_Window *window);
+
+
+/*!--------------------------------------------------------------------------
+  @brief    Draws a lights on the map
+  @param    map			 the map to draw
+  @param    xOffset		 X Offset to draw the map
+  @param    yOffset		 y Offset to draw the map
+  @param    window       The window to draw to
+  @param	func		 The raytrace callback function to determine what's solid
+  @return Void
+
+  Draws the lights on the map
+
+\-----------------------------------------------------------------------------*/
+void SSL_Tiled_Draw_Lights(SSL_Tiled_Map *map, int xOffset, int yOffset, SSL_Window *window, int(*func)(int, int, void *));
+
+
+/*!--------------------------------------------------------------------------
+  @brief    Adds a light object to the map
+  @param    map			 map to add the light to
+  @param	light		 SSL_Light to add
+  @return Void
+
+  Adds a light object to the map
+
+\-----------------------------------------------------------------------------*/
+void SSL_Tiled_Add_Light(SSL_Tiled_Map *map, SSL_Light *light);
+
+
+/*!--------------------------------------------------------------------------
+  @brief    Changes the Lighting
+  @param    map			 map to change the lighting on
+  @param	color		 the lighting to change to
+  @return Void
+
+  Changes the defualt lighting color
+
+\-----------------------------------------------------------------------------*/
+void SSL_Tiled_Set_Lighting(SSL_Tiled_Map *map, SDL_Color color);
 
 
 /*!--------------------------------------------------------------------------
@@ -266,6 +308,31 @@ int SSL_Tiled_Get_TileId(SSL_Tiled_Map *map, int x, int y, int layer_index);
 
 \-----------------------------------------------------------------------------*/
 int SSL_Tiled_Get_LayerIndex(SSL_Tiled_Map *map, char *name);
+
+
+/*!--------------------------------------------------------------------------
+  @brief    Removes a light from the map
+  @param    map			 map to remove the light from
+  @param	light		 The light to remove
+  @return Void
+
+  Removes a light from the map
+
+\-----------------------------------------------------------------------------*/
+void SSL_Tiled_Remove_Light(SSL_Tiled_Map *map, SSL_Light *light);
+
+
+/*!--------------------------------------------------------------------------
+  @brief    Gets the light on the map
+  @param    map			 map to get the light from
+  @param	n			 nth position of the light
+  @return The SSL_Light else -1
+
+  Gets the light on the map and return is else -1
+
+\-----------------------------------------------------------------------------*/
+SSL_Light *SSL_Tiled_Get_Light(SSL_Tiled_Map *map, int n);
+
 
 /*!--------------------------------------------------------------------------
   @brief    Destroys the map

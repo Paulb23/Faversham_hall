@@ -34,6 +34,7 @@
 #include "graphics/SSL_Window.h"
 #include "graphics/SSL_Image.h"
 #include "graphics/SSL_Font.h"
+#include "graphics/SSL_Light.h"
 
 #include "input/SSL_Keyboard.h"
 #include "input/SSL_Mouse.h"
@@ -42,6 +43,8 @@
 #include "gui/SSL_Button.h"
 
 #include "timing/SSL_Timing.h"
+
+#include "math/SSL_Math.h"
 
 
 /*---------------------------------------------------------------------------
