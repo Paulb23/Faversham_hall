@@ -1,6 +1,6 @@
 /*-------------------------------------------------------------------------*/
 /**
-   @file    SSL_List.c
+   @file    config.c
    @author  P. Batty
    @brief   Implements a the configuration system for the game
 
