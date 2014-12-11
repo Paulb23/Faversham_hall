@@ -52,6 +52,17 @@ Maps MUST have a layer called "characters" typed exactly like that
 
 	This MUST use the tile set extras/resources/tiles/other/characters.png
 
+	B  = Butler
+	C  = Chef
+	M  = Maid
+	D  = Dutchess
+	N  = Nephew
+	S  = Son in law
+	T  = Twins
+	NA = Nanny
+	SV = Servant
+	CA = Companion 
+
 *------------------------------------------------------------------------*
 
 *------------------------------------------------------------------------* 
@@ -85,7 +96,8 @@ Maps MUST have a layer called "other" typed exactly like that
 
 	ALL loading point are to be marked with the blue tile
 	All lights are to be marked with the yellow tile
-	ALL intercation areas are to be marked with the green tile
+	ALL clue locations are to be marked with the green tile
+	ALL charaters interaction zones are to be marked with the brown tile
 
 *------------------------------------------------------------------------*
 
