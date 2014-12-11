@@ -42,7 +42,7 @@
   Creates a new SSL_Light object or -1 on error
 
 \-----------------------------------------------------------------------------*/
-SSL_Light *SSL_Light_Create(int x, int y, int width, int angle, int range, int fade, SDL_Color color, int brightness) {
+SSL_Light *SSL_Light_Create(int x, int y, int width, int angle, int range, int fade, SDL_Color color) {
 	SSL_Light *light = malloc(sizeof(SSL_Light));
 
 	if (!light) {
@@ -58,7 +58,6 @@ SSL_Light *SSL_Light_Create(int x, int y, int width, int angle, int range, int f
 	light->range = range;
 	light->fade = fade;
 	light->color = color;
-	light->brightness = brightness;
 
   return light;
 }
@@ -139,19 +138,6 @@ int SSL_Light_GetRange(SSL_Light *light) {
 \-----------------------------------------------------------------------------*/
 int SSL_Light_GetFade(SSL_Light *light) {
 	return light->fade;
-}
-
-
-/*!--------------------------------------------------------------------------
-  @brief    Gets the brightness of the light
-  @param    light		  light object to get the brightness of.
-  @return Brightness of the light
-
-  Gets the brightness of the light
-
-\-----------------------------------------------------------------------------*/
-int SSL_Light_GetBrightness(SSL_Light *light) {
-	return light->brightness;
 }
 
 
@@ -237,20 +223,6 @@ void SSL_Light_SetRange(SSL_Light *light, int range) {
 \-----------------------------------------------------------------------------*/
 void SSL_Light_ToggleFade(SSL_Light *light) {
 	light->fade = !light->fade;
-}
-
-
-/*!--------------------------------------------------------------------------
-  @brief    Sets the brightness of the light
-  @param    light		  light object to set the brightness of
-  @param    brightness	  new brightness of the light
-  @return Void
-
-  Sets the brighness of the light
-
-\-----------------------------------------------------------------------------*/
-void SSL_Light_SetBrightness(SSL_Light *light, int brightness) {
-	light->brightness = brightness;
 }
 
 

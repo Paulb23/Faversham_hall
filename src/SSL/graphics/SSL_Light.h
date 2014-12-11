@@ -37,7 +37,6 @@ typedef struct _SSL_Light_ {
 	int angle;					/**< angle of the light */
 	int range;					/**< range of the light */
 	int fade;					/**< does the light fade */
-	int brightness;				/**< brightness of the light */
 	SDL_Color color;			/**< color of the light */
 } SSL_Light;
 
@@ -61,7 +60,7 @@ typedef struct _SSL_Light_ {
   Creates a new SSL_Light object or -1 on error
 
 \-----------------------------------------------------------------------------*/
-SSL_Light *SSL_Light_Create(int x, int y, int width, int angle, int range, int fade, SDL_Color color, int brightness);
+SSL_Light *SSL_Light_Create(int x, int y, int width, int angle, int range, int fade, SDL_Color color);
 
 
 /*!--------------------------------------------------------------------------
@@ -128,17 +127,6 @@ int SSL_Light_GetRange(SSL_Light *light);
 
 \-----------------------------------------------------------------------------*/
 int SSL_Light_GetFade(SSL_Light *light);
-
-
-/*!--------------------------------------------------------------------------
-  @brief    Gets the brightness of the light
-  @param    light		  light object to get the brightness of.
-  @return Brightness of the light
-
-  Gets the brightness of the light
-
-\-----------------------------------------------------------------------------*/
-int SSL_Light_GetBrightness(SSL_Light *light);
 
 
 /*!--------------------------------------------------------------------------
@@ -211,18 +199,6 @@ void SSL_Light_SetRange(SSL_Light *light, int range);
 
 \-----------------------------------------------------------------------------*/
 void SSL_Light_ToggleFade(SSL_Light *light);
-
-
-/*!--------------------------------------------------------------------------
-  @brief    Sets the brightness of the light
-  @param    light		  light object to set the brightness of
-  @param    brightness	  new brightness of the light
-  @return Void
-
-  Sets the brighness of the light
-
-\-----------------------------------------------------------------------------*/
-void SSL_Light_SetBrightness(SSL_Light *light, int brightness);
 
 
 /*!--------------------------------------------------------------------------
