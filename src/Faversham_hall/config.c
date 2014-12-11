@@ -14,6 +14,7 @@
  ---------------------------------------------------------------------------*/
 #include "config.h"
 #include "../SSL/SSL.h"
+#include "SDL2/SDL.h"
 
 
 /*---------------------------------------------------------------------------
@@ -223,6 +224,7 @@ int load_config(char *path) {
 	SSL_IniFile_Load(ini, path);					// load it
 
 	if (ini->dictionary == NULL) {					// make sure it was loaded
+		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Config", "Could not create or read config file.", NULL);
 		return -1;
 	}
 

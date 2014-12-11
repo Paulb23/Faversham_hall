@@ -33,13 +33,13 @@ SSL_Window *game_window;		/**< the game window */
 
 /*!--------------------------------------------------------------------------
   @brief	Creates the window for the game, and sets flags
-  @return 	void
+  @return 	0 on success else -1
 
   Creates the window for the game and sets the flags according to the
   results of reading the config
 
 \-----------------------------------------------------------------------------*/
-void create_window();
+int create_window();
 
 
 /*!--------------------------------------------------------------------------
