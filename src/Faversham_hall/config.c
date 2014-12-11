@@ -174,19 +174,19 @@ static void read_game_section(SSL_IniFile *ini) {
 		SSL_Log_Write("Error: ini missing smooth_texture_scaling, reverting to default!");
 	}
 
-	VSYNC = SSL_IniFile_GetInt(ini, "game", "vsync", (int)-1);
+	VSYNC = SSL_IniFile_Getboolean(ini, "game", "vsync", (int)-1);
 	if (VSYNC == -1) {
 		VSYNC = vsync_default;
 		SSL_Log_Write("Error: ini missing vsync, reverting to default!");
 	}
 
-	WINDOWED = SSL_IniFile_GetInt(ini, "game", "windowed", (int)-1);
+	WINDOWED = SSL_IniFile_Getboolean(ini, "game", "windowed", (int)-1);
 	if (WINDOWED == -1) {
 		WINDOWED = windowed_default;
 		SSL_Log_Write("Error: ini missing windowed, reverting to default!");
 	}
 
-	BORDERLESS = SSL_IniFile_GetInt(ini, "game", "borderless", (int)-1);
+	BORDERLESS = SSL_IniFile_Getboolean(ini, "game", "borderless", (int)-1);
 	if (BORDERLESS == -1) {
 		BORDERLESS = borderless_default;
 		SSL_Log_Write("Error: ini missing borderless, reverting to default!");
