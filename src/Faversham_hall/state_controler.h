@@ -24,7 +24,8 @@
 
 typedef enum {
 	MAIN_MENU,
-	GAME_STATE
+	GAME_STATE,
+	EXIT
 } Game_States;
 
 Game_States game_state;
@@ -41,5 +42,16 @@ Game_States game_state;
 
 \-----------------------------------------------------------------------------*/
 void start_game();
+
+
+/*!--------------------------------------------------------------------------
+  @brief	Switches the game state
+  @param	new_state		The state to switch to
+  @return 	Void
+
+  Switches the game state
+
+\-----------------------------------------------------------------------------*/
+void switch_state(Game_States new_state);
 
 #endif

@@ -68,6 +68,10 @@ void start_game() {
 				game_ticks(delta, uptime);
 				break;
 			}
+			case EXIT: {
+				running = 0;
+				break;
+			}
 		}
 
 			while(SDL_PollEvent(&event)) {
@@ -81,10 +85,14 @@ void start_game() {
 						game_event_handle(event, uptime);
 						break;
 					}
+					case EXIT: {
+						running = 0;
+						break;
+					}
 				}
 
 				if (event.type == SDL_QUIT) {
-					running = 0;
+					switch_state(EXIT);
 					break;
 				}
 			}
@@ -100,6 +108,10 @@ void start_game() {
 			}
 			case GAME_STATE: {
 				game_render();
+				break;
+			}
+			case EXIT: {
+				running = 0;
 				break;
 			}
 		}
@@ -132,6 +144,9 @@ void switch_state(Game_States new_state) {
 			game_clean_up();
 			break;
 		}
+		case EXIT: {
+			break;
+		}
 	}
 
 	switch (new_state) {
@@ -141,6 +156,9 @@ void switch_state(Game_States new_state) {
 		}
 		case GAME_STATE: {
 			game_init();
+			break;
+		}
+		case EXIT: {
 			break;
 		}
 	}
