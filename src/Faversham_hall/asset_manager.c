@@ -2,9 +2,9 @@
 /**
    @file    asset_manager.c
    @author  P. Batty
-   @brief   Implements a the game loop
+   @brief   Implements a the asset manager.
 
-   This module implements the game loop
+   This module implements the asset manager.
 */
 /*--------------------------------------------------------------------------*/
 
@@ -14,6 +14,12 @@
 
 #include "asset_manager.h"
 #include "../SSL/SSL.h"
+
+
+/*---------------------------------------------------------------------------
+                            Private functions
+ ---------------------------------------------------------------------------*/
+
 
 
 /*---------------------------------------------------------------------------
