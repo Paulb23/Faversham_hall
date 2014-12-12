@@ -10,15 +10,36 @@
 int main(int argc, char *argv[]) {
 
 	// init libaries
-	SDL_Init(SDL_INIT_EVERYTHING);
-	IMG_Init(IMG_INIT_PNG);
-	Mix_Init(MIX_INIT_MP3);
+	if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
+		SSL_Log_Write("FATAL: Could not start SDL 2!");
+		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "SDL 2", "FATAL: Could not start SDL 2!", NULL);
+		return 1;
+	}
+	if (IMG_Init(IMG_INIT_PNG) == 0) {
+		SSL_Log_Write("FATAL: Could not start SDL Image!");
+		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "SDL Image", "FATAL: Could not start SDL Image!", NULL);
+		return 1;
+	}
+	if(Mix_Init(MIX_INIT_MP3) == 0) {
+		SSL_Log_Write("FATAL: Could not start SDL Mixer!");
+		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "SDL Mixer", "FATAL: Could not start SDL Mixer!", NULL);
+		return 1;
+	}
 	Mix_OpenAudio(22050, AUDIO_S16SYS, 2, 4096);
-	SSL_Init();
+
+	if(SSL_Init() == 0) {
+		SSL_Log_Write("FATAL: Could not start SSL!");
+		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "SSL", "FATAL: Could not start SSL!", NULL);
+		return 1;
+	}
 
 	// load stuff and start the game
-	load_config("../conf/config.ini");
-	create_window();
+	if(load_config("../conf/config.ini") != 0) {
+		return 1;
+	}
+	if(create_window()) {
+		return 1;
+	}
 
 	switch_state(GAME_STATE);
 	start_game();
