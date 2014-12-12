@@ -93,7 +93,10 @@ void start_game() {
 
 				if (event.type == SDL_QUIT) {
 					switch_state(EXIT);
-					break;
+				}
+
+				if(event.key.keysym.sym == SDLK_F4 && (event.key.keysym.mod == KMOD_LALT || event.key.keysym.mod == KMOD_RALT) ){
+					switch_state(EXIT);
 				}
 			}
 			tick++;
