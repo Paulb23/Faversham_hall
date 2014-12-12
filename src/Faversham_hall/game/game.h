@@ -18,6 +18,7 @@
 #include "game.h"
 #include "../config.h"
 #include "../window_manager.h"
+#include "../state_controller.h"
 #include "SDL2/SDL.h"
 
 /*---------------------------------------------------------------------------
@@ -48,7 +49,7 @@ void game_init();
   Cleans up the game
 
 \-----------------------------------------------------------------------------*/
-void game_clean_up();
+void game_clean_up(Game_States new_state);
 
 
 /*!--------------------------------------------------------------------------

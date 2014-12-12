@@ -1,6 +1,6 @@
 /*-------------------------------------------------------------------------*/
 /**
-   @file    game.h
+   @file    game.c
    @author  P. Batty
    @brief   Implements a the game loop
 
@@ -14,6 +14,7 @@
 
 #include "game.h"
 #include "../config.h"
+#include "../state_controller.h"
 #include "../window_manager.h"
 #include "SDL2/SDL.h"
 
@@ -43,12 +44,13 @@ void game_init() {
 
 /*!--------------------------------------------------------------------------
   @brief	Cleans up the game
+  @param	new_state		The state to change to
   @return 	Void
 
   Cleans up the game
 
 \-----------------------------------------------------------------------------*/
-void game_clean_up() {
+void game_clean_up(Game_States new_state) {
 
 }
 

@@ -1,6 +1,6 @@
 /*-------------------------------------------------------------------------*/
 /**
-   @file    state_controler.h
+   @file    state_controler.c
    @author  P. Batty
    @brief   Implements a the game state controller
 
@@ -13,7 +13,7 @@
                                 Includes
  ---------------------------------------------------------------------------*/
 
-#include "state_controler.h"
+#include "state_controller.h"
 #include "game/game.h"
 #include "config.h"
 #include "window_manager.h"
@@ -59,20 +59,20 @@ void start_game() {
 
 		while (delta >= 1) {
 
-		switch (game_state) {
-			case MAIN_MENU: {
-				// main_menu_ticks();
-				break;
+			switch (game_state) {
+				case MAIN_MENU: {
+					// main_menu_ticks();
+					break;
+				}
+				case GAME_STATE: {
+					game_ticks(delta, uptime);
+					break;
+				}
+				case EXIT: {
+					running = 0;
+					break;
+				}
 			}
-			case GAME_STATE: {
-				game_ticks(delta, uptime);
-				break;
-			}
-			case EXIT: {
-				running = 0;
-				break;
-			}
-		}
 
 			while(SDL_PollEvent(&event)) {
 
@@ -144,7 +144,7 @@ void switch_state(Game_States new_state) {
 			break;
 		}
 		case GAME_STATE: {
-			game_clean_up();
+			game_clean_up(new_state);
 			break;
 		}
 		case EXIT: {

@@ -1,4 +1,4 @@
-#include "Faversham_hall/state_controler.h"
+#include "Faversham_hall/state_controller.h"
 #include "Faversham_hall/config.h"
 #include "Faversham_hall/window_manager.h"
 #include "SDL2/SDL.h"

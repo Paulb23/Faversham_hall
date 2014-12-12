@@ -22,6 +22,16 @@
                                 New types
  ---------------------------------------------------------------------------*/
 
+/*!--------------------------------------------------------------------------
+  @brief    Game_States
+
+  Different states that the game can be in.
+	  ASSET_IMAGE - SSL_Image
+	  ASSET_SOUND - Mix_Chunk
+	  ASSET_FONT  - SSL_Font
+	  ASSET_MAP   - SSL_Tiled_Map
+
+\----------------------------------------------------------------------------*/
 typedef enum {
 	MAIN_MENU,
 	GAME_STATE,

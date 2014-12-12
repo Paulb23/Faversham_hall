@@ -1,6 +1,6 @@
 /*-------------------------------------------------------------------------*/
 /**
-   @file    window_manager.h
+   @file    window_manager.c
    @author  P. Batty
    @brief   Implements a the window manager for the game
 
