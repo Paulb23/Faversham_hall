@@ -34,7 +34,7 @@ static int set_flags() {
 	itoa(VSYNC, &result, 10);
 	SDL_SetHint( SDL_HINT_RENDER_VSYNC, &result );
 
-	SDL_SetWindowBordered(game_window->window, BORDERLESS);
+	SDL_SetWindowBordered(game_window->window, !BORDERLESS);
 
 	if (!WINDOWED) {
 		if(SDL_SetWindowFullscreen(game_window->window, WINDOWED) == -1) {
