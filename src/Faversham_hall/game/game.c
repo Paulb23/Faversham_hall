@@ -3,11 +3,11 @@
 #include "../window_manager.h"
 #include "SDL2/SDL.h"
 
-static void game_ticks() {
+static void game_ticks(double delta, int uptime) {
 // all logic code
 }
 
-static void handle_events(SDL_Event event) {
+static void handle_events(SDL_Event event, int uptime) {
  // all event code
 }
 
@@ -37,11 +37,11 @@ void play_game() {
 
 		while (delta >= 1) {
 
-			game_ticks();
+			game_ticks(delta, uptime);
 
 			while(SDL_PollEvent(&event)) {
 
-				handle_events(event);
+				handle_events(event, uptime);
 
 				if (event.type == SDL_QUIT) {
 					running = 0;
