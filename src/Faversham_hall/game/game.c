@@ -42,7 +42,21 @@ void game_init() {
 
 
 /*!--------------------------------------------------------------------------
+  @brief	Cleans up the game
+  @return 	Void
+
+  Cleans up the game
+
+\-----------------------------------------------------------------------------*/
+void game_clean_up() {
+
+}
+
+
+/*!--------------------------------------------------------------------------
   @brief	Logic for the game
+  @param	delta		Delta time
+  @param	uptime		Uptime
   @return 	Void
 
   Game logic
@@ -55,6 +69,8 @@ void game_ticks(double delta, int uptime) {
 
 /*!--------------------------------------------------------------------------
   @brief	Event handler
+  @param	event		the event to handle
+  @param	uptime		Uptime
   @return 	Void
 
   Event handler

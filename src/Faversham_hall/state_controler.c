@@ -112,3 +112,38 @@ void start_game() {
 		}
 	}
 }
+
+
+/*!--------------------------------------------------------------------------
+  @brief	Switches the game state
+  @param	new_state		The state to switch to
+  @return 	Void
+
+  Switches the game state
+
+\-----------------------------------------------------------------------------*/
+void switch_state(Game_States new_state) {
+	switch (game_state) {
+		case MAIN_MENU: {
+			// main_menu_clean_up();
+			break;
+		}
+		case GAME_STATE: {
+			game_clean_up();
+			break;
+		}
+	}
+
+	switch (new_state) {
+		case MAIN_MENU: {
+			// main_menu_init();
+			break;
+		}
+		case GAME_STATE: {
+			game_init();
+			break;
+		}
+	}
+
+	game_state = new_state;
+}

@@ -20,7 +20,7 @@ int main(int argc, char *argv[]) {
 	load_config("../conf/config.ini");
 	create_window();
 
-	game_state = GAME_STATE;
+	switch_state(GAME_STATE);
 	start_game();
 
 	return 0;
