@@ -37,13 +37,22 @@ typedef enum {
 	ASSET_IMAGE,
 	ASSET_SOUND,
 	ASSET_FONT,
-	ASSET_MAP
 } Asset_Types;
 
 
 /*---------------------------------------------------------------------------
                             Function prototypes
  ---------------------------------------------------------------------------*/
+
+/*!--------------------------------------------------------------------------
+  @brief	Creates the asset manager
+  @return 	0 on success -1 on error
+
+  Creates the asset manager for use.
+
+
+\-----------------------------------------------------------------------------*/
+int asset_manager_create();
 
 
 #endif

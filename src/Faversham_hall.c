@@ -1,6 +1,7 @@
 #include "Faversham_hall/state_controller.h"
 #include "Faversham_hall/config.h"
 #include "Faversham_hall/window_manager.h"
+#include "Faversham_hall/asset_manager.h"
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_Mixer.h"
 #include "SDL2/SDL_Image.h"
@@ -25,7 +26,7 @@ int main(int argc, char *argv[]) {
 		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "SDL Mixer", "FATAL: Could not start SDL Mixer!", NULL);
 		return 1;
 	}
-	Mix_OpenAudio(22050, AUDIO_S16SYS, 2, 4096);
+	Mix_OpenAudio(22050, AUDIO_S16SYS, 10, 4096);
 
 	if(SSL_Init() == 0) {
 		SSL_Log_Write("FATAL: Could not start SSL!");
@@ -36,6 +37,11 @@ int main(int argc, char *argv[]) {
 	// load stuff and start the game
 	if(load_config("../conf/config.ini") != 0) {
 		return 1;
+	}
+	if (asset_manager_create() != 0) {
+		SSL_Log_Write("FATAL: Could not create Asset manager!");
+		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Asset Manager", "FATAL: Could not create Asset manager!", NULL);
+		return -1;
 	}
 	if(create_window()) {
 		return 1;
