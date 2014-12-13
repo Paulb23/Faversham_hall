@@ -28,14 +28,19 @@
  ----------------------------------*/
 static int set_flags() {
 	char result;
+
+	/* Texture scaling */
 	itoa(TEXTURE_SCALING, &result, 10);
 	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, &result);
 
+	/* VSYNC */
 	itoa(VSYNC, &result, 10);
 	SDL_SetHint( SDL_HINT_RENDER_VSYNC, &result );
 
+	/* borderless */
 	SDL_SetWindowBordered(game_window->window, !BORDERLESS);
 
+	/* check windowed */
 	if (!WINDOWED) {
 		if(SDL_SetWindowFullscreen(game_window->window, WINDOWED) == -1) {
 			SSL_Log_Write("Error: unable to set to full screen");
@@ -60,12 +65,18 @@ static int set_flags() {
 
 \-----------------------------------------------------------------------------*/
 int create_window() {
+
+	/* create the window */
 	game_window = SSL_Window_Create(WINDOW_TITLE, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_RES_WIDTH, WINDOW_RES_HEIGHT, 0);
+
+	/* check we allocated memory */
 	if (game_window == 0) {
 		SSL_Log_Write("Error: unable to create window");
 		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Window", "Could not create Window.", NULL);
 		return -1;
 	}
+
+	/* set flags and return */
 	return set_flags();
 }
 

@@ -50,6 +50,7 @@ void start_game() {
 	double tick = 0;
 	int uptime = 0;
 
+	/* loop until we get a exit signal */
 	while (running) {
 		Uint32 now = SDL_GetTicks();
 		delta += (now - lastTime) / ns;
@@ -59,6 +60,9 @@ void start_game() {
 
 		while (delta >= 1) {
 
+			/**
+			 * Perform tick update
+			 */
 			switch (game_state) {
 				case MAIN_MENU: {
 					// main_menu_ticks();
@@ -76,6 +80,9 @@ void start_game() {
 
 			while(SDL_PollEvent(&event)) {
 
+				/**
+				 * Perform event update
+				 */
 				switch (game_state) {
 					case MAIN_MENU: {
 						// main_menu_event_handeler();
@@ -104,6 +111,9 @@ void start_game() {
 		}
 		fps++;
 
+		/**
+		 * Perform render update
+		 */
 		switch (game_state) {
 			case MAIN_MENU: {
 				// main_menu_renderer();
@@ -138,6 +148,8 @@ void start_game() {
 
 \-----------------------------------------------------------------------------*/
 void switch_state(Game_States new_state) {
+
+	/* clean up the previous state */
 	switch (game_state) {
 		case MAIN_MENU: {
 			// main_menu_clean_up();
@@ -152,6 +164,7 @@ void switch_state(Game_States new_state) {
 		}
 	}
 
+	/* init the new state */
 	switch (new_state) {
 		case MAIN_MENU: {
 			// main_menu_init();
@@ -166,5 +179,6 @@ void switch_state(Game_States new_state) {
 		}
 	}
 
+	/* switch to the new state */
 	game_state = new_state;
 }
