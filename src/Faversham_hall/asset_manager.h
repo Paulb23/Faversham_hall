@@ -177,4 +177,14 @@ void asset_manager_removeFont(char *name);
 void asset_manager_removeOther(char *name);
 
 
+/*!--------------------------------------------------------------------------
+  @brief	Removes everything from the asset manager, and start it up again
+  @return 	0 on success -1 on error
+
+  Removes everything from the asset manager, and start it up again
+
+\-----------------------------------------------------------------------------*/
+int asset_manager_reset() ;
+
+
 #endif

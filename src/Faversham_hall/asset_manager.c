@@ -215,3 +215,19 @@ void asset_manager_removeFont(char *name) {
 void asset_manager_removeOther(char *name) {
 	SSL_Hashmap_Remove(other_hashmap, name);
 }
+
+
+/*!--------------------------------------------------------------------------
+  @brief	Removes everything from the asset manager, and start it up again
+  @return 	0 on success -1 on error
+
+  Removes everything from the asset manager, and start it up again
+
+\-----------------------------------------------------------------------------*/
+int asset_manager_reset() {
+	SSL_Hashmap_Destroy(image_hashmap);
+	SSL_Hashmap_Destroy(sound_hashmap);
+	SSL_Hashmap_Destroy(font_hashmap);
+	SSL_Hashmap_Destroy(other_hashmap);
+	return asset_manager_create();
+}
