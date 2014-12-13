@@ -38,7 +38,7 @@ typedef enum {
 	EXIT
 } Game_States;
 
-Game_States game_state;
+extern Game_States game_state;
 
 /*---------------------------------------------------------------------------
                             Function prototypes
