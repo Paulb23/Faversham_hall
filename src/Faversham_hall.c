@@ -1,3 +1,17 @@
+/*-------------------------------------------------------------------------*/
+/**
+   @file    faversham_hall.c
+   @author  P. Batty
+   @brief   Starting point for the game
+
+   This module implements the starting point for the game
+*/
+/*--------------------------------------------------------------------------*/
+
+/*---------------------------------------------------------------------------
+                                Includes
+ ---------------------------------------------------------------------------*/
+
 #include "Faversham_hall/state_controller.h"
 #include "Faversham_hall/config.h"
 #include "Faversham_hall/window_manager.h"
@@ -8,9 +22,16 @@
 #include "SDL2/SDL_TTF.h"
 #include "SSL/SSL.h"
 
-int main(int argc, char *argv[]) {
 
-	// init libraries
+/*---------------------------------------------------------------------------
+                            Private functions
+ ---------------------------------------------------------------------------*/
+
+/*----------------------------------
+      Loads all the libarys
+ ----------------------------------*/
+
+static int load_libaries() {
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
 		SSL_Log_Write("FATAL: Could not start SDL 2!");
 		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "SDL 2", "FATAL: Could not start SDL 2!", NULL);
@@ -34,7 +55,15 @@ int main(int argc, char *argv[]) {
 		return 1;
 	}
 
-	// load stuff
+	return 0;
+}
+
+
+/*----------------------------------
+      Set up the game
+ ----------------------------------*/
+
+static int setup_game() {
 	if(load_config("../conf/config.ini") != 0) {
 		return 1;
 	}
@@ -44,6 +73,29 @@ int main(int argc, char *argv[]) {
 		return -1;
 	}
 	if(create_window()) {
+		return 1;
+	}
+
+	return 0;
+}
+
+/*---------------------------------------------------------------------------
+                            Function codes
+ ---------------------------------------------------------------------------*/
+
+/*!--------------------------------------------------------------------------
+  @brief	Main?
+
+\-----------------------------------------------------------------------------*/
+int main(int argc, char *argv[]) {
+
+	// init libraries
+	if (load_libaries() != 0) {
+		return 1;
+	}
+
+	// set up the game
+	if (setup_game() != 0) {
 		return 1;
 	}
 
