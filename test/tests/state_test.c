@@ -11,8 +11,6 @@ int main(int argc, char *argv[]) {
 	LOG_FILE_PATH = "../../extras/log.txt";
 	create_window();
 
-	start_game();
-
 	switch_state(MAIN_MENU);
 	assert(game_state == MAIN_MENU);
 
@@ -24,6 +22,11 @@ int main(int argc, char *argv[]) {
 
 	switch_state(MAIN_MENU);
 	assert(game_state == MAIN_MENU);
+
+	switch_state(EXIT);
+	assert(game_state == EXIT);
+
+	start_game();
 
 	printf(" Window State passed...\n");
 	return 0;
