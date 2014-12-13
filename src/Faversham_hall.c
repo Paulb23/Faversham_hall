@@ -10,7 +10,7 @@
 
 int main(int argc, char *argv[]) {
 
-	// init libaries
+	// init libraries
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
 		SSL_Log_Write("FATAL: Could not start SDL 2!");
 		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "SDL 2", "FATAL: Could not start SDL 2!", NULL);
@@ -34,7 +34,7 @@ int main(int argc, char *argv[]) {
 		return 1;
 	}
 
-	// load stuff and start the game
+	// load stuff
 	if(load_config("../conf/config.ini") != 0) {
 		return 1;
 	}
@@ -47,6 +47,7 @@ int main(int argc, char *argv[]) {
 		return 1;
 	}
 
+	// switch state and start game
 	switch_state(GAME_STATE);
 	start_game();
 
