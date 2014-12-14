@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="32" height="32" tilewidth="16" tileheight="16">
+ <tileset firstgid="1" name="test_tiles_ignore_me" tilewidth="16" tileheight="16">
+  <image source="../tiles/test_tiles_ignore_me.png" width="160" height="96"/>
+ </tileset>
+ <tileset firstgid="61" name="characters" tilewidth="16" tileheight="16">
+  <image source="../tiles/other/characters.png" width="80" height="32"/>
+ </tileset>
+ <tileset firstgid="71" name="collision" tilewidth="16" tileheight="16">
+  <image source="../tiles/other/collision.png" width="16" height="16"/>
+ </tileset>
+ <tileset firstgid="72" name="lighting" tilewidth="16" tileheight="16">
+  <image source="../tiles/other/lighting.png" width="16" height="16"/>
+ </tileset>
+ <tileset firstgid="73" name="other" tilewidth="16" tileheight="16">
+  <image source="../tiles/other/other.png" width="64" height="16"/>
+ </tileset>
+ <layer name="map" width="32" height="32">
+  <data encoding="base64" compression="zlib">
+   eJzVlsEOgkAMRIvGk8aDieAVv3w/1SGwlyXNbpd2iIemQgLsm06mTiJyO6k+qDdqQF1Qd5GE34nVx+37uJbHWgnnSKw+kvinTevc2fwz3v1F5V7j186b+3V9Zsep3bfOXzsva/4aN8v/0dxR/rf6xdv/Vt2s/DV/W33zL/ytXLXc6OVv5bLmhjd/1P6LygNv/1v16/H/s0MHTT/2/i/1Y+//Uj8WPyv/vP1f5pl3DtT4yzzzzoGo+bfqFTX/Vr2i+T39b8k97/13tLP+//X4f9HqdVItM/oBfRX8zA==
+  </data>
+ </layer>
+ <layer name="collsion" width="32" height="32" visible="0">
+  <data encoding="base64" compression="zlib">
+   eJzt1tEJACAIBFC3c/+NmkBQ6vRMD/yTexR9pCKixVOVKb5136x+1vtg99Fh9bP61u/hR/dQvex+NF18lLP+DN8Ku4/+L7P7t73e8/3qv9rr5nvD4lfOAUuBN3k=
+  </data>
+ </layer>
+ <layer name="lighting" width="32" height="32" visible="0">
+  <data encoding="base64" compression="zlib">
+   eJzt1tEJACAIBFDHc/+JmkBQ6vRMD/yTexR9pCKixVOVKb5136x+1vtg99Fh9bP61u/hR/dQvex+NF18lLP+DN8Ku4/+L7P7t73e8/3qv9rr5nvD4lfOAZgLOEE=
+  </data>
+ </layer>
+ <layer name="characters" width="32" height="32" visible="0">
+  <data encoding="base64" compression="zlib">
+   eJztwQENAAAAwqD3T20PBxQAAADwbhAAAAE=
+  </data>
+ </layer>
+ <layer name="puzzle" width="32" height="32" visible="0">
+  <data encoding="base64" compression="zlib">
+   eJztwQENAAAAwqD3T20PBxQAAADwbhAAAAE=
+  </data>
+ </layer>
+ <layer name="other" width="32" height="32">
+  <data encoding="base64" compression="zlib">
+   eJzt1UENAAAIAkDz2T+QJdh07i4BDwZV+3o7AAAR9hyAFJ/CJ1f6PHTIASk=
+  </data>
+ </layer>
+</map>
