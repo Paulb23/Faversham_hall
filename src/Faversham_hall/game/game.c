@@ -23,7 +23,8 @@
                             Private functions
  ---------------------------------------------------------------------------*/
 
-
+static SSL_Tiled_Map *current_map;		/**< Current tmx map we are on */
+static SSL_IniFile *map_ini;		/**< Current ini file for the map */
 
 /*---------------------------------------------------------------------------
                             Function codes
@@ -37,7 +38,6 @@
 
 \-----------------------------------------------------------------------------*/
 void game_init() {
-
 
 }
 
