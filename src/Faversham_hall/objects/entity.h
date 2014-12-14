@@ -69,6 +69,14 @@ typedef struct _entity_ {
                             Function prototypes
  ---------------------------------------------------------------------------*/
 
+/*!--------------------------------------------------------------------------
+  @brief	Destroys a entity
+  @param    entity		 entity to destroy
+  @return 	Void
+
+  Destroys a entity
+
+\-----------------------------------------------------------------------------*/
 void entity_destroy(Entity *entity);
 
 #endif
