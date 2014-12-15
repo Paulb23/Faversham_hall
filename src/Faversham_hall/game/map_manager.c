@@ -62,6 +62,15 @@ SSL_IniFile *load_ini(char *map_name) {
 	return ini;
 }
 
+
+/*!--------------------------------------------------------------------------
+  @brief	Load lights
+  @param	map		Map to load the lights on
+  @return 	Void
+
+  Loads and add the lights to the map
+
+\-----------------------------------------------------------------------------*/
 void load_lights(SSL_Tiled_Map *map) {
 	int i;
 	int j;
@@ -77,10 +86,15 @@ void load_lights(SSL_Tiled_Map *map) {
 	}
 }
 
+
+/*!--------------------------------------------------------------------------
+  @brief	raytrace for lights
+
+\-----------------------------------------------------------------------------*/
 int raytrace(int x, int y, void *map1) {
 	   SSL_Tiled_Map *map = (SSL_Tiled_Map *)map1;
 	   int layer = SSL_Tiled_Get_LayerIndex(map, "lighting");
-       if(SSL_Tiled_Get_TileId(map,x/map->map.tile_width,y/map->map.tile_height, layer) != 0) {
+       if(SSL_Tiled_Get_TileId(map,x/map->map.tile_width,y/map->map.tile_height, layer) == 1) {
         	return 1;
         }
     return 0;
