@@ -28,7 +28,55 @@
 static SSL_Tiled_Map *current_map;		/**< Current tmx map we are on */
 static SSL_IniFile *map_ini;		/**< Current ini file for the map */
 
+static int world_offset_x;
+static int world_offset_y;
+
 static Entity *player;
+int moving;
+int dx = 0;
+int dy = 0;
+int last_time = 0;
+
+static void move_player(double delta) {
+	if (!moving && SDL_GetTicks() > last_time) {
+		if (SSL_Keybord_Keyname_Down("_w")) {
+			dx = player->pos.x;
+			dy = player->pos.y - 16;
+			moving = 1;
+			last_time = SDL_GetTicks() + 200;
+		}
+		if (SSL_Keybord_Keyname_Down("_a")) {
+			dx = player->pos.x - 16;
+			dy = player->pos.y;
+			moving = 1;
+			last_time = SDL_GetTicks() + 200;
+		}
+		if (SSL_Keybord_Keyname_Down("_s")) {
+			dx = player->pos.x;
+			dy = player->pos.y + 16;
+			moving = 1;
+			last_time = SDL_GetTicks() + 200;
+		}
+		if (SSL_Keybord_Keyname_Down("_d")) {
+			dx = player->pos.x + 16;
+			dy = player->pos.y;
+			moving = 1;
+			last_time = SDL_GetTicks() + 200;
+		}
+		SSL_Light_SetPos(player->light, player->pos.x - world_offset_x,player->pos.y - world_offset_y);
+	} else {
+		if (player->pos.x == dx && player->pos.y == dy) {
+			moving=0;
+			return;
+		}
+
+		float vx = dx - player->pos.x;
+		float vy = dy - player->pos.y;
+
+		player->pos.x += vx;
+		player->pos.y += vy;
+	}
+}
 
 /*----------------------------------
      Loads the level
@@ -56,6 +104,9 @@ void game_init() {
 	load_level("test_map");
 	player = create_player();
 	SSL_Tiled_Add_Light(current_map, player->light);
+	moving = 0;
+	world_offset_x = 0;
+	world_offset_y = 0;
 }
 
 
@@ -82,6 +133,7 @@ void game_clean_up(Game_States new_state) {
 
 \-----------------------------------------------------------------------------*/
 void game_ticks(double delta, int uptime) {
+	move_player(delta);
 }
 
 
@@ -107,7 +159,7 @@ void game_event_handle(SDL_Event event, int uptime) {
 
 \-----------------------------------------------------------------------------*/
 void game_render() {
-	SSL_Tiled_Draw_Map(current_map, 0, 0, game_window);
-	SSL_Tiled_Draw_Lights(current_map, 0, 0, game_window, raytrace);
-	SSL_Image_Draw(player->image.image, player->pos.x, player->pos.x, 0, player->image.current_frame, 0, game_window);
+	SSL_Tiled_Draw_Map(current_map, world_offset_x, world_offset_y, game_window);
+	SSL_Tiled_Draw_Lights(current_map, world_offset_x, world_offset_y, game_window, raytrace);
+	SSL_Image_Draw(player->image.image, player->pos.x, player->pos.y, 0, player->image.current_frame, 0, game_window);
 }
