@@ -62,12 +62,16 @@ typedef struct _entity_image_ {
 typedef struct _entity_ {
 	Entity_image image;			/**< image information of the entity */
 	Entity_pos pos;				/**< position of the entity */
+	SSL_Light *light;			/**< the ligth for the entity */
 } Entity;
 
 
 /*---------------------------------------------------------------------------
                             Function prototypes
  ---------------------------------------------------------------------------*/
+
+
+Entity *create_player();
 
 /*!--------------------------------------------------------------------------
   @brief	Destroys a entity
