@@ -29,6 +29,7 @@ static SSL_IniFile *map_ini;		/**< Current ini file for the map */
 
 static void load_level(char *map_name) {
 	current_map = load_map(map_name);
+	map_ini = load_ini(map_name);
 }
 
 /*---------------------------------------------------------------------------

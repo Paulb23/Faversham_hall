@@ -12,9 +12,10 @@ SSL_Tiled_Map *load_map(char *map_name) {
 	return SSL_Tiled_Map_Load(map_full_path, game_window);
 }
 
-void load_ini(SSL_IniFile *ini, char *map_name) {
+SSL_IniFile *load_ini(char *map_name) {
 	char ini_full_path[strlen(ini_path) + strlen(map_name) + 4];
 	sprintf(ini_full_path, "%s%s%s", ini_path, map_name, ".ini");
-	ini = SSL_IniFIle_Create();
+	SSL_IniFile *ini = SSL_IniFIle_Create();
 	SSL_IniFile_Load(ini, ini_full_path);
+	return ini;
 }
