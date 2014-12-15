@@ -122,14 +122,37 @@ static void map_tile_layer_handeler(mxml_node_t *node, SSL_Tiled_Map *map) {
 	mxml_node_t *data;
 	data = mxmlFindElement(node, node, "data", NULL, NULL, MXML_DESCEND);
 
-	//TODO: Get size of allocation
-	char base64DecodeOutput[9999];
-	b64_decode((char *)mxmlGetText(data, 0), base64DecodeOutput);
-
 	int *tile_map = malloc(map->map.map_width * map->map.map_height * 4);
+	memset(tile_map, 0, map->map.map_width * map->map.map_height * 4);
 
-	uLongf outlen = map->map.map_width * map->map.map_height * 4;
-	uncompress((Bytef *)tile_map, &outlen, (const Bytef *)base64DecodeOutput, strlen(base64DecodeOutput));
+	if (mxmlElementGetAttr(node, "encoding") == NULL) {
+		int tiles[map->map.map_width * map->map.map_height * 4];
+		mxml_node_t * tile = mxmlFindElement(node, node, "tile",NULL, NULL,MXML_DESCEND);
+
+		 int l = 0;
+		 while(tile != NULL) {
+		    if(mxmlGetType(tile) == MXML_ELEMENT) {
+		     tiles[l] = atoi(mxmlElementGetAttr(tile, "gid"));
+		     l++;
+		     }
+		  tile = mxmlWalkNext(tile, data, MXML_NO_DESCEND);
+		  }
+
+			int i, j;
+			l = 0;
+			for (i=0;i<layer->width;i++){
+				for (j=0;j<layer->height;j++){
+					tile_map[map->map.map_width * i + j] = tiles[l++];
+				}
+			}
+	} else {
+		//TODO: Get size of allocation
+			char base64DecodeOutput[9999];
+			b64_decode((char *)mxmlGetText(data, 0), base64DecodeOutput);
+
+			uLongf outlen = map->map.map_width * map->map.map_height * 4;
+			uncompress((Bytef *)tile_map, &outlen, (const Bytef *)base64DecodeOutput, strlen(base64DecodeOutput));
+	}
 
 	layer->data = tile_map;
 

@@ -35,6 +35,7 @@ static SSL_IniFile *map_ini;		/**< Current ini file for the map */
 static void load_level(char *map_name) {
 	current_map = load_map(map_name);
 	map_ini = load_ini(map_name);
+	SSL_Tiled_Set_Lighting(current_map, SSL_Color_Create(0, 0, 0, 240));
 }
 
 /*---------------------------------------------------------------------------
@@ -102,4 +103,5 @@ void game_event_handle(SDL_Event event, int uptime) {
 \-----------------------------------------------------------------------------*/
 void game_render() {
 	SSL_Tiled_Draw_Map(current_map, 0, 0, game_window);
+	SSL_Tiled_Draw_Lights(current_map, 0, 0, game_window, raytrace);
 }

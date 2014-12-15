@@ -61,3 +61,13 @@ SSL_IniFile *load_ini(char *map_name) {
 	SSL_IniFile_Load(ini, ini_full_path);
 	return ini;
 }
+
+int raytrace(int x, int y, void *map1) {
+	   SSL_Tiled_Map *map = (SSL_Tiled_Map *)map1;
+	   int layer = SSL_Tiled_Get_LayerIndex(map, "lighting");
+       if(SSL_Tiled_Get_TileId(map,x/map->map.tile_width,y/map->map.tile_height, layer) != 0) {
+        	return 1;
+        }
+
+    return 0;
+}

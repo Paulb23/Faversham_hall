@@ -51,4 +51,6 @@ SSL_Tiled_Map *load_map(char *map_name);
 \-----------------------------------------------------------------------------*/
 SSL_IniFile *load_ini(char *map_name);
 
+int raytrace(int x, int y, void *map1);
+
 #endif
