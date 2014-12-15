@@ -12,7 +12,7 @@ Maps MUST be made with: http://www.mapeditor.org/
 
 Maps MUST have the orientation set to "Orthogonal" 
 
-Maps MUST have be saved with the format base64( zlib compression )
+Maps MUST have be saved with the format xml
 
 Maps MUST have tile render order to Right Down
 
