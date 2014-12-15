@@ -16,6 +16,7 @@
 #include "../config.h"
 #include "../state_controller.h"
 #include "../window_manager.h"
+#include "map_manager.h"
 #include "SDL2/SDL.h"
 
 
@@ -25,6 +26,11 @@
 
 static SSL_Tiled_Map *current_map;		/**< Current tmx map we are on */
 static SSL_IniFile *map_ini;		/**< Current ini file for the map */
+
+static void load_level(char *map_name) {
+	current_map = load_map(map_name);
+//	load_lights(current_map);
+}
 
 /*---------------------------------------------------------------------------
                             Function codes
@@ -38,7 +44,7 @@ static SSL_IniFile *map_ini;		/**< Current ini file for the map */
 
 \-----------------------------------------------------------------------------*/
 void game_init() {
-
+	load_level("test_map");
 }
 
 
@@ -91,5 +97,5 @@ void game_event_handle(SDL_Event event, int uptime) {
 
 \-----------------------------------------------------------------------------*/
 void game_render() {
-
+	SSL_Tiled_Draw_Map(current_map, 0, 0, game_window);
 }

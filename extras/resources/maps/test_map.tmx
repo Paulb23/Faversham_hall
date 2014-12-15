@@ -17,7 +17,7 @@
  </tileset>
  <layer name="map" width="32" height="32">
   <data encoding="base64" compression="zlib">
-   eJzVlsEOgkAMRIvGk8aDieAVv3w/1SGwlyXNbpd2iIemQgLsm06mTiJyO6k+qDdqQF1Qd5GE34nVx+37uJbHWgnnSKw+kvinTevc2fwz3v1F5V7j186b+3V9Zsep3bfOXzsva/4aN8v/0dxR/rf6xdv/Vt2s/DV/W33zL/ytXLXc6OVv5bLmhjd/1P6LygNv/1v16/H/s0MHTT/2/i/1Y+//Uj8WPyv/vP1f5pl3DtT4yzzzzoGo+bfqFTX/Vr2i+T39b8k97/13tLP+//X4f9HqdVItM/oBfRX8zA==
+   eJztl7sKgDAMRavgpJPgY9Wx//+BpqBQCrEJ5IHS4ZIxPUl608YQwuCkCFpAHah3iOudfwRNDvHJr825gfYsWvMfoDOLNX7svFb9x85r1X9tbir/1+afWzfp+efWrfHT+KlcXN+g8lO5uL4hza+1/7T8wHr/ee1/rH6Nv73/3vhLP5P2gRp/6WfSPqDVf2q9tPpPrZc2v9f8S++/P9//9AeenZRyX0fVJcc=
   </data>
  </layer>
  <layer name="collsion" width="32" height="32" visible="0">
@@ -40,7 +40,7 @@
    eJztwQENAAAAwqD3T20PBxQAAADwbhAAAAE=
   </data>
  </layer>
- <layer name="other" width="32" height="32">
+ <layer name="other" width="32" height="32" visible="0">
   <data encoding="base64" compression="zlib">
    eJzt1UENAAAIAkDz2T+QJdh07i4BDwZV+3o7AAAR9hyAFJ/CJ1f6PHTIASk=
   </data>

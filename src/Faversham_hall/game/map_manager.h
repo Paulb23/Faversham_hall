@@ -4,7 +4,7 @@
 #include "SDL2/SDL.h"
 #include "../../SSL/SSL.h"
 
-void load_map(SSL_Tiled_Map *map, char *map_name);
+SSL_Tiled_Map *load_map(char *map_name);
 void load_ini(SSL_IniFile *ini, char *map_name);
 void load_lights(SSL_Tiled_Map *map);
 
