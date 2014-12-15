@@ -27,6 +27,11 @@
 static SSL_Tiled_Map *current_map;		/**< Current tmx map we are on */
 static SSL_IniFile *map_ini;		/**< Current ini file for the map */
 
+
+/*----------------------------------
+     Loads the level
+ ----------------------------------*/
+
 static void load_level(char *map_name) {
 	current_map = load_map(map_name);
 	map_ini = load_ini(map_name);
