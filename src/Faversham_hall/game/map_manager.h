@@ -6,6 +6,5 @@
 
 SSL_Tiled_Map *load_map(char *map_name);
 void load_ini(SSL_IniFile *ini, char *map_name);
-void load_lights(SSL_Tiled_Map *map);
 
 #endif

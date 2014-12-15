@@ -29,7 +29,6 @@ static SSL_IniFile *map_ini;		/**< Current ini file for the map */
 
 static void load_level(char *map_name) {
 	current_map = load_map(map_name);
-//	load_lights(current_map);
 }
 
 /*---------------------------------------------------------------------------
@@ -70,8 +69,7 @@ void game_clean_up(Game_States new_state) {
   Game logic
 
 \-----------------------------------------------------------------------------*/
-void game_ticks(double delta, int uptime) {
-
+void game_ticks(double delta, int uptime) {;
 }
 
 
