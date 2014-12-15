@@ -39,25 +39,27 @@ int last_time = 0;
 
 static void move_player(double delta) {
 	if (!moving && SDL_GetTicks() > last_time) {
-		if (SSL_Keybord_Keyname_Down("_w")) {
+		int layer = SSL_Tiled_Get_LayerIndex(current_map, "collsion");
+
+		if (SSL_Keybord_Keyname_Down("_w") && SSL_Tiled_Get_TileId(current_map, (player->pos.x) / 16, (player->pos.y - 16) / 16, layer) == 0) {
 			dx = player->pos.x;
 			dy = player->pos.y - 16;
 			moving = 1;
 			last_time = SDL_GetTicks() + 200;
 		}
-		if (SSL_Keybord_Keyname_Down("_a")) {
+		if (SSL_Keybord_Keyname_Down("_a") && SSL_Tiled_Get_TileId(current_map, (player->pos.x - 16) / 16, (player->pos.y) / 16, layer) == 0) {
 			dx = player->pos.x - 16;
 			dy = player->pos.y;
 			moving = 1;
 			last_time = SDL_GetTicks() + 200;
 		}
-		if (SSL_Keybord_Keyname_Down("_s")) {
+		if (SSL_Keybord_Keyname_Down("_s") && SSL_Tiled_Get_TileId(current_map, (player->pos.x) / 16, (player->pos.y + 16) / 16, layer) == 0) {
 			dx = player->pos.x;
 			dy = player->pos.y + 16;
 			moving = 1;
 			last_time = SDL_GetTicks() + 200;
 		}
-		if (SSL_Keybord_Keyname_Down("_d")) {
+		if (SSL_Keybord_Keyname_Down("_d") && SSL_Tiled_Get_TileId(current_map, (player->pos.x + 16) / 16, (player->pos.y) / 16, layer) == 0) {
 			dx = player->pos.x + 16;
 			dy = player->pos.y;
 			moving = 1;
