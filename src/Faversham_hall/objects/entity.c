@@ -37,7 +37,8 @@ Entity *create_player() {
 	e->pos.h = 16;
 
 	e->image.current_frame = 1;
-	e->image.max_frames = 4;
+	e->image.current_row = 0;
+	e->image.max_frames = 3;
 	e->image.next_frame = 0;
 	e->image.time_frame = 0;
 	e->image.image = SSL_Image_Load("../extras/resources/sprites/test_sprite_ignore_me.png", 16,16,game_window);
