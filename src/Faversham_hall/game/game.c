@@ -68,7 +68,7 @@ static void move_player(double delta) {
 		} else {
 			player->image.current_row = 0;
 		}
-		SSL_Light_SetPos(player->light, player->pos.x - world_offset_x,player->pos.y - world_offset_y);
+		SSL_Light_SetPos(player->light, player->pos.x - world_offset_x ,player->pos.y - world_offset_y);
 	} else {
 		if (player->pos.x == dx && player->pos.y == dy) {
 			moving=0;
@@ -139,9 +139,6 @@ void game_clean_up(Game_States new_state) {
 \-----------------------------------------------------------------------------*/
 void game_ticks(double delta, int uptime) {
 	move_player(delta);
-
-	if (world_offset_x > 0) { world_offset_x = 0; }
-	if (world_offset_y > 0) { world_offset_y = 0; }
 }
 
 
