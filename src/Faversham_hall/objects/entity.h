@@ -71,9 +71,6 @@ typedef struct _entity_ {
                             Function prototypes
  ---------------------------------------------------------------------------*/
 
-
-Entity *create_player();
-
 /*!--------------------------------------------------------------------------
   @brief	Destroys a entity
   @param    entity		 entity to destroy
