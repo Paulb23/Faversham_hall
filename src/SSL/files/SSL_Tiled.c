@@ -408,7 +408,7 @@ void SSL_Tiled_Draw_Lights(SSL_Tiled_Map *map, int xOffset, int yOffset, SSL_Win
 				int x1 = i-x;
 				int y1 = j-y;
 				int l = sqrt(x1*x1+y1*y1);
-				if (l < light->range && SSL_Raytrace(x * tile_width, y * tile_height, i * tile_width, j * tile_height, map, func) == 0) {
+				if (l < light->range && (SSL_Light_Raytrace(x * tile_width, y * tile_height, i * tile_width, j * tile_height, map, func) == 0 || SSL_Light_Raytrace_up(x * tile_width, y * tile_height, i * tile_width, j * tile_height, map, func) == 0 || SSL_Light_Raytrace_left(x * tile_width, y * tile_height, i * tile_width, j * tile_height, map, func) == 0)) {
 					light_map[i][j] = 1;
 				}
 

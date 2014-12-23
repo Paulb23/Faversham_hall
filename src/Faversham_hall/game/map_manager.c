@@ -79,7 +79,7 @@ void load_lights(SSL_Tiled_Map *map) {
 	for (i = 0; i < SSL_Tiled_Get_Width(map); i++) {
 		for (j = 0; j < SSL_Tiled_Get_Height(map); j++) {
 			if(SSL_Tiled_Get_TileId(map, i, j, layer) == 2) {
-				SSL_Light *light = SSL_Light_Create(i *16, j *16, 0, 0, 7, 0, SSL_Color_Create(255,255,255,255));
+				SSL_Light *light = SSL_Light_Create(i *16, j *16, 0, 0, 4, 0, SSL_Color_Create(255,255,255,255));
 				SSL_Tiled_Add_Light(map, light);
 			}
 		}
@@ -95,7 +95,7 @@ int raytrace(int x, int y, void *map1) {
 	   SSL_Tiled_Map *map = (SSL_Tiled_Map *)map1;
 	   int layer = SSL_Tiled_Get_LayerIndex(map, "lighting");
        if(SSL_Tiled_Get_TileId(map,x/map->map.tile_width,y/map->map.tile_height, layer) == 1) {
-        	return 1;
+    	    return 1;
         }
     return 0;
 }

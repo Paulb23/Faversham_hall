@@ -43,7 +43,7 @@ Entity *create_player() {
 	e->image.time_frame = 0;
 	e->image.image = SSL_Image_Load("../extras/resources/sprites/test_sprite_ignore_me.png", 16,16,game_window);
 
-	e->light = SSL_Light_Create(16, 16, 0, 0, 7, 0, SSL_Color_Create(255,255,255,255));
+	e->light = SSL_Light_Create(16, 16, 0, 0, 4, 0, SSL_Color_Create(255,255,255,255));
 	return e;
 }
 
