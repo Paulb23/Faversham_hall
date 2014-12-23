@@ -68,7 +68,7 @@ static void move_player(double delta) {
 		} else {
 			player->image.current_row = 0;
 		}
-		SSL_Light_SetPos(player->light, player->pos.x - world_offset_x ,player->pos.y - world_offset_y);
+		SSL_Light_SetPos(player->light, player->pos.x ,player->pos.y);
 	} else {
 		if (player->pos.x == dx && player->pos.y == dy) {
 			moving=0;
@@ -91,7 +91,7 @@ static void load_level(char *map_name) {
 	current_map = load_map(map_name);
 	map_ini = load_ini(map_name);
 	load_lights(current_map);
-	SSL_Tiled_Set_Lighting(current_map, SSL_Color_Create(0, 0, 0, 240));
+	SSL_Tiled_Set_Lighting(current_map, SSL_Color_Create(0, 0, 0, 230));
 }
 
 /*---------------------------------------------------------------------------
@@ -139,6 +139,9 @@ void game_clean_up(Game_States new_state) {
 \-----------------------------------------------------------------------------*/
 void game_ticks(double delta, int uptime) {
 	move_player(delta);
+
+	world_offset_x = -((player->pos.x) - (WINDOW_RES_WIDTH / 2));
+	world_offset_y = -((player->pos.y) - (WINDOW_RES_HEIGHT / 2));
 }
 
 
@@ -166,5 +169,5 @@ void game_event_handle(SDL_Event event, int uptime) {
 void game_render() {
 	SSL_Tiled_Draw_Map(current_map, world_offset_x, world_offset_y, game_window);
 	SSL_Tiled_Draw_Lights(current_map, world_offset_x, world_offset_y, game_window, raytrace);
-	SSL_Image_Draw(player->image.image, player->pos.x, player->pos.y, 0, player->image.current_frame + (player->image.max_frames * player->image.current_row), 0, game_window);
+	SSL_Image_Draw(player->image.image, player->pos.x + world_offset_x, player->pos.y + world_offset_y, 0, player->image.current_frame + (player->image.max_frames * player->image.current_row), 0, game_window);
 }
