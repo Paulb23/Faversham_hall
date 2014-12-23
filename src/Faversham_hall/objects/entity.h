@@ -48,7 +48,7 @@ typedef struct _entity_image_ {
 	SSL_Image *image;			/**< image of the entity */
 	int max_frames;				/**< max frame per animation */
 	int current_frame;			/**< current frame of the animation */
-	int current_row;
+	int current_row;			/**< current row of frames */
 	long time_frame;			/**< time between frames */
 	long next_frame;			/**< time to change frames */
 } Entity_image;
@@ -70,6 +70,17 @@ typedef struct _entity_ {
 /*---------------------------------------------------------------------------
                             Function prototypes
  ---------------------------------------------------------------------------*/
+
+/*!--------------------------------------------------------------------------
+  @brief	Updates the current animation frame
+  @param    entity		 entity to update
+  @return 	Void
+
+  Updates the current animation frame for the entity
+
+\-----------------------------------------------------------------------------*/
+void entity_update_frame(Entity *entity);
+
 
 /*!--------------------------------------------------------------------------
   @brief	Destroys a entity
