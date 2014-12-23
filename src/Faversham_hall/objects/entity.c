@@ -37,13 +37,13 @@
 
 \-----------------------------------------------------------------------------*/
 void entity_update_frame(Entity *entity) {
-	if (SDL_GetTicks() > entity->image.next_frame) {
-		entity->image.current_frame += 1;
+	if (SDL_GetTicks() > entity->image.next_frame) {					// check it time to update
+		entity->image.current_frame += 1;								// goto next frame
 
-		if (entity->image.current_frame > entity->image.max_frames) {
-			entity->image.current_frame = 1;
+		if (entity->image.current_frame > entity->image.max_frames) {	// if it's greater the max frames
+			entity->image.current_frame = 1;							// set it to loop
 		}
-
+																		// calculate the frame update time
 		entity->image.next_frame = SDL_GetTicks() + entity->image.time_frame;
 	}
 }

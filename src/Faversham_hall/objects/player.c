@@ -73,58 +73,58 @@ Player *player_create() {
   Moves a player
 
 \-----------------------------------------------------------------------------*/
-void player_move(Player *player, double delta, SSL_Tiled_Map *map) {
-	if (!player->moving && SDL_GetTicks() > player->last_move_time) {
-		int layer = SSL_Tiled_Get_LayerIndex(map, "collsion");
+void player_move(Player *player, SSL_Tiled_Map *map) {
+	if (!player->moving && SDL_GetTicks() > player->last_move_time) {	// check we can move
+		int layer = SSL_Tiled_Get_LayerIndex(map, "collsion");			// get the collision layer
 
-		int tile_width = SSL_Tiled_Get_Tile_Width(map);
+		int tile_width = SSL_Tiled_Get_Tile_Width(map);					// get tile size
 		int tile_height = SSL_Tiled_Get_Tile_Height(map);
-		int player_tile_x = player->entity.pos.x / tile_width;
+		int player_tile_x = player->entity.pos.x / tile_width;			// get player tile number
 		int player_tile_y = player->entity.pos.y / tile_height;
 
-		int move_delay = 200;
+		int move_delay = 200;											// default delay between moves
 
 		int moved = 0;
-
+																		// up movment
 		if (SSL_Keybord_Keyname_Down("_w") && SSL_Tiled_Get_TileId(map, player_tile_x, player_tile_y - 1, layer) == 0) {
 			player->destination_x = player->entity.pos.x;
 			player->destination_y = player->entity.pos.y - tile_height;
 			player->entity.image.current_row = 0;
-			moved = 1;
+			moved = 1;													// left movment
 		} else if (SSL_Keybord_Keyname_Down("_a") && SSL_Tiled_Get_TileId(map, player_tile_x - 1, player_tile_y, layer) == 0) {
 			player->destination_x = player->entity.pos.x - tile_width;
 			player->destination_y = player->entity.pos.y;
 			player->entity.image.current_row = 2;
-			moved = 1;
+			moved = 1;													// down movment
 		} else if (SSL_Keybord_Keyname_Down("_s") && SSL_Tiled_Get_TileId(map, player_tile_x, player_tile_y + 1, layer) == 0) {
 			player->destination_x = player->entity.pos.x;
 			player->destination_y = player->entity.pos.y + tile_height;
 			player->entity.image.current_row = 3;
-			moved = 1;
+			moved = 1;													// right movment
 		} else if (SSL_Keybord_Keyname_Down("_d") && SSL_Tiled_Get_TileId(map, player_tile_x + 1, player_tile_y, layer) == 0) {
 			player->destination_x = player->entity.pos.x + tile_width;
 			player->destination_y = player->entity.pos.y;
 			player->entity.image.current_row = 1;
 			moved = 1;
-		} else {
+		} else {														// no moment, set to idle
 			player->entity.image.current_row = 0;
 		}
 
-		if (moved) {
+		if (moved) {													// if we moved set flag and calculate next move time.
 			player->moving = 1;
 			player->last_move_time = SDL_GetTicks() + move_delay;
 		}
-		SSL_Light_SetPos(player->entity.light, player->entity.pos.x ,player->entity.pos.y);
-	} else {
-		if (player->entity.pos.x == player->destination_x && player->entity.pos.y == player->destination_y) {
+		SSL_Light_SetPos(player->entity.light, player->entity.pos.x ,player->entity.pos.y);							// update the light
+	} else {																										// else we are moving
+		if (player->entity.pos.x == player->destination_x && player->entity.pos.y == player->destination_y) {		// check we are not at destination
 			player->moving=0;
 			return;
 		}
 
-		float vx = player->destination_x - player->entity.pos.x;
+		float vx = player->destination_x - player->entity.pos.x;													// else calculate next move
 		float vy = player->destination_y - player->entity.pos.y;
 
-		player->entity.pos.x += vx;
+		player->entity.pos.x += vx;																					// set position
 		player->entity.pos.y += vy;
 	}
 }

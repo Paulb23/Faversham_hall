@@ -63,7 +63,7 @@ Player *player_create();
   Moves a player
 
 \-----------------------------------------------------------------------------*/
-void player_move(Player *player, double delta, SSL_Tiled_Map *map);
+void player_move(Player *player, SSL_Tiled_Map *map);
 
 
 /*!--------------------------------------------------------------------------
