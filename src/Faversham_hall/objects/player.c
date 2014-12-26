@@ -16,6 +16,7 @@
 #include "player.h"
 #include "../../SSL/SSL.h"
 #include "../window_manager.h"
+#include "../config.h"
 #include "entity.h"
 
 
@@ -86,22 +87,22 @@ void player_move(Player *player, SSL_Tiled_Map *map) {
 
 		int moved = 0;
 																		// up movment
-		if (SSL_Keybord_Keyname_Down("_w") && SSL_Tiled_Get_TileId(map, player_tile_x, player_tile_y - 1, layer) == 0) {
+		if (SSL_Keybord_Keyname_Down(UP_KEY) && SSL_Tiled_Get_TileId(map, player_tile_x, player_tile_y - 1, layer) == 0) {
 			player->destination_x = player->entity.pos.x;
 			player->destination_y = player->entity.pos.y - tile_height;
 			player->entity.image.current_row = 0;
 			moved = 1;													// left movment
-		} else if (SSL_Keybord_Keyname_Down("_a") && SSL_Tiled_Get_TileId(map, player_tile_x - 1, player_tile_y, layer) == 0) {
+		} else if (SSL_Keybord_Keyname_Down(LEFT_KEY) && SSL_Tiled_Get_TileId(map, player_tile_x - 1, player_tile_y, layer) == 0) {
 			player->destination_x = player->entity.pos.x - tile_width;
 			player->destination_y = player->entity.pos.y;
 			player->entity.image.current_row = 2;
 			moved = 1;													// down movment
-		} else if (SSL_Keybord_Keyname_Down("_s") && SSL_Tiled_Get_TileId(map, player_tile_x, player_tile_y + 1, layer) == 0) {
+		} else if (SSL_Keybord_Keyname_Down(DOWN_KEY) && SSL_Tiled_Get_TileId(map, player_tile_x, player_tile_y + 1, layer) == 0) {
 			player->destination_x = player->entity.pos.x;
 			player->destination_y = player->entity.pos.y + tile_height;
 			player->entity.image.current_row = 3;
 			moved = 1;													// right movment
-		} else if (SSL_Keybord_Keyname_Down("_d") && SSL_Tiled_Get_TileId(map, player_tile_x + 1, player_tile_y, layer) == 0) {
+		} else if (SSL_Keybord_Keyname_Down(RIGHT_KEY) && SSL_Tiled_Get_TileId(map, player_tile_x + 1, player_tile_y, layer) == 0) {
 			player->destination_x = player->entity.pos.x + tile_width;
 			player->destination_y = player->entity.pos.y;
 			player->entity.image.current_row = 1;
