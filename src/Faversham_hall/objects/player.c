@@ -153,6 +153,27 @@ int player_check_load(SDL_Event event, Player *player, SSL_Tiled_Map *map) {
 
 
 /*!--------------------------------------------------------------------------
+  @brief	Should we start conversation
+  @param	event 		 the event queue
+  @param    player		 player to check
+  @param    map			 map the player is on
+  @return 	1 on loading, else 0
+
+  Checks whether the player is on a conversation tile, and has started the conversation.
+
+\-----------------------------------------------------------------------------*/
+int player_character_interaction_check(SDL_Event event, Player *player, SSL_Tiled_Map *map) {
+	int layer = SSL_Tiled_Get_LayerIndex(map, "other");					// get the loading tile layer
+	if (SSL_Tiled_Get_TileId(map, entity_get_tile_x((Entity *)&player->entity, map), entity_get_tile_y((Entity *)&player->entity, map), layer) == 4) {
+		if (SSL_Keybord_Keyname_Pressed(INTERACT_KEY, event)) {			// check the player wants to load
+			return 1;
+		}
+	}
+ return 0;
+}
+
+
+/*!--------------------------------------------------------------------------
   @brief	Destroys a player
   @param    player		 player to destroy
   @return 	Void

@@ -20,6 +20,7 @@
 #include "../objects/player.h"
 #include "../objects/ai.h"
 #include "map_manager.h"
+#include "../asset_manager.h"
 #include "SDL2/SDL.h"
 
 
@@ -157,6 +158,14 @@ void game_event_handle(SDL_Event event, int uptime) {
 	if(player_check_load(event, player, current_map)) {
 		load_next_level();
 	}
+
+	/* check for character interaction and if so
+	 * start the conversation
+	 */
+	if(player_character_interaction_check(event, player, current_map)) {
+		printf("Talking the you.... \n");
+		//start_dialog();
+	}
 }
 
 
@@ -180,9 +189,9 @@ void game_render() {
 
 	int layer = SSL_Tiled_Get_LayerIndex(current_map, "other");					// get the loading tile layer
 	if (SSL_Tiled_Get_TileId(current_map, entity_get_tile_x((Entity *)&player->entity, current_map), entity_get_tile_y((Entity *)&player->entity, current_map), layer) == 1) {
-		SSL_Font_Draw(10, 10, 0 ,SDL_FLIP_NONE, "Press E to load", asset_manager_getFont("test_font"), SSL_Color_Create(255,255,255,0), game_window);
+		SSL_Font_Draw(10, 10, 0 ,SDL_FLIP_NONE, "Press E to load", (SSL_Font *)asset_manager_getFont("test_font"), SSL_Color_Create(255,255,255,0), game_window);
 	}
 	if (SSL_Tiled_Get_TileId(current_map, entity_get_tile_x((Entity *)&player->entity, current_map), entity_get_tile_y((Entity *)&player->entity, current_map), layer) == 4) {
-		SSL_Font_Draw(10, 25, 0 ,SDL_FLIP_NONE, "Press E to Talk", asset_manager_getFont("test_font"), SSL_Color_Create(255,255,255,0), game_window);
+		SSL_Font_Draw(10, 25, 0 ,SDL_FLIP_NONE, "Press E to Talk", (SSL_Font *)asset_manager_getFont("test_font"), SSL_Color_Create(255,255,255,0), game_window);
 	}
 }

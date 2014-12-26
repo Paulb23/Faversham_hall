@@ -79,6 +79,19 @@ int player_check_load(SDL_Event event, Player *player, SSL_Tiled_Map *map);
 
 
 /*!--------------------------------------------------------------------------
+  @brief	Should we start conversation
+  @param	event 		 the event queue
+  @param    player		 player to check
+  @param    map			 map the player is on
+  @return 	1 on loading, else 0
+
+  Checks whether the player is on a conversation tile, and has started the conversation.
+
+\-----------------------------------------------------------------------------*/
+int player_character_interaction_check(SDL_Event event, Player *player, SSL_Tiled_Map *map);
+
+
+/*!--------------------------------------------------------------------------
   @brief	Destroys a player
   @param    player		 player to destroy
   @return 	Void
