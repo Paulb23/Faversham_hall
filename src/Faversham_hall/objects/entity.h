@@ -72,6 +72,19 @@ typedef struct _entity_ {
  ---------------------------------------------------------------------------*/
 
 /*!--------------------------------------------------------------------------
+  @brief	Sets the position of the entity
+  @param    entity		 entity to update
+  @param	x			 New x position of the entity
+  @param	y			 New y position of the entity
+  @return 	Void
+
+  Updates the current animation frame for the entity
+
+\-----------------------------------------------------------------------------*/
+void entity_set_pos(Entity *entity, int x, int y);
+
+
+/*!--------------------------------------------------------------------------
   @brief	Updates the current animation frame
   @param    entity		 entity to update
   @return 	Void

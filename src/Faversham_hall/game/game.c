@@ -58,9 +58,15 @@ static void load_level(char *map_name) {
 
 \-----------------------------------------------------------------------------*/
 void game_init() {
-	load_level("test_map");
+	map_ini = load_ini("start_map");
+	int start_x = SSL_IniFile_GetInt(map_ini, "00", "startX", 1);
+	int start_y = SSL_IniFile_GetInt(map_ini, "00", "startY", 1);
+	load_level(SSL_IniFile_GetString(map_ini, "00", "load", "test_map"));
+
 	player = player_create();
 	SSL_Tiled_Add_Light(current_map, player->entity.light);
+	entity_set_pos((Entity *)&player->entity, start_x * SSL_Tiled_Get_Tile_Width(current_map), start_y * SSL_Tiled_Get_Tile_Height(current_map));
+
 	world_offset_x = 0;
 	world_offset_y = 0;
 }
