@@ -56,7 +56,6 @@ Player *player_create();
 /*!--------------------------------------------------------------------------
   @brief	Moves a player
   @param    player		 player to move
-  @param    delta		 delta time
   @param    map			 map the player is on
   @return 	Void
 
@@ -64,6 +63,18 @@ Player *player_create();
 
 \-----------------------------------------------------------------------------*/
 void player_move(Player *player, SSL_Tiled_Map *map);
+
+
+/*!--------------------------------------------------------------------------
+  @brief	Should we load
+  @param    player		 player to check
+  @param    map			 map the player is on
+  @return 	1 on loading, else 0
+
+  Checks whether the player is on a loading tile, and has started the load.
+
+\-----------------------------------------------------------------------------*/
+int player_check_load(Player *player, SSL_Tiled_Map *map);
 
 
 /*!--------------------------------------------------------------------------

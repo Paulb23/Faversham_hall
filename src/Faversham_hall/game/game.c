@@ -97,6 +97,7 @@ void game_clean_up(Game_States new_state) {
 void game_ticks(double delta, int uptime) {
 	entity_update_frame((Entity *)&player->entity);
 	player_move(player,current_map);
+	player_check_load(player, current_map);
 
 	world_offset_x = -((player->entity.pos.x) - (WINDOW_RES_WIDTH / 2));
 	world_offset_y = -((player->entity.pos.y) - (WINDOW_RES_HEIGHT / 2));

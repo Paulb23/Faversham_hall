@@ -45,6 +45,34 @@ void entity_set_pos(Entity *entity, int x, int y) {
 
 
 /*!--------------------------------------------------------------------------
+  @brief	Gets the tile x that the entity is on
+  @param    entity		 entity to get the tile of
+  @param	map			 map to use
+  @return 	Current x tile of the entity
+
+  Gets the tile x that the entity is on
+
+\-----------------------------------------------------------------------------*/
+int entity_get_tile_x(Entity *entity, SSL_Tiled_Map *map) {
+	return entity->pos.x / SSL_Tiled_Get_Tile_Width(map);
+}
+
+
+/*!--------------------------------------------------------------------------
+  @brief	Gets the tile y that the entity is on
+  @param    entity		 entity to get the tile of
+  @param	map			 map to use
+  @return 	Current x tile of the entity
+
+  Gets the tile y that the entity is on
+
+\-----------------------------------------------------------------------------*/
+int entity_get_tile_y(Entity *entity, SSL_Tiled_Map *map) {
+	return entity->pos.y / SSL_Tiled_Get_Tile_Height(map);
+}
+
+
+/*!--------------------------------------------------------------------------
   @brief	Updates the current animation frame
   @param    entity		 entity to update
   @return 	Void

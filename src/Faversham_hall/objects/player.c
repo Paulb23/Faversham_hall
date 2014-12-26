@@ -67,7 +67,6 @@ Player *player_create() {
 /*!--------------------------------------------------------------------------
   @brief	Moves a player
   @param    player		 player to move
-  @param    delta		 delta time
   @param    map			 map the player is on
   @return 	Void
 
@@ -128,6 +127,26 @@ void player_move(Player *player, SSL_Tiled_Map *map) {
 		player->entity.pos.x += vx;																					// set position
 		player->entity.pos.y += vy;
 	}
+}
+
+
+/*!--------------------------------------------------------------------------
+  @brief	Should we load
+  @param    player		 player to check
+  @param    map			 map the player is on
+  @return 	1 on loading, else 0
+
+  Checks whether the player is on a loading tile, and has started the load.
+
+\-----------------------------------------------------------------------------*/
+int player_check_load(Player *player, SSL_Tiled_Map *map) {
+	if (SSL_Keybord_Keyname_Down(INTERACT_KEY)) {					// check the player wants to load
+		int layer = SSL_Tiled_Get_LayerIndex(map, "other");			// get the loading tile layer
+		if (SSL_Tiled_Get_TileId(map, entity_get_tile_x((Entity *)&player->entity, map), entity_get_tile_y((Entity *)&player->entity, map), layer) == 1) {
+			return 1;
+		}
+	}
+ return 0;
 }
 
 
