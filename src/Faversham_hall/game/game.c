@@ -34,7 +34,6 @@ static int world_offset_y;
 
 static Player *player;
 
-
 /*----------------------------------
      Loads the level
  ----------------------------------*/
@@ -45,6 +44,24 @@ static void load_level(char *map_name) {
 	load_lights(current_map);
 	SSL_Tiled_Set_Lighting(current_map, SSL_Color_Create(0, 0, 0, 230));
 }
+
+
+/*----------------------------------
+     Loads the next level
+ ----------------------------------*/
+
+static void load_next_level() {
+	char pos[50] = "";
+	sprintf(pos, "%i%i", player->entity.pos.x / SSL_Tiled_Get_Tile_Width(current_map), player->entity.pos.y / SSL_Tiled_Get_Tile_Height(current_map));
+	int start_x = SSL_IniFile_GetInt(map_ini, pos , "startX", 1);
+	int start_y = SSL_IniFile_GetInt(map_ini, pos, "startY", 1);
+	load_level(SSL_IniFile_GetString(map_ini, pos, "load", "test_map"));
+	entity_set_pos((Entity *)&player->entity, start_x * SSL_Tiled_Get_Tile_Width(current_map), start_y * SSL_Tiled_Get_Tile_Height(current_map));
+	player->destination_x = start_x * SSL_Tiled_Get_Tile_Width(current_map);
+	player->destination_y = start_y * SSL_Tiled_Get_Tile_Width(current_map);
+	SSL_Tiled_Add_Light(current_map, player->entity.light);
+}
+
 
 /*---------------------------------------------------------------------------
                             Function codes
@@ -120,15 +137,7 @@ void game_event_handle(SDL_Event event, int uptime) {
 	 * load the map and set up the player
 	 */
 	if(player_check_load(event, player, current_map)) {
-		char pos[50] = "";
-		sprintf(pos, "%i%i", player->entity.pos.x / SSL_Tiled_Get_Tile_Width(current_map), player->entity.pos.y / SSL_Tiled_Get_Tile_Height(current_map));
-		int start_x = SSL_IniFile_GetInt(map_ini, pos , "startX", 1);
-		int start_y = SSL_IniFile_GetInt(map_ini, pos, "startY", 1);
-		load_level(SSL_IniFile_GetString(map_ini, pos, "load", "test_map"));
-		entity_set_pos((Entity *)&player->entity, start_x * SSL_Tiled_Get_Tile_Width(current_map), start_y * SSL_Tiled_Get_Tile_Height(current_map));
-		player->destination_x = start_x * SSL_Tiled_Get_Tile_Width(current_map);
-		player->destination_y = start_y * SSL_Tiled_Get_Tile_Width(current_map);
-		SSL_Tiled_Add_Light(current_map, player->entity.light);
+		load_next_level();
 	}
 }
 
