@@ -37,6 +37,11 @@ int TEXTURE_SCALING;
 int VSYNC;
 int WINDOWED;
 int BORDERLESS;
+char *UP_KEY;
+char *DOWN_KEY;
+char *LEFT_KEY;
+char *RIGHT_KEY;
+char *INTERACT_KEY;
 
 
 /*----------------------------------
@@ -49,14 +54,22 @@ static char *title_default = "this is the window title";
 static int window_width_default = 800;
 static int window_height_default = 600;
 
-static int window_res_width_default = 800;
-static int window_res_height_default = 600;
+static int window_res_width_default = 320;
+static int window_res_height_default = 240;
 
 static int max_ticks_per_second_default = 60;
-static int smooth_texture_scaling_default =2;
+static int smooth_texture_scaling_default = 0;
 static int vsync_default = 0;
 static int windowed_default = 1;
 static int borderless_default = 0;
+
+
+static char *up_key_default = "_w";
+static char *down_key_default = "_s";
+static char *left_key_default = "_a";
+static char *right_key_default = "_d";
+static char *interact_key_default = "_e";
+
 
 
 /*----------------------------------
@@ -103,6 +116,26 @@ static void print_game_block(FILE *file) {
 /*----------------------------------
  ----------------------------------*/
 
+static void print_key_block(FILE *file) {
+	fprintf(file,
+	"[keys]\n; All keys start with a _ followed by the key name e.g _1, _e ect. \n\n"
+	"up_key = %s\t; movement up key\n"
+	"down_key = %s\t; movement down key\n"
+	"left_key = %s\t; movement left key\n"
+	"right_key = %s\t; movement right key\n"
+	"interact_key = %s\t; interaction key\n"
+	,up_key_default
+	,down_key_default
+	,left_key_default
+	,right_key_default
+	,interact_key_default
+	);
+}
+
+
+/*----------------------------------
+ ----------------------------------*/
+
 static int create_config() {
 	FILE *file = fopen(CONFIG_PATH, "a");
 
@@ -112,6 +145,7 @@ static int create_config() {
 
 	print_display_block(file);
 	print_game_block(file);
+	print_key_block(file);
 
 	fclose(file);
 	return 0;
@@ -124,7 +158,7 @@ static int create_config() {
 
 static void check_sections_exit(SSL_IniFile *ini) {
 	int i;
-	for (i = 0; i < SECTION_COUNT; i++) {
+	for (i = 0; i <= SECTION_COUNT; i++) {
 		if(!SSL_Inifile_GetSection_Name(ini, i)) {
 			FILE *file = fopen(CONFIG_PATH, "a");
 			fprintf(file,"\n");
@@ -132,6 +166,8 @@ static void check_sections_exit(SSL_IniFile *ini) {
 				print_display_block(file);
 			} else if (i == 1) {
 				print_game_block(file);
+			} else if (i == 2) {
+				print_key_block(file);
 			}
 			fclose(file);
 		}
@@ -211,6 +247,41 @@ static void read_game_section(SSL_IniFile *ini) {
 	}
 }
 
+/*----------------------------------
+ ----------------------------------*/
+
+static void read_key_section(SSL_IniFile *ini) {
+	UP_KEY = SSL_IniFile_GetString(ini, "keys", "up_key", (char *)-1);
+	if (UP_KEY == (char *)-1) {
+		UP_KEY = up_key_default;
+		SSL_Log_Write("Error: ini missing up_key, reverting to default!");
+	}
+
+	DOWN_KEY = SSL_IniFile_GetString(ini, "keys", "down_key", (char *)-1);
+	if (DOWN_KEY == (char *)-1) {
+		DOWN_KEY = down_key_default;
+		SSL_Log_Write("Error: ini missing down_key, reverting to default!");
+	}
+
+	LEFT_KEY = SSL_IniFile_GetString(ini, "keys", "left_key", (char *)-1);
+	if (LEFT_KEY == (char *)-1) {
+		LEFT_KEY = left_key_default;
+		SSL_Log_Write("Error: ini missing left_key, reverting to default!");
+	}
+
+	RIGHT_KEY = SSL_IniFile_GetString(ini, "keys", "right_key", (char *)-1);
+	if (RIGHT_KEY == (char *)-1) {
+		RIGHT_KEY = right_key_default;
+		SSL_Log_Write("Error: ini missing left_key, reverting to default!");
+	}
+
+	INTERACT_KEY = SSL_IniFile_GetString(ini, "keys", "interact_key", (char *)-1);
+	if (INTERACT_KEY == (char *)-1) {
+		INTERACT_KEY = interact_key_default;
+		SSL_Log_Write("Error: ini missing interact_key, reverting to default!");
+	}
+}
+
 
 /*---------------------------------------------------------------------------
                             Function codes
@@ -249,6 +320,7 @@ int load_config(char *path) {
 
 	read_display_section(ini);						// read in the sections
 	read_game_section(ini);
+	read_key_section(ini);
 
 	return 0;
 }
