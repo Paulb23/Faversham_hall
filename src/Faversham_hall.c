@@ -21,6 +21,7 @@
 #include "SDL2/SDL_Image.h"
 #include "SDL2/SDL_TTF.h"
 #include "SSL/SSL.h"
+#include "time.h"
 
 
 /*---------------------------------------------------------------------------
@@ -98,6 +99,10 @@ int main(int argc, char *argv[]) {
 	if (setup_game() != 0) {
 		return 1;
 	}
+
+
+	// seed the random generator
+	srand ( time(NULL) );
 
 	// switch state and start game
 	switch_state(GAME_STATE);

@@ -76,6 +76,18 @@ void load_ai(SSL_Tiled_Map *map, SSL_List *list);
 
 
 /*!--------------------------------------------------------------------------
+  @brief	Could place the servant
+  @param	map		Map to load the servant on
+  @param	list	The list to add the servant to
+  @return 	Void
+
+  Loads and add the servant to the map and list.
+
+\-----------------------------------------------------------------------------*/
+void load_servant(SSL_Tiled_Map *map, SSL_List *list);
+
+
+/*!--------------------------------------------------------------------------
   @brief	raytrace for lights
 
 \-----------------------------------------------------------------------------*/

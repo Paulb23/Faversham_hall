@@ -55,6 +55,7 @@ static void load_level(char *map_name) {
 	}
 	ai = SSL_List_Create();
 	load_ai(current_map, ai);
+	load_servant(current_map, ai);
 }
 
 

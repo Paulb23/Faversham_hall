@@ -163,6 +163,54 @@ void load_ai(SSL_Tiled_Map *map, SSL_List *list) {
 
 
 /*!--------------------------------------------------------------------------
+  @brief	Could place the servant
+  @param	map		Map to load the servant on
+  @param	list	The list to add the servant to
+  @return 	Void
+
+  Loads and add the servant to the map and list.
+
+\-----------------------------------------------------------------------------*/
+void load_servant(SSL_Tiled_Map *map, SSL_List *list) {
+	int num = rand() % 100 + 0;
+	if (num < 20) {	/* 20% chance */
+		AI *ai = ai_create("servant");
+		int valid = 0;
+		int i = 0;
+		int j = 0;
+
+		int other = SSL_Tiled_Get_LayerIndex(map, "other");
+		int puzzle = SSL_Tiled_Get_LayerIndex(map, "puzzle");
+		int characters = SSL_Tiled_Get_LayerIndex(map, "characters");
+		int lighting = SSL_Tiled_Get_LayerIndex(map, "lighting");
+		int collsion = SSL_Tiled_Get_LayerIndex(map, "collsion");
+
+		while (valid == 0) {
+			i = rand() % SSL_Tiled_Get_Width(map);
+			j = rand() % SSL_Tiled_Get_Height(map);
+
+			if (SSL_Tiled_Get_TileId(map, i, j, other) == 0) {
+				if (SSL_Tiled_Get_TileId(map, i, j, puzzle) == 0) {
+					if (SSL_Tiled_Get_TileId(map, i, j, characters) == 0) {
+						if (SSL_Tiled_Get_TileId(map, i, j, lighting) == 0) {
+							if (SSL_Tiled_Get_TileId(map, i, j, collsion) == 0) {
+								valid = 1;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		entity_set_pos((Entity *)&ai->entity, i * SSL_Tiled_Get_Tile_Width(map), j * SSL_Tiled_Get_Tile_Height(map));
+		SSL_Light_SetPos(ai->entity.light, ai->entity.pos.x ,ai->entity.pos.y);
+		SSL_Tiled_Add_Light(map, ai->entity.light);
+		SSL_List_Add(list, ai);
+	}
+}
+
+
+/*!--------------------------------------------------------------------------
   @brief	raytrace for lights
 
 \-----------------------------------------------------------------------------*/
