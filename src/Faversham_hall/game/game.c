@@ -163,7 +163,8 @@ void game_event_handle(SDL_Event event, int uptime) {
 	 * start the conversation
 	 */
 	if(player_character_interaction_check(event, player, current_map)) {
-		printf("Talking the you.... \n");
+		char *ai_name = get_closest_ai_name(player, ai);
+		printf("%s is talking the you.... \n", ai_name);
 		//start_dialog();
 	}
 }

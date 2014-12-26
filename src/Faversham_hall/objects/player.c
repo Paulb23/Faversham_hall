@@ -19,6 +19,8 @@
 #include "../asset_manager.h"
 #include "../config.h"
 #include "entity.h"
+#include "ai.h"
+#include "math.h"
 
 
 /*---------------------------------------------------------------------------
@@ -170,6 +172,34 @@ int player_character_interaction_check(SDL_Event event, Player *player, SSL_Tile
 		}
 	}
  return 0;
+}
+
+
+/*!--------------------------------------------------------------------------
+  @brief	Gets the name of the closest ai
+  @param    player		 player to check
+  @param    list		 The list of ai
+  @return 	Name of the closet ai
+
+  Gets the name of the closest ai and returns it
+
+\-----------------------------------------------------------------------------*/
+char *get_closest_ai_name(Player *player, SSL_List *list) {
+	int i;
+	AI *ai;
+	int dist = 10000;
+	for (i = 0; i < SSL_List_Size(list); i++) {
+		AI *tmp = (AI *)SSL_List_Get(list, i);
+		int xd = player->entity.pos.x - tmp->entity.pos.x;
+		int yd = player->entity.pos.y - tmp->entity.pos.y;
+		int d =  sqrt(xd*xd + yd*yd);
+		if (d < dist) {
+			dist = d;
+			ai = tmp;
+		}
+	}
+
+	return ai->name;
 }
 
 
