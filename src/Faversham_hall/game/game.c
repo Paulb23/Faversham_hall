@@ -182,4 +182,7 @@ void game_render() {
 	if (SSL_Tiled_Get_TileId(current_map, entity_get_tile_x((Entity *)&player->entity, current_map), entity_get_tile_y((Entity *)&player->entity, current_map), layer) == 1) {
 		SSL_Font_Draw(10, 10, 0 ,SDL_FLIP_NONE, "Press E to load", asset_manager_getFont("test_font"), SSL_Color_Create(255,255,255,0), game_window);
 	}
+	if (SSL_Tiled_Get_TileId(current_map, entity_get_tile_x((Entity *)&player->entity, current_map), entity_get_tile_y((Entity *)&player->entity, current_map), layer) == 4) {
+		SSL_Font_Draw(10, 25, 0 ,SDL_FLIP_NONE, "Press E to Talk", asset_manager_getFont("test_font"), SSL_Color_Create(255,255,255,0), game_window);
+	}
 }
