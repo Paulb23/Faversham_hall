@@ -96,8 +96,9 @@ void game_clean_up(Game_States new_state) {
 \-----------------------------------------------------------------------------*/
 void game_ticks(double delta, int uptime) {
 	entity_update_frame((Entity *)&player->entity);
+
 	player_move(player,current_map);
-	player_check_load(player, current_map);
+
 
 	world_offset_x = -((player->entity.pos.x) - (WINDOW_RES_WIDTH / 2));
 	world_offset_y = -((player->entity.pos.y) - (WINDOW_RES_HEIGHT / 2));
@@ -114,7 +115,17 @@ void game_ticks(double delta, int uptime) {
 
 \-----------------------------------------------------------------------------*/
 void game_event_handle(SDL_Event event, int uptime) {
-
+	if(player_check_load(event, player, current_map)) {
+		char pos[50] = "";
+		sprintf(pos, "%i%i", player->entity.pos.x / SSL_Tiled_Get_Tile_Width(current_map), player->entity.pos.y / SSL_Tiled_Get_Tile_Height(current_map));
+		int start_x = SSL_IniFile_GetInt(map_ini, pos , "startX", 1);
+		int start_y = SSL_IniFile_GetInt(map_ini, pos, "startY", 1);
+		load_level(SSL_IniFile_GetString(map_ini, pos, "load", "test_map"));
+		entity_set_pos((Entity *)&player->entity, start_x * SSL_Tiled_Get_Tile_Width(current_map), start_y * SSL_Tiled_Get_Tile_Height(current_map));
+		SSL_Tiled_Add_Light(current_map, player->entity.light);
+		world_offset_x = 0;
+		world_offset_y = 0;
+	}
 }
 
 

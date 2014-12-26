@@ -41,8 +41,8 @@
 Player *player_create() {
 	Player *player = malloc(sizeof(Player));
 
-	player->entity.pos.x = 16;
-	player->entity.pos.y = 16;
+	player->entity.pos.x = 0;
+	player->entity.pos.y = 0;
 	player->entity.pos.w = 16;
 	player->entity.pos.h = 16;
 
@@ -139,8 +139,8 @@ void player_move(Player *player, SSL_Tiled_Map *map) {
   Checks whether the player is on a loading tile, and has started the load.
 
 \-----------------------------------------------------------------------------*/
-int player_check_load(Player *player, SSL_Tiled_Map *map) {
-	if (SSL_Keybord_Keyname_Down(INTERACT_KEY)) {					// check the player wants to load
+int player_check_load(SDL_Event event, Player *player, SSL_Tiled_Map *map) {
+	if (SSL_Keybord_Keyname_Pressed(INTERACT_KEY, event)) {			// check the player wants to load
 		int layer = SSL_Tiled_Get_LayerIndex(map, "other");			// get the loading tile layer
 		if (SSL_Tiled_Get_TileId(map, entity_get_tile_x((Entity *)&player->entity, map), entity_get_tile_y((Entity *)&player->entity, map), layer) == 1) {
 			return 1;

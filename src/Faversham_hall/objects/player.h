@@ -74,7 +74,7 @@ void player_move(Player *player, SSL_Tiled_Map *map);
   Checks whether the player is on a loading tile, and has started the load.
 
 \-----------------------------------------------------------------------------*/
-int player_check_load(Player *player, SSL_Tiled_Map *map);
+int player_check_load(SDL_Event event, Player *player, SSL_Tiled_Map *map);
 
 
 /*!--------------------------------------------------------------------------
