@@ -43,6 +43,11 @@ static int load_libaries() {
 		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "SDL Image", "FATAL: Could not start SDL Image!", NULL);
 		return 1;
 	}
+	if (TTF_Init() == -1) {
+		SSL_Log_Write("FATAL: Could not start SDL TTF!");
+		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "SDL TTF", "FATAL: Could not start SDL TTF!", NULL);
+		return 1;
+	}
 	if(Mix_Init(MIX_INIT_MP3) == 0) {
 		SSL_Log_Write("FATAL: Could not start SDL Mixer!");
 		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "SDL Mixer", "FATAL: Could not start SDL Mixer!", NULL);
@@ -103,6 +108,9 @@ int main(int argc, char *argv[]) {
 
 	// seed the random generator
 	srand ( time(NULL) );
+
+	// load tmp font for now!
+	asset_manager_addFont("test_font", SSL_Font_Load("../extras/resources/font/Calibri.ttf", 10));
 
 	// switch state and start game
 	switch_state(GAME_STATE);

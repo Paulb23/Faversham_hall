@@ -177,4 +177,9 @@ void game_render() {
 		AI *character = (AI *)SSL_List_Get(ai, i);
 		SSL_Image_Draw(character->entity.image.image, character->entity.pos.x + world_offset_x, character->entity.pos.y + world_offset_y, 0, character->entity.image.current_frame + (character->entity.image.max_frames * character->entity.image.current_row), 0, game_window);
 	}
+
+	int layer = SSL_Tiled_Get_LayerIndex(current_map, "other");					// get the loading tile layer
+	if (SSL_Tiled_Get_TileId(current_map, entity_get_tile_x((Entity *)&player->entity, current_map), entity_get_tile_y((Entity *)&player->entity, current_map), layer) == 1) {
+		SSL_Font_Draw(10, 10, 0 ,SDL_FLIP_NONE, "Press E to load", asset_manager_getFont("test_font"), SSL_Color_Create(255,255,255,0), game_window);
+	}
 }

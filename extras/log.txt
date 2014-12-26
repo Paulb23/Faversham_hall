@@ -1,70 +1,380 @@
-Thu Dec 25 23:58:04 2014
-: Error: ini missing up_key, reverting to default!
-Thu Dec 25 23:58:04 2014
-: Error: ini missing down_key, reverting to default!
-Thu Dec 25 23:58:04 2014
-: Error: ini missing left_key, reverting to default!
-Thu Dec 25 23:58:04 2014
-: Error: ini missing left_key, reverting to default!
-Thu Dec 25 23:58:04 2014
-: Error: ini missing interact_key, reverting to default!
-Thu Dec 25 23:58:14 2014
-: Error: ini missing up_key, reverting to default!
-Thu Dec 25 23:58:14 2014
-: Error: ini missing down_key, reverting to default!
-Thu Dec 25 23:58:14 2014
-: Error: ini missing left_key, reverting to default!
-Thu Dec 25 23:58:14 2014
-: Error: ini missing left_key, reverting to default!
-Thu Dec 25 23:58:14 2014
-: Error: ini missing interact_key, reverting to default!
-Thu Dec 25 23:59:00 2014
-: Error: ini missing up_key, reverting to default!
-Thu Dec 25 23:59:00 2014
-: Error: ini missing down_key, reverting to default!
-Thu Dec 25 23:59:00 2014
-: Error: ini missing left_key, reverting to default!
-Thu Dec 25 23:59:00 2014
-: Error: ini missing left_key, reverting to default!
-Thu Dec 25 23:59:00 2014
-: Error: ini missing interact_key, reverting to default!
-Thu Dec 25 23:59:16 2014
-: Error: ini missing up_key, reverting to default!
-Thu Dec 25 23:59:16 2014
-: Error: ini missing down_key, reverting to default!
-Thu Dec 25 23:59:16 2014
-: Error: ini missing left_key, reverting to default!
-Thu Dec 25 23:59:16 2014
-: Error: ini missing left_key, reverting to default!
-Thu Dec 25 23:59:16 2014
-: Error: ini missing interact_key, reverting to default!
-Thu Dec 25 23:59:57 2014
-: Error: ini missing up_key, reverting to default!
-Thu Dec 25 23:59:57 2014
-: Error: ini missing down_key, reverting to default!
-Thu Dec 25 23:59:57 2014
-: Error: ini missing left_key, reverting to default!
-Thu Dec 25 23:59:57 2014
-: Error: ini missing left_key, reverting to default!
-Thu Dec 25 23:59:57 2014
-: Error: ini missing interact_key, reverting to default!
-Fri Dec 26 00:00:55 2014
-: Error: ini missing up_key, reverting to default!
-Fri Dec 26 00:00:55 2014
-: Error: ini missing down_key, reverting to default!
-Fri Dec 26 00:00:55 2014
-: Error: ini missing left_key, reverting to default!
-Fri Dec 26 00:00:55 2014
-: Error: ini missing left_key, reverting to default!
-Fri Dec 26 00:00:55 2014
-: Error: ini missing interact_key, reverting to default!
-Fri Dec 26 00:02:46 2014
-: Error: ini missing up_key, reverting to default!
-Fri Dec 26 00:02:46 2014
-: Error: ini missing down_key, reverting to default!
-Fri Dec 26 00:02:46 2014
-: Error: ini missing left_key, reverting to default!
-Fri Dec 26 00:02:46 2014
-: Error: ini missing left_key, reverting to default!
-Fri Dec 26 00:02:46 2014
-: Error: ini missing interact_key, reverting to default!
+Fri Dec 26 23:02:13 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:13 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:13 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:13 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:13 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:13 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:13 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:13 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:13 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:13 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:13 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:13 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:13 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:13 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:13 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:13 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:13 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:13 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:13 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:13 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:13 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:13 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:13 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:13 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:13 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:13 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:13 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:13 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:13 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:13 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:13 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:13 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:13 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:13 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:13 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:13 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:13 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:13 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:13 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:13 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:13 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:13 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:13 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:13 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:13 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:13 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:13 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:13 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:13 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:13 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:13 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:13 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:13 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:13 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:13 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:13 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:13 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:13 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:13 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:13 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:13 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:13 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:13 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:13 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:13 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:14 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:14 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:14 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:14 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:25 2014
+: Failed to create font texture! 
+Fri Dec 26 23:02:26 2014
+: Failed to create font texture! 

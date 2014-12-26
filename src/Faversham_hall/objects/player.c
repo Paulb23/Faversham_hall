@@ -16,6 +16,7 @@
 #include "player.h"
 #include "../../SSL/SSL.h"
 #include "../window_manager.h"
+#include "../asset_manager.h"
 #include "../config.h"
 #include "entity.h"
 
@@ -141,9 +142,9 @@ void player_move(Player *player, SSL_Tiled_Map *map) {
 
 \-----------------------------------------------------------------------------*/
 int player_check_load(SDL_Event event, Player *player, SSL_Tiled_Map *map) {
-	if (SSL_Keybord_Keyname_Pressed(INTERACT_KEY, event)) {			// check the player wants to load
-		int layer = SSL_Tiled_Get_LayerIndex(map, "other");			// get the loading tile layer
-		if (SSL_Tiled_Get_TileId(map, entity_get_tile_x((Entity *)&player->entity, map), entity_get_tile_y((Entity *)&player->entity, map), layer) == 1) {
+	int layer = SSL_Tiled_Get_LayerIndex(map, "other");					// get the loading tile layer
+	if (SSL_Tiled_Get_TileId(map, entity_get_tile_x((Entity *)&player->entity, map), entity_get_tile_y((Entity *)&player->entity, map), layer) == 1) {
+		if (SSL_Keybord_Keyname_Pressed(INTERACT_KEY, event)) {			// check the player wants to load
 			return 1;
 		}
 	}
