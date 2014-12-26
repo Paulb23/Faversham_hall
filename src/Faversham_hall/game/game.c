@@ -18,6 +18,7 @@
 #include "../window_manager.h"
 #include "../objects/entity.h"
 #include "../objects/player.h"
+#include "../objects/ai.h"
 #include "map_manager.h"
 #include "SDL2/SDL.h"
 
@@ -35,6 +36,7 @@ static int world_offset_x;			/**< X offset of the world */
 static int world_offset_y;			/**< Y offset of the world */
 
 static Player *player;				/**< The player */
+static SSL_List *ai;
 
 /*----------------------------------
      Loads the level
@@ -46,6 +48,13 @@ static void load_level(char *map_name) {
 	current_map_name = map_name;
 	load_lights(current_map);
 	SSL_Tiled_Set_Lighting(current_map, SSL_Color_Create(0, 0, 0, 230));
+
+	// destory the old list
+	if (ai) {
+		SSL_List_Destroy(ai);
+	}
+	ai = SSL_List_Create();
+	load_ai(current_map, ai);
 }
 
 
@@ -117,8 +126,13 @@ void game_clean_up(Game_States new_state) {
 void game_ticks(double delta, int uptime) {
 	entity_update_frame((Entity *)&player->entity);
 
-	player_move(player,current_map);
+	int i;
+	for (i = 0; i < SSL_List_Size(ai); i++) {
+		AI *character = (AI *)SSL_List_Get(ai, i);
+		entity_update_frame((Entity *)&character->entity);
+	}
 
+	player_move(player,current_map);
 
 	world_offset_x = -((player->entity.pos.x) - (WINDOW_RES_WIDTH / 2));
 	world_offset_y = -((player->entity.pos.y) - (WINDOW_RES_HEIGHT / 2));
@@ -156,4 +170,10 @@ void game_render() {
 	SSL_Tiled_Draw_Map(current_map, world_offset_x, world_offset_y, game_window);
 	SSL_Tiled_Draw_Lights(current_map, world_offset_x, world_offset_y, game_window, raytrace);
 	SSL_Image_Draw(player->entity.image.image, player->entity.pos.x + world_offset_x, player->entity.pos.y + world_offset_y, 0, player->entity.image.current_frame + (player->entity.image.max_frames * player->entity.image.current_row), 0, game_window);
+
+	int i;
+	for (i = 0; i < SSL_List_Size(ai); i++) {
+		AI *character = (AI *)SSL_List_Get(ai, i);
+		SSL_Image_Draw(character->entity.image.image, character->entity.pos.x + world_offset_x, character->entity.pos.y + world_offset_y, 0, character->entity.image.current_frame + (character->entity.image.max_frames * character->entity.image.current_row), 0, game_window);
+	}
 }

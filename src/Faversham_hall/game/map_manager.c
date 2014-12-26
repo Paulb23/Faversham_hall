@@ -17,6 +17,8 @@
 #include "SDL2/SDL.h"
 #include "../../SSL/SSL.h"
 #include "../window_manager.h"
+#include "../objects/ai.h"
+#include "../objects/entity.h"
 
 
 /*---------------------------------------------------------------------------
@@ -81,6 +83,40 @@ void load_lights(SSL_Tiled_Map *map) {
 			if(SSL_Tiled_Get_TileId(map, i, j, layer) == 2) {
 				SSL_Light *light = SSL_Light_Create(i *16, j *16, 0, 0, 4, 0, SSL_Color_Create(255,255,255,255));
 				SSL_Tiled_Add_Light(map, light);
+			}
+		}
+	}
+}
+
+
+/*!--------------------------------------------------------------------------
+  @brief	Load ai
+  @param	map		Map to load the ai on
+  @param	list	The list to add the ai to
+  @return 	Void
+
+  Loads and add the ai to the map and list.
+
+\-----------------------------------------------------------------------------*/
+void load_ai(SSL_Tiled_Map *map, SSL_List *list) {
+	int i;
+	int j;
+	int layer = SSL_Tiled_Get_LayerIndex(map, "characters");
+
+	for (i = 0; i < SSL_Tiled_Get_Width(map); i++) {
+		for (j = 0; j < SSL_Tiled_Get_Height(map); j++) {
+			int tile_id = SSL_Tiled_Get_TileId(map, i, j, layer);
+			if (tile_id != 0) {
+				AI *ai;
+
+				if( tile_id == 1) {
+					ai = butler_create();
+				}
+
+				entity_set_pos((Entity *)&ai->entity, i * SSL_Tiled_Get_Tile_Width(map), j * SSL_Tiled_Get_Tile_Height(map));
+				SSL_Light_SetPos(ai->entity.light, ai->entity.pos.x ,ai->entity.pos.y);
+				SSL_Tiled_Add_Light(map, ai->entity.light);
+				SSL_List_Add(list, ai);
 			}
 		}
 	}

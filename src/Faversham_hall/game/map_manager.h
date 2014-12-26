@@ -64,6 +64,18 @@ void load_lights(SSL_Tiled_Map *map);
 
 
 /*!--------------------------------------------------------------------------
+  @brief	Load ai
+  @param	map		Map to load the ai on
+  @param	list	The list to add the ai to
+  @return 	Void
+
+  Loads and add the ai to the map and list.
+
+\-----------------------------------------------------------------------------*/
+void load_ai(SSL_Tiled_Map *map, SSL_List *list);
+
+
+/*!--------------------------------------------------------------------------
   @brief	raytrace for lights
 
 \-----------------------------------------------------------------------------*/
