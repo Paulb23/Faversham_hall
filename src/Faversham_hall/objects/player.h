@@ -92,6 +92,18 @@ int player_character_interaction_check(SDL_Event event, Player *player, SSL_Tile
 
 
 /*!--------------------------------------------------------------------------
+  @brief	Gets the name of the closest ai
+  @param    player		 player to check
+  @param    list		 The list of ai
+  @return 	Name of the closet ai
+
+  Gets the name of the closest ai and returns it
+
+\-----------------------------------------------------------------------------*/
+char *get_closest_ai_name(Player *player, SSL_List *list);
+
+
+/*!--------------------------------------------------------------------------
   @brief	Destroys a player
   @param    player		 player to destroy
   @return 	Void
