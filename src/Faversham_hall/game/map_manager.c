@@ -109,8 +109,47 @@ void load_ai(SSL_Tiled_Map *map, SSL_List *list) {
 			if (tile_id != 0) {
 				AI *ai;
 
-				if( tile_id == 1) {
-					ai = butler_create();
+				switch(tile_id) {
+					case 1: {
+						ai = ai_create("butler");
+						break;
+					}
+					case 2: {
+						ai = ai_create("chef");
+						break;
+					}
+					case 3: {
+						ai = ai_create("maid");
+						break;
+					}
+					case 4: {
+						ai = ai_create("dutchess");
+						break;
+					}
+					case 5: {
+						ai = ai_create("nephew");
+						break;
+					}
+					case 6: {
+						ai = ai_create("soninlaw");
+						break;
+					}
+					case 7: {
+						ai = ai_create("twins");
+						break;
+					}
+					case 8: {
+						ai = ai_create("nanny");
+						break;
+					}
+					case 9: {
+						ai = ai_create("servant");
+						break;
+					}
+					case 10: {
+						ai = ai_create("companion");
+						break;
+					}
 				}
 
 				entity_set_pos((Entity *)&ai->entity, i * SSL_Tiled_Get_Tile_Width(map), j * SSL_Tiled_Get_Tile_Height(map));

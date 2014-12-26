@@ -41,13 +41,14 @@ typedef struct _AI_ {
  ---------------------------------------------------------------------------*/
 
 /*!--------------------------------------------------------------------------
-  @brief	Creates the butler
-  @return 	New AI object else return -1
+  @brief	Creates a ai
+  @param    name		 name of the AI
+  @return 	New Ai object else -1
 
-  Creates a AI, else -1, destroy with ai_destroy();
+  Creates a ai, and returns it else -1 on error
 
 \-----------------------------------------------------------------------------*/
-AI *butler_create();
+AI *ai_create(char *name);
 
 
 /*!--------------------------------------------------------------------------

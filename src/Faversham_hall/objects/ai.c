@@ -24,11 +24,21 @@
                                 Private functions
  ---------------------------------------------------------------------------*/
 
-/*----------------------------------
-     Basic ai filler
- ----------------------------------*/
 
-static AI *ai_create() {
+
+/*---------------------------------------------------------------------------
+                            Function prototypes
+ ---------------------------------------------------------------------------*/
+
+/*!--------------------------------------------------------------------------
+  @brief	Creates a ai
+  @param    name		 name of the AI
+  @return 	New Ai object else -1
+
+  Creates a ai, and returns it else -1 on error
+
+\-----------------------------------------------------------------------------*/
+AI *ai_create(char *name) {
 	AI *ai = malloc(sizeof(AI));
 
 	ai->entity.pos.x = 0;
@@ -43,29 +53,11 @@ static AI *ai_create() {
 	ai->entity.image.time_frame = 150;
 
 	ai->entity.light = SSL_Light_Create(16, 16, 0, 0, 4, 0, SSL_Color_Create(255,255,255,255));
+	ai->entity.image.image = SSL_Image_Load("../extras/resources/sprites/test_sprite_ignore_me.png", 16,16,game_window);
+
+	ai->name = name;
 
 	return ai;
-}
-
-
-/*---------------------------------------------------------------------------
-                            Function prototypes
- ---------------------------------------------------------------------------*/
-
-/*!--------------------------------------------------------------------------
-  @brief	Creates the butler
-  @return 	New AI object else return -1
-
-  Creates a AI, else -1, destroy with ai_destroy();
-
-\-----------------------------------------------------------------------------*/
-AI *butler_create() {
- AI *ai = ai_create();
-
- ai->entity.image.image = SSL_Image_Load("../extras/resources/sprites/test_sprite_ignore_me.png", 16,16,game_window);
- ai->name = "butler";
-
- return ai;
 }
 
 
