@@ -132,6 +132,7 @@ void player_move(Player *player, SSL_Tiled_Map *map) {
 
 /*!--------------------------------------------------------------------------
   @brief	Should we load
+  @param	event 		 the event queue
   @param    player		 player to check
   @param    map			 map the player is on
   @return 	1 on loading, else 0
