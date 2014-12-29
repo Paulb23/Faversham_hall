@@ -21,6 +21,7 @@
 #include "../objects/ai.h"
 #include "map_manager.h"
 #include "../asset_manager.h"
+#include "dialogue_parser.h"
 #include "SDL2/SDL.h"
 
 
@@ -37,7 +38,10 @@ static int world_offset_x;			/**< X offset of the world */
 static int world_offset_y;			/**< Y offset of the world */
 
 static Player *player;				/**< The player */
-static SSL_List *ai;
+static SSL_List *ai;				/**< The Ai list */
+
+int in_dialog;						/**< Are we in dialogue */
+int act;							/**< Current act we are in */
 
 /*----------------------------------
      Loads the level
@@ -74,6 +78,7 @@ static void load_next_level() {
 	player->destination_x = start_x * SSL_Tiled_Get_Tile_Width(current_map);
 	player->destination_y = start_y * SSL_Tiled_Get_Tile_Width(current_map);
 	SSL_Tiled_Add_Light(current_map, player->entity.light);
+	in_dialog = 0;
 }
 
 
@@ -100,6 +105,8 @@ void game_init() {
 
 	world_offset_x = 0;
 	world_offset_y = 0;
+
+	act = 0;
 }
 
 
@@ -138,6 +145,11 @@ void game_ticks(double delta, int uptime) {
 
 	world_offset_x = -((player->entity.pos.x) - (WINDOW_RES_WIDTH / 2));
 	world_offset_y = -((player->entity.pos.y) - (WINDOW_RES_HEIGHT / 2));
+
+	// exit dialog on player move
+	if (player->moving) {
+		in_dialog = 0;
+	}
 }
 
 
@@ -152,20 +164,25 @@ void game_ticks(double delta, int uptime) {
 \-----------------------------------------------------------------------------*/
 void game_event_handle(SDL_Event event, int uptime) {
 
-	/* check for loading and if so
-	 * load the map and set up the player
-	 */
-	if(player_check_load(event, player, current_map)) {
-		load_next_level();
-	}
+	if (!in_dialog) {
+		/* check for loading and if so
+		 * load the map and set up the player
+		 */
+		if(player_check_load(event, player, current_map)) {
+			load_next_level();
+		}
 
-	/* check for character interaction and if so
-	 * start the conversation
-	 */
-	if(player_character_interaction_check(event, player, current_map)) {
-		char *ai_name = get_closest_ai_name(player, ai);
-		printf("%s is talking the you.... \n", ai_name);
-		//start_dialog();
+		/* check for character interaction and if so
+		 * start the conversation
+		 */
+		if(player_character_interaction_check(event, player, current_map)) {
+			char *ai_name = get_closest_ai_name(player, ai);
+			printf("%s is talking the you.... \n", ai_name);
+			start_dialog(ai_name, 1);
+			in_dialog = 1;
+		}
+	} else {
+		in_dialog = update_dialog(event);
 	}
 }
 
@@ -194,5 +211,9 @@ void game_render() {
 	}
 	if (SSL_Tiled_Get_TileId(current_map, entity_get_tile_x((Entity *)&player->entity, current_map), entity_get_tile_y((Entity *)&player->entity, current_map), layer) == 4) {
 		SSL_Font_Draw(10, 25, 0 ,SDL_FLIP_NONE, "Press E to Talk", (SSL_Font *)asset_manager_getFont("test_font"), SSL_Color_Create(255,255,255,0), game_window);
+	}
+
+	if (in_dialog) {
+		render_dialog();
 	}
 }
