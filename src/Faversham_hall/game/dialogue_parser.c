@@ -40,13 +40,14 @@ static void load_node(char *node) {
 	option_count = SSL_IniFile_GetInt(dialog, node, "option_count", 0);
 
 	if (option_count != 0) {
+		printf("%i", option_count);
 		if (options) {
 			SSL_List_Destroy(options);
 		}
 		options = SSL_List_Create();
 
 		int i;
-		for (i = 0; i < option_count; i++) {
+		for (i = 1; i <= option_count; i++) {
 			char buf[100];
 			sprintf(buf, "option_%i" ,i);
 			SSL_List_Add(options, SSL_IniFile_GetString(dialog, node, buf, "0"));
@@ -97,6 +98,21 @@ int update_dialog(SDL_Event event) {
 			action = SSL_IniFile_GetString(dialog, current_node, "option_3_action", "null");
 		}
 		if (SSL_Keybord_Keyname_Pressed("_4", event)) {
+			action = SSL_IniFile_GetString(dialog, current_node, "option_4_action", "null");
+		}
+		if (SSL_Keybord_Keyname_Pressed("_5", event)) {
+			action = SSL_IniFile_GetString(dialog, current_node, "option_4_action", "null");
+		}
+		if (SSL_Keybord_Keyname_Pressed("_6", event)) {
+			action = SSL_IniFile_GetString(dialog, current_node, "option_4_action", "null");
+		}
+		if (SSL_Keybord_Keyname_Pressed("_7", event)) {
+			action = SSL_IniFile_GetString(dialog, current_node, "option_4_action", "null");
+		}
+		if (SSL_Keybord_Keyname_Pressed("_8", event)) {
+			action = SSL_IniFile_GetString(dialog, current_node, "option_4_action", "null");
+		}
+		if (SSL_Keybord_Keyname_Pressed("_9", event)) {
 			action = SSL_IniFile_GetString(dialog, current_node, "option_4_action", "null");
 		}
 
