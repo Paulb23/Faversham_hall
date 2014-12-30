@@ -466,6 +466,10 @@ void SSL_Tiled_Set_Lighting(SSL_Tiled_Map *map, SDL_Color color) {
 	map->color = color;
 }
 
+void SSL_Tiled_Set_TiledID(SSL_Tiled_Map *map, int layer, int x, int y, int id) {
+	 SSL_Tile_Layer *layer_data = SSL_List_Get(map->layers, layer);
+	 layer_data->data[map->map.map_width * y + x] = id;
+}
 
 /*!--------------------------------------------------------------------------
   @brief    Gets a SSL_Tileset

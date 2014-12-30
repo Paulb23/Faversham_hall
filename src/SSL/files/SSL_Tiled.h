@@ -182,7 +182,7 @@ void SSL_Tiled_Add_Light(SSL_Tiled_Map *map, SSL_Light *light);
 
 \-----------------------------------------------------------------------------*/
 void SSL_Tiled_Set_Lighting(SSL_Tiled_Map *map, SDL_Color color);
-
+void SSL_Tiled_Set_TiledID(SSL_Tiled_Map *map, int layer, int x, int y, int id);
 
 /*!--------------------------------------------------------------------------
   @brief    Gets a SSL_Tileset

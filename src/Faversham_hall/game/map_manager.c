@@ -28,6 +28,19 @@
 static char *map_path = "../extras/resources/maps/";			/**< Path to the .tmx */
 static char *ini_path = "../extras/resources/maps/loading/";	/**< Path to the .ini */
 
+static int check_around_for_empty(SSL_Tiled_Map *map, int x, int y, int layer_index) {
+	if (SSL_Tiled_Get_TileId(map, x, y, layer_index) != 0) {return 0;}
+	if (SSL_Tiled_Get_TileId(map, x + 1, y, layer_index) != 0) {return 0;}
+	if (SSL_Tiled_Get_TileId(map, x - 1, y, layer_index) != 0) {return 0;}
+	if (SSL_Tiled_Get_TileId(map, x, y + 1, layer_index) != 0) {return 0;}
+	if (SSL_Tiled_Get_TileId(map, x, y - 1, layer_index) != 0) {return 0;}
+	if (SSL_Tiled_Get_TileId(map, x + 1, y + 1, layer_index) != 0) {return 0;}
+	if (SSL_Tiled_Get_TileId(map, x + 1, y - 1, layer_index) != 0) {return 0;}
+	if (SSL_Tiled_Get_TileId(map, x - 1, y + 1, layer_index) != 0) {return 0;}
+	if (SSL_Tiled_Get_TileId(map, x - 1, y - 1, layer_index) != 0) {return 0;}
+
+	return 1;
+}
 
 /*---------------------------------------------------------------------------
                             Function codes
@@ -189,11 +202,11 @@ void load_servant(SSL_Tiled_Map *map, SSL_List *list) {
 			i = rand() % SSL_Tiled_Get_Width(map);
 			j = rand() % SSL_Tiled_Get_Height(map);
 
-			if (SSL_Tiled_Get_TileId(map, i, j, other) == 0) {
-				if (SSL_Tiled_Get_TileId(map, i, j, puzzle) == 0) {
-					if (SSL_Tiled_Get_TileId(map, i, j, characters) == 0) {
-						if (SSL_Tiled_Get_TileId(map, i, j, lighting) == 0) {
-							if (SSL_Tiled_Get_TileId(map, i, j, collsion) == 0) {
+			if (check_around_for_empty(map, i, j, other)) {
+				if (check_around_for_empty(map, i, j, puzzle)) {
+					if (check_around_for_empty(map, i, j, characters)) {
+						if (check_around_for_empty(map, i, j, lighting)) {
+							if (check_around_for_empty(map, i, j, collsion)) {
 								valid = 1;
 							}
 						}
@@ -201,6 +214,18 @@ void load_servant(SSL_Tiled_Map *map, SSL_List *list) {
 				}
 			}
 		}
+
+		int  id = 4;
+
+		SSL_Tiled_Set_TiledID(map, other, i, j, id);
+		SSL_Tiled_Set_TiledID(map, other, i + 1, j, id);
+		SSL_Tiled_Set_TiledID(map, other, i - 1, j, id);
+		SSL_Tiled_Set_TiledID(map, other, i, j + 1, id);
+		SSL_Tiled_Set_TiledID(map, other, i, j - 1, id);
+		SSL_Tiled_Set_TiledID(map, other, i + 1, j + 1, id);
+		SSL_Tiled_Set_TiledID(map, other, i + 1, j - 1, id);
+		SSL_Tiled_Set_TiledID(map, other, i - 1, j + 1, id);
+		SSL_Tiled_Set_TiledID(map, other, i - 1, j - 1, id);
 
 		entity_set_pos((Entity *)&ai->entity, i * SSL_Tiled_Get_Tile_Width(map), j * SSL_Tiled_Get_Tile_Height(map));
 		SSL_Light_SetPos(ai->entity.light, ai->entity.pos.x ,ai->entity.pos.y);
