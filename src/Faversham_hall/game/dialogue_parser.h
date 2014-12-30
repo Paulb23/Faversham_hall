@@ -28,6 +28,7 @@
                             Function prototypes
  ---------------------------------------------------------------------------*/
 
+void dialog_init();
 void start_dialog(char *other, int act);
 int update_dialog(SDL_Event event);
 void render_dialog();

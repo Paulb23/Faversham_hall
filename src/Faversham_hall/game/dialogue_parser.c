@@ -33,6 +33,8 @@ static char *current_node;
 static int option_count;
 static SSL_List *options;
 
+static SSL_Image *dialog_back;
+
 static void load_node(char *node) {
 	current_node = node;
 	name = SSL_IniFile_GetString(dialog, node, "name", "detective");
@@ -53,6 +55,10 @@ static void load_node(char *node) {
 /*---------------------------------------------------------------------------
                             Function codes
  ---------------------------------------------------------------------------*/
+
+void dialog_init() {
+	dialog_back = SSL_Image_Load("../extras/resources/gui/dialog/dialog.png", WINDOW_RES_WIDTH, WINDOW_RES_HEIGHT, game_window);
+}
 
 void start_dialog(char *other, int act) {
 	if (dialog) {
@@ -140,4 +146,6 @@ void render_dialog() {
 			SSL_Font_Draw(10, y_inc, 0 ,SDL_FLIP_NONE, buf, (SSL_Font *)asset_manager_getFont("test_font"), SSL_Color_Create(255,255,255,0), game_window);
 		}
 	}
+
+	SSL_Image_Draw(dialog_back, 0,0, 0,0, SDL_FLIP_NONE, game_window);
 }

@@ -94,6 +94,8 @@ static void load_next_level() {
 
 \-----------------------------------------------------------------------------*/
 void game_init() {
+	dialog_init();
+
 	map_ini = load_ini("start_map");
 	int start_x = SSL_IniFile_GetInt(map_ini, "00", "startX", 1);
 	int start_y = SSL_IniFile_GetInt(map_ini, "00", "startY", 1);
@@ -203,15 +205,15 @@ void game_render() {
 		SSL_Image_Draw(character->entity.image.image, character->entity.pos.x + world_offset_x, character->entity.pos.y + world_offset_y, 0, character->entity.image.current_frame + (character->entity.image.max_frames * character->entity.image.current_row), 0, game_window);
 	}
 
-	int layer = SSL_Tiled_Get_LayerIndex(current_map, "other");					// get the loading tile layer
-	if (SSL_Tiled_Get_TileId(current_map, entity_get_tile_x((Entity *)&player->entity, current_map), entity_get_tile_y((Entity *)&player->entity, current_map), layer) == 1) {
-		SSL_Font_Draw(10, 10, 0 ,SDL_FLIP_NONE, "Press E to load", (SSL_Font *)asset_manager_getFont("test_font"), SSL_Color_Create(255,255,255,0), game_window);
-	}
-	if (SSL_Tiled_Get_TileId(current_map, entity_get_tile_x((Entity *)&player->entity, current_map), entity_get_tile_y((Entity *)&player->entity, current_map), layer) == 4) {
-		SSL_Font_Draw(10, 25, 0 ,SDL_FLIP_NONE, "Press E to Talk", (SSL_Font *)asset_manager_getFont("test_font"), SSL_Color_Create(255,255,255,0), game_window);
-	}
-
 	if (in_dialog) {
 		render_dialog();
+	} else {
+		int layer = SSL_Tiled_Get_LayerIndex(current_map, "other");					// get the loading tile layer
+		if (SSL_Tiled_Get_TileId(current_map, entity_get_tile_x((Entity *)&player->entity, current_map), entity_get_tile_y((Entity *)&player->entity, current_map), layer) == 1) {
+			SSL_Font_Draw(10, 10, 0 ,SDL_FLIP_NONE, "Press E to load", (SSL_Font *)asset_manager_getFont("test_font"), SSL_Color_Create(255,255,255,0), game_window);
+		}
+		if (SSL_Tiled_Get_TileId(current_map, entity_get_tile_x((Entity *)&player->entity, current_map), entity_get_tile_y((Entity *)&player->entity, current_map), layer) == 4) {
+			SSL_Font_Draw(10, 25, 0 ,SDL_FLIP_NONE, "Press E to Talk", (SSL_Font *)asset_manager_getFont("test_font"), SSL_Color_Create(255,255,255,0), game_window);
+		}
 	}
 }

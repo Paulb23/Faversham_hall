@@ -13,4 +13,4 @@ Transparent pixels must be erased out, will not remove white.
 Portraits MUST be saved under extras/resources/portraits with the characters name, no spaces, or capitals as a .png
 	i.e cook.png
 
-Portraits MUST be 32x32 pixcel
+Portraits MUST be 100x140 pixels
