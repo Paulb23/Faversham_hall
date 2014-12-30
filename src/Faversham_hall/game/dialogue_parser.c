@@ -112,19 +112,19 @@ int update_dialog(SDL_Event event) {
 			action = SSL_IniFile_GetString(dialog, current_node, "option_4_action", "null");
 		}
 		if (SSL_Keybord_Keyname_Pressed("_5", event)) {
-			action = SSL_IniFile_GetString(dialog, current_node, "option_4_action", "null");
+			action = SSL_IniFile_GetString(dialog, current_node, "option_5_action", "null");
 		}
 		if (SSL_Keybord_Keyname_Pressed("_6", event)) {
-			action = SSL_IniFile_GetString(dialog, current_node, "option_4_action", "null");
+			action = SSL_IniFile_GetString(dialog, current_node, "option_6_action", "null");
 		}
 		if (SSL_Keybord_Keyname_Pressed("_7", event)) {
-			action = SSL_IniFile_GetString(dialog, current_node, "option_4_action", "null");
+			action = SSL_IniFile_GetString(dialog, current_node, "option_7_action", "null");
 		}
 		if (SSL_Keybord_Keyname_Pressed("_8", event)) {
-			action = SSL_IniFile_GetString(dialog, current_node, "option_4_action", "null");
+			action = SSL_IniFile_GetString(dialog, current_node, "option_8_action", "null");
 		}
 		if (SSL_Keybord_Keyname_Pressed("_9", event)) {
-			action = SSL_IniFile_GetString(dialog, current_node, "option_4_action", "null");
+			action = SSL_IniFile_GetString(dialog, current_node, "option_9_action", "null");
 		}
 
 		if (strcmp(action, "null") == 0) {
