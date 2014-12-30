@@ -10,32 +10,44 @@
 
 Dialogs MUST be made in a PLAIN text editor like notepad NOT word e.c.t
 
-Dialogs MUST be saved under extras/resources/dialog with the characters name, no spaces, or capitals with the extention .ini
-	i.e cook.ini
+Dialogs MUST be saved under extras/resources/dialog with the characters the player interacts with name followed bt the act name, no spaces, or capitals with the extention .ini
+	i.e cook_1.ini
 
-Dialogs MUST reach a catogory that has a options count of 0 to end the dialog
+Dialogs MUST reach a action that has a action value equal to "end"
 
-Dialogs catogory do not matter so long as the important ones are the same accoss all characters
+Dialogs catogory must start with the catorgory [root]
+
+One dialogue per file
 
 Comments are marked with semi-colons e.g   line_of_test ; this is a comment
+
+Look in test_dialogue.ini for a example, run the exe to see it in action!
+
+Feel free to edit the test_dialogue and run the exe and talk to an npc
+to try out the system, also because the files are loaded when the convo is started
+you can edit the .ini and re-start the convo to see the changes!
+Number 1 - 9 are used to select the choice.
                     
 Dialogs MUST use the following format.
 
 
-[starting_catogory_that_will_be_in_all_files_no_spaces_please]
-text_start = "this is the text to display on screen and can be as long as you wish however will ony be displayed one page at a time so don't make it to long"
-text_response = "this is the characters reponse to what the detective said in the fist line"
-option_count = 2 the number of options the user can have
-option_text_1 = "The Option text that the user will select"
-option_goto_1 = "catogory_name_to_go_to_if_they_pick_the_first_option"
-option_text_2 = "The Option text that the user will select"
-option_goto_2 = "catogory_name_to_go_to_if_they_pick_the_first_option"
+[root]
+name = "the_actors_name_from_list_above"
+text = "The text to be displayed"
+action = "the_catorogry_to_go_to_next"
 
-[catogory_name_to_go_to_if_they_pick_the_first_option]
-text = "this does not matter as both of the options will end up here"
-option_count = 0
+[the_catorogry_to_go_to_next]
+name = "butler"
+text = "How are you"
+option_count = 2
+option_1 = "Well"
+option_1_action = "end"
+option_2 = "Not Good"
+option_2_action = "end_it_already"
 
-
-
+[end_it_already]
+name = "butler"
+text = "Thats not so good"
+action = "end"
 
 Sorry for the pain..... should realy use lua binding or xml but don't have time :( 

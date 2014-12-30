@@ -38,19 +38,14 @@ static void load_node(char *node) {
 	name = SSL_IniFile_GetString(dialog, node, "name", "detective");
 	text = SSL_IniFile_GetString(dialog, node, "text", "detective");
 	option_count = SSL_IniFile_GetInt(dialog, node, "option_count", 0);
-
 	if (option_count != 0) {
-		printf("%i", option_count);
-		if (options) {
-			SSL_List_Destroy(options);
-		}
-		options = SSL_List_Create();
+		options = SSL_List_Create(); // memory leak todo: fix :D
 
 		int i;
 		for (i = 1; i <= option_count; i++) {
 			char buf[100];
 			sprintf(buf, "option_%i" ,i);
-			SSL_List_Add(options, SSL_IniFile_GetString(dialog, node, buf, "0"));
+			SSL_List_Add(options, SSL_IniFile_GetString(dialog, node, buf, "Error"));
 		}
 	}
 }
