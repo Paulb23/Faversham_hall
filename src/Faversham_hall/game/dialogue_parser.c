@@ -34,6 +34,7 @@ static int option_count;
 static SSL_List *options;
 
 static SSL_Image *dialog_back;
+static SSL_Image *portait;
 
 static void load_node(char *node) {
 	current_node = node;
@@ -50,6 +51,11 @@ static void load_node(char *node) {
 			SSL_List_Add(options, SSL_IniFile_GetString(dialog, node, buf, "Error"));
 		}
 	}
+
+	if (portait) {
+		SSL_Image_Destroy(portait);
+	}
+	portait = SSL_Image_Load("../extras/resources/portraits/test_portait.png", 100, 140, game_window);
 }
 
 /*---------------------------------------------------------------------------
@@ -147,5 +153,6 @@ void render_dialog() {
 		}
 	}
 
+	SSL_Image_Draw(portait, 2,2, 0,0, SDL_FLIP_NONE, game_window);
 	SSL_Image_Draw(dialog_back, 0,0, 0,0, SDL_FLIP_NONE, game_window);
 }
