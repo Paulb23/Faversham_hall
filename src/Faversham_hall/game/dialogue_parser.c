@@ -55,6 +55,10 @@ static void load_node(char *node) {
 	if (portait) {
 		SSL_Image_Destroy(portait);
 	}
+
+	char buf[100];
+	sprintf(buf, "../extras/resources/portraits/%s.png" ,name);
+	//portait = SSL_Image_Load(buf, 100, 140, game_window);
 	portait = SSL_Image_Load("../extras/resources/portraits/test_portait.png", 100, 140, game_window);
 }
 
