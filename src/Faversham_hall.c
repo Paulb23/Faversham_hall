@@ -111,6 +111,7 @@ int main(int argc, char *argv[]) {
 
 	// load tmp font for now!
 	asset_manager_addFont("test_font", SSL_Font_Load("../extras/resources/font/Calibri.ttf", 10));
+	asset_manager_addFont("dialog_font", SSL_Font_Load("../extras/resources/font/Calibri.ttf", 22));
 
 	// switch state and start game
 	switch_state(GAME_STATE);

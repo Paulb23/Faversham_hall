@@ -136,23 +136,22 @@ int update_dialog(SDL_Event event) {
 }
 
 void render_dialog() {
-	SSL_Font_Draw(10, 40, 0 ,SDL_FLIP_NONE, name, (SSL_Font *)asset_manager_getFont("test_font"), SSL_Color_Create(255,255,255,0), game_window);
-	SSL_Font_Draw(10, 55, 0 ,SDL_FLIP_NONE, text, (SSL_Font *)asset_manager_getFont("test_font"), SSL_Color_Create(255,255,255,0), game_window);
-
-	if (option_count == 0) {
-		SSL_Font_Draw(10, 70, 0 ,SDL_FLIP_NONE, "1. ...", (SSL_Font *)asset_manager_getFont("test_font"), SSL_Color_Create(255,255,255,0), game_window);
-	} else {
-		int i;
-		int y_inc = 55;
-
-		for (i = 0; i < option_count; i++) {
-			y_inc += 15;
-			char buf[100];
-			sprintf(buf, "%i. %s", i+1, SSL_List_Get_String(options, i));
-			SSL_Font_Draw(10, y_inc, 0 ,SDL_FLIP_NONE, buf, (SSL_Font *)asset_manager_getFont("test_font"), SSL_Color_Create(255,255,255,0), game_window);
-		}
-	}
-
 	SSL_Image_Draw(portait, 2,2, 0,0, SDL_FLIP_NONE, game_window);
 	SSL_Image_Draw(dialog_back, 0,0, 0,0, SDL_FLIP_NONE, game_window);
+
+	SSL_Font_Draw(10, 150, 0 ,SDL_FLIP_NONE, text, (SSL_Font *)asset_manager_getFont("dialog_font"), SSL_Color_Create(255,255,255,0), game_window);
+
+	if (option_count == 0) {
+		SSL_Font_Draw(225, 10, 0 ,SDL_FLIP_NONE, "1. ...", (SSL_Font *)asset_manager_getFont("dialog_font"), SSL_Color_Create(255,255,255,0), game_window);
+	} else {
+		int i;
+		int y_inc = 10;
+
+		for (i = 0; i < option_count; i++) {
+			char buf[100];
+			sprintf(buf, "%i. %s", i+1, SSL_List_Get_String(options, i));
+			SSL_Font_Draw(225, y_inc, 0 ,SDL_FLIP_NONE, buf, (SSL_Font *)asset_manager_getFont("dialog_font"), SSL_Color_Create(255,255,255,0), game_window);
+			y_inc += 25;
+		}
+	}
 }
