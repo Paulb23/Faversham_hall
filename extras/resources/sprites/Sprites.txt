@@ -21,7 +21,7 @@ Sprites cannot be rotated in the game so you will have to draw the same animatio
 
 Sprites must have animation 6 frames long
 
-Sprites animation frames must be 16x32 pixels
+Sprites animation frames must be 16x16 pixels
 
 Sprites animation must be on a new row
 
