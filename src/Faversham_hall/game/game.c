@@ -48,17 +48,17 @@ int act;							/**< Current act we are in */
  ----------------------------------*/
 
 static void load_level(char *map_name) {
-	current_map = load_map(map_name);
+	current_map = load_map(map_name); // load the map and ini files
 	map_ini = load_ini(map_name);
-	current_map_name = map_name;
-	load_lights(current_map);
+	current_map_name = map_name;	  // update the map name
+	load_lights(current_map);		  // set up lighting
 	SSL_Tiled_Set_Lighting(current_map, SSL_Color_Create(0, 0, 0, 230));
 
 	// destory the old list
 	if (ai) {
 		SSL_List_Destroy(ai);
 	}
-	ai = SSL_List_Create();
+	ai = SSL_List_Create();			// set up ai
 	load_ai(current_map, ai);
 	load_servant(current_map, ai);
 }
@@ -69,11 +69,14 @@ static void load_level(char *map_name) {
  ----------------------------------*/
 
 static void load_next_level() {
-	char pos[50] = "";
+	char pos[50] = "";																		// combine the xy coordinates of the player
 	sprintf(pos, "%i%i", player->entity.pos.x / SSL_Tiled_Get_Tile_Width(current_map), player->entity.pos.y / SSL_Tiled_Get_Tile_Height(current_map));
-	int start_x = SSL_IniFile_GetInt(map_ini, pos , "startX", 1);
-	int start_y = SSL_IniFile_GetInt(map_ini, pos, "startY", 1);
-	load_level(SSL_IniFile_GetString(map_ini, pos, "load", "test_map"));
+	int start_x = SSL_IniFile_GetInt(map_ini, pos , "startX", 1);							// read the current map ini, for the next map name,
+	int start_y = SSL_IniFile_GetInt(map_ini, pos, "startY", 1);							// and starting x, y coordinates
+
+	load_level(SSL_IniFile_GetString(map_ini, pos, "load", "test_map"));					// load the level
+
+																							// set up the player for the new map
 	entity_set_pos((Entity *)&player->entity, start_x * SSL_Tiled_Get_Tile_Width(current_map), start_y * SSL_Tiled_Get_Tile_Height(current_map));
 	player->destination_x = start_x * SSL_Tiled_Get_Tile_Width(current_map);
 	player->destination_y = start_y * SSL_Tiled_Get_Tile_Width(current_map);
@@ -94,21 +97,22 @@ static void load_next_level() {
 
 \-----------------------------------------------------------------------------*/
 void game_init() {
-	dialog_init();
+	dialog_init();	// set up the dialog
 
-	map_ini = load_ini("start_map");
+	map_ini = load_ini("start_map");	// get the start_map ini and read it
 	int start_x = SSL_IniFile_GetInt(map_ini, "00", "startX", 1);
 	int start_y = SSL_IniFile_GetInt(map_ini, "00", "startY", 1);
+										// load the map stored in the start_map ini
 	load_level(SSL_IniFile_GetString(map_ini, "00", "load", "test_map"));
 
-	player = player_create();
+	player = player_create();			// create and load the player
 	SSL_Tiled_Add_Light(current_map, player->entity.light);
 	entity_set_pos((Entity *)&player->entity, start_x * SSL_Tiled_Get_Tile_Width(current_map), start_y * SSL_Tiled_Get_Tile_Height(current_map));
 
 	world_offset_x = 0;
 	world_offset_y = 0;
 
-	act = 0;
+	act = 0;							// current act / level
 }
 
 
@@ -135,16 +139,19 @@ void game_clean_up(Game_States new_state) {
 
 \-----------------------------------------------------------------------------*/
 void game_ticks(double delta, int uptime) {
-	entity_update_frame((Entity *)&player->entity);
 
+	// update animations
+	entity_update_frame((Entity *)&player->entity);
 	int i;
 	for (i = 0; i < SSL_List_Size(ai); i++) {
 		AI *character = (AI *)SSL_List_Get(ai, i);
 		entity_update_frame((Entity *)&character->entity);
 	}
 
+	// handle player movment
 	player_move(player,current_map);
 
+	// update camrea offset
 	world_offset_x = -((player->entity.pos.x) - (WINDOW_RES_WIDTH / 2));
 	world_offset_y = -((player->entity.pos.y) - (WINDOW_RES_HEIGHT / 2));
 
@@ -166,7 +173,9 @@ void game_ticks(double delta, int uptime) {
 \-----------------------------------------------------------------------------*/
 void game_event_handle(SDL_Event event, int uptime) {
 
+	// if we are not in dialog
 	if (!in_dialog) {
+
 		/* check for loading and if so
 		 * load the map and set up the player
 		 */
@@ -182,6 +191,7 @@ void game_event_handle(SDL_Event event, int uptime) {
 			in_dialog = 1;
 		}
 	} else {
+		// else update the dialog
 		in_dialog = update_dialog(event);
 	}
 }
@@ -195,19 +205,27 @@ void game_event_handle(SDL_Event event, int uptime) {
 
 \-----------------------------------------------------------------------------*/
 void game_render() {
+
+	// draw the world
 	SSL_Tiled_Draw_Map(current_map, world_offset_x, world_offset_y, game_window);
 	SSL_Tiled_Draw_Lights(current_map, world_offset_x, world_offset_y, game_window, raytrace);
+
+	// draw the player
 	SSL_Image_Draw(player->entity.image.image, player->entity.pos.x + world_offset_x, player->entity.pos.y + world_offset_y, 0, player->entity.image.current_frame + (player->entity.image.max_frames * player->entity.image.current_row), 0, game_window);
 
+	// draw the ai
 	int i;
 	for (i = 0; i < SSL_List_Size(ai); i++) {
 		AI *character = (AI *)SSL_List_Get(ai, i);
 		SSL_Image_Draw(character->entity.image.image, character->entity.pos.x + world_offset_x, character->entity.pos.y + world_offset_y, 0, character->entity.image.current_frame + (character->entity.image.max_frames * character->entity.image.current_row), 0, game_window);
 	}
 
+	//if we are in dialog draw it
 	if (in_dialog) {
 		render_dialog();
 	} else {
+
+		// else check and draw info about available interactions
 		int layer = SSL_Tiled_Get_LayerIndex(current_map, "other");					// get the loading tile layer
 		if (SSL_Tiled_Get_TileId(current_map, entity_get_tile_x((Entity *)&player->entity, current_map), entity_get_tile_y((Entity *)&player->entity, current_map), layer) == 1) {
 			SSL_Font_Draw(10, 10, 0 ,SDL_FLIP_NONE, "Press E to load", (SSL_Font *)asset_manager_getFont("test_font"), SSL_Color_Create(255,255,255,0), game_window);
