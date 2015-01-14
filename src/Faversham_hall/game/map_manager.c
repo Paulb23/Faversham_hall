@@ -28,6 +28,11 @@
 static char *map_path = "../extras/resources/maps/";			/**< Path to the .tmx */
 static char *ini_path = "../extras/resources/maps/loading/";	/**< Path to the .ini */
 
+
+/*------------------------------------------------------------
+    Checks tiles around a point to see if they are empty
+ -----------------------------------------------------------*/
+
 static int check_around_for_empty(SSL_Tiled_Map *map, int x, int y, int layer_index) {
 	if (SSL_Tiled_Get_TileId(map, x, y, layer_index) != 0) {return 0;}
 	if (SSL_Tiled_Get_TileId(map, x + 1, y, layer_index) != 0) {return 0;}
@@ -55,9 +60,9 @@ static int check_around_for_empty(SSL_Tiled_Map *map, int x, int y, int layer_in
 
 \-----------------------------------------------------------------------------*/
 SSL_Tiled_Map *load_map(char *map_name) {
-	char map_full_path[strlen(map_path) + strlen(map_name) + 4];
+	char map_full_path[strlen(map_path) + strlen(map_name) + 4];	// join the path with the name
 	sprintf(map_full_path, "%s%s%s", map_path, map_name, ".tmx");
-	return SSL_Tiled_Map_Load(map_full_path, game_window);
+	return SSL_Tiled_Map_Load(map_full_path, game_window);			// load and return the name
 }
 
 
@@ -70,10 +75,10 @@ SSL_Tiled_Map *load_map(char *map_name) {
 
 \-----------------------------------------------------------------------------*/
 SSL_IniFile *load_ini(char *map_name) {
-	char ini_full_path[strlen(ini_path) + strlen(map_name) + 4];
+	char ini_full_path[strlen(ini_path) + strlen(map_name) + 4];  // join the path with the name
 	sprintf(ini_full_path, "%s%s%s", ini_path, map_name, ".ini");
 	SSL_IniFile *ini = SSL_IniFIle_Create();
-	SSL_IniFile_Load(ini, ini_full_path);
+	SSL_IniFile_Load(ini, ini_full_path);						  // load and return
 	return ini;
 }
 
@@ -89,11 +94,11 @@ SSL_IniFile *load_ini(char *map_name) {
 void load_lights(SSL_Tiled_Map *map) {
 	int i;
 	int j;
-	int layer = SSL_Tiled_Get_LayerIndex(map, "other");
+	int layer = SSL_Tiled_Get_LayerIndex(map, "other");			// get the light layer
 
-	for (i = 0; i < SSL_Tiled_Get_Width(map); i++) {
+	for (i = 0; i < SSL_Tiled_Get_Width(map); i++) {			// loop through the map
 		for (j = 0; j < SSL_Tiled_Get_Height(map); j++) {
-			if(SSL_Tiled_Get_TileId(map, i, j, layer) == 2) {
+			if(SSL_Tiled_Get_TileId(map, i, j, layer) == 2) {	// if we hit a light create and add it
 				SSL_Light *light = SSL_Light_Create(i *16, j *16, 0, 0, 4, 0, SSL_Color_Create(255,255,255,255));
 				SSL_Tiled_Add_Light(map, light);
 			}
@@ -114,12 +119,12 @@ void load_lights(SSL_Tiled_Map *map) {
 void load_ai(SSL_Tiled_Map *map, SSL_List *list) {
 	int i;
 	int j;
-	int layer = SSL_Tiled_Get_LayerIndex(map, "characters");
+	int layer = SSL_Tiled_Get_LayerIndex(map, "characters");	// get the ai layer
 
-	for (i = 0; i < SSL_Tiled_Get_Width(map); i++) {
+	for (i = 0; i < SSL_Tiled_Get_Width(map); i++) {			// loop through the map
 		for (j = 0; j < SSL_Tiled_Get_Height(map); j++) {
 			int tile_id = SSL_Tiled_Get_TileId(map, i, j, layer);
-			if (tile_id != 0) {
+			if (tile_id != 0) {									// if we hit a ai, create the correct one, based on tile id
 				AI *ai;
 
 				switch(tile_id) {
@@ -164,7 +169,7 @@ void load_ai(SSL_Tiled_Map *map, SSL_List *list) {
 						break;
 					}
 				}
-
+																// set up the ai's light and position
 				entity_set_pos((Entity *)&ai->entity, i * SSL_Tiled_Get_Tile_Width(map), j * SSL_Tiled_Get_Tile_Height(map));
 				SSL_Light_SetPos(ai->entity.light, ai->entity.pos.x ,ai->entity.pos.y);
 				SSL_Tiled_Add_Light(map, ai->entity.light);
@@ -192,22 +197,22 @@ void load_servant(SSL_Tiled_Map *map, SSL_List *list) {
 		int i = 0;
 		int j = 0;
 
-		int other = SSL_Tiled_Get_LayerIndex(map, "other");
+		int other = SSL_Tiled_Get_LayerIndex(map, "other");				// get the layer to check
 		int puzzle = SSL_Tiled_Get_LayerIndex(map, "puzzle");
 		int characters = SSL_Tiled_Get_LayerIndex(map, "characters");
 		int lighting = SSL_Tiled_Get_LayerIndex(map, "lighting");
 		int collsion = SSL_Tiled_Get_LayerIndex(map, "collsion");
 
-		while (valid == 0) {
-			i = rand() % SSL_Tiled_Get_Width(map);
+		while (valid == 0) {											// loop until we hit a valid spot
+			i = rand() % SSL_Tiled_Get_Width(map);						// genorate new x,y coords
 			j = rand() % SSL_Tiled_Get_Height(map);
 
-			if (check_around_for_empty(map, i, j, other)) {
+			if (check_around_for_empty(map, i, j, other)) {				// check for empty squares
 				if (check_around_for_empty(map, i, j, puzzle)) {
 					if (check_around_for_empty(map, i, j, characters)) {
 						if (check_around_for_empty(map, i, j, lighting)) {
 							if (check_around_for_empty(map, i, j, collsion)) {
-								valid = 1;
+								valid = 1;								// if so exit the loop
 							}
 						}
 					}
@@ -215,8 +220,8 @@ void load_servant(SSL_Tiled_Map *map, SSL_List *list) {
 			}
 		}
 
-		int  id = 4;
-
+		int  id = 4;													// the talking tile id code
+																		// set the "talking zone"
 		SSL_Tiled_Set_TiledID(map, other, i, j, id);
 		SSL_Tiled_Set_TiledID(map, other, i + 1, j, id);
 		SSL_Tiled_Set_TiledID(map, other, i - 1, j, id);
@@ -227,6 +232,7 @@ void load_servant(SSL_Tiled_Map *map, SSL_List *list) {
 		SSL_Tiled_Set_TiledID(map, other, i - 1, j + 1, id);
 		SSL_Tiled_Set_TiledID(map, other, i - 1, j - 1, id);
 
+																		// set up the ai's light and position
 		entity_set_pos((Entity *)&ai->entity, i * SSL_Tiled_Get_Tile_Width(map), j * SSL_Tiled_Get_Tile_Height(map));
 		SSL_Light_SetPos(ai->entity.light, ai->entity.pos.x ,ai->entity.pos.y);
 		SSL_Tiled_Add_Light(map, ai->entity.light);
