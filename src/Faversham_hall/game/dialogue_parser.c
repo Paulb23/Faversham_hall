@@ -188,3 +188,7 @@ void render_dialog() {
 		}
 	}
 }
+
+char *get_node_name() {
+	return current_node;
+}

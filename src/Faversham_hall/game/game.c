@@ -284,6 +284,22 @@ char *game_get_talking_ai() {
 
 
 /*!--------------------------------------------------------------------------
+  @brief	Gets dialog node name
+  @return 	name of the dialog node else  null
+
+  Gets the name of the current dialog node in conversation else null
+
+\-----------------------------------------------------------------------------*/
+char *game_get_dialog_node_name() {
+	if (in_dialog) {
+		return get_node_name();
+	} else {
+		return NULL;
+	}
+}
+
+
+/*!--------------------------------------------------------------------------
   @brief	Gets room currently in
   @return 	name of the room the player is in
 
