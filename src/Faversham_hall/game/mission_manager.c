@@ -67,6 +67,9 @@ static void unlock_npc(char *npc) {
 
 
 static void act_switch(int new_act) {
+	unlock_all_rooms();
+	unlock_all_npcs();
+
 	switch (new_act) {
 		case 0: {
 			lock_room("parlor");
