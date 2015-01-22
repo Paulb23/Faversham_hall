@@ -145,7 +145,7 @@ void draw_act() {
 					SSL_Font_Draw(10, 10, 0 ,SDL_FLIP_NONE, "Mission:  Talk to the bulter!", (SSL_Font *)asset_manager_getFont("test_font"), SSL_Color_Create(255,255,255,0), game_window);
 				}
 				break;
-				case (1):{
+				case (1): {
 					SSL_Font_Draw(10, 10, 0 ,SDL_FLIP_NONE, "Mission:  Move to the next room!", (SSL_Font *)asset_manager_getFont("test_font"), SSL_Color_Create(255,255,255,0), game_window);
 				}
 				break;
