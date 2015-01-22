@@ -24,11 +24,15 @@
                             Private functions
  ---------------------------------------------------------------------------*/
 
+static int max_chars = 10;
+static int max_lines_per_page = 2;
 static char *dialog_path = "../extras/resources/dialog/";
 static SSL_IniFile *dialog;
 
 static char *name;
 static char *text;
+static int number_of_lines;
+static int current_page;
 static char *current_node;
 static int option_count;
 static SSL_List *options;
@@ -40,6 +44,11 @@ static void load_node(char *node) {
 	current_node = node;
 	name = SSL_IniFile_GetString(dialog, node, "name", "detective");
 	text = SSL_IniFile_GetString(dialog, node, "text", "detective");
+
+	number_of_lines = (strlen(text) / max_chars);
+	current_page = 0;
+	printf("%i %i \n", strlen(text), number_of_lines);
+
 	option_count = SSL_IniFile_GetInt(dialog, node, "option_count", 0);
 	if (option_count != 0) {
 		options = SSL_List_Create(); // memory leak todo: fix :D
@@ -84,54 +93,60 @@ void start_dialog(char *other, int act) {
 
 int update_dialog(SDL_Event event) {
 
-	if (option_count == 0) {
+	if (current_page < number_of_lines && number_of_lines > 1) {
 		if (SSL_Keybord_Keyname_Pressed("_1", event)) {
-			char *action = SSL_IniFile_GetString(dialog, current_node, "action", "end");
+			current_page += max_lines_per_page;
+		}
+	} else {
+		if (option_count == 0) {
+			if (SSL_Keybord_Keyname_Pressed("_1", event)) {
+				char *action = SSL_IniFile_GetString(dialog, current_node, "action", "end");
 
-			if (strcmp(action, "end") == 0) {
+				if (strcmp(action, "end") == 0) {
+					return 0;
+				} else {
+					load_node(action);
+				}
+			}
+		} else {
+
+			char *action = "null";
+
+			if (SSL_Keybord_Keyname_Pressed("_1", event)) {
+				action = SSL_IniFile_GetString(dialog, current_node, "option_1_action", "null");
+			}
+			if (SSL_Keybord_Keyname_Pressed("_2", event)) {
+				action = SSL_IniFile_GetString(dialog, current_node, "option_2_action", "null");
+			}
+			if (SSL_Keybord_Keyname_Pressed("_3", event)) {
+				action = SSL_IniFile_GetString(dialog, current_node, "option_3_action", "null");
+			}
+			if (SSL_Keybord_Keyname_Pressed("_4", event)) {
+				action = SSL_IniFile_GetString(dialog, current_node, "option_4_action", "null");
+			}
+			if (SSL_Keybord_Keyname_Pressed("_5", event)) {
+				action = SSL_IniFile_GetString(dialog, current_node, "option_5_action", "null");
+			}
+			if (SSL_Keybord_Keyname_Pressed("_6", event)) {
+				action = SSL_IniFile_GetString(dialog, current_node, "option_6_action", "null");
+			}
+			if (SSL_Keybord_Keyname_Pressed("_7", event)) {
+				action = SSL_IniFile_GetString(dialog, current_node, "option_7_action", "null");
+			}
+			if (SSL_Keybord_Keyname_Pressed("_8", event)) {
+				action = SSL_IniFile_GetString(dialog, current_node, "option_8_action", "null");
+			}
+			if (SSL_Keybord_Keyname_Pressed("_9", event)) {
+				action = SSL_IniFile_GetString(dialog, current_node, "option_9_action", "null");
+			}
+
+			if (strcmp(action, "null") == 0) {
+
+			} else if (strcmp(action, "end") == 0) {
 				return 0;
 			} else {
 				load_node(action);
 			}
-		}
-	} else {
-
-		char *action = "null";
-
-		if (SSL_Keybord_Keyname_Pressed("_1", event)) {
-			action = SSL_IniFile_GetString(dialog, current_node, "option_1_action", "null");
-		}
-		if (SSL_Keybord_Keyname_Pressed("_2", event)) {
-			action = SSL_IniFile_GetString(dialog, current_node, "option_2_action", "null");
-		}
-		if (SSL_Keybord_Keyname_Pressed("_3", event)) {
-			action = SSL_IniFile_GetString(dialog, current_node, "option_3_action", "null");
-		}
-		if (SSL_Keybord_Keyname_Pressed("_4", event)) {
-			action = SSL_IniFile_GetString(dialog, current_node, "option_4_action", "null");
-		}
-		if (SSL_Keybord_Keyname_Pressed("_5", event)) {
-			action = SSL_IniFile_GetString(dialog, current_node, "option_5_action", "null");
-		}
-		if (SSL_Keybord_Keyname_Pressed("_6", event)) {
-			action = SSL_IniFile_GetString(dialog, current_node, "option_6_action", "null");
-		}
-		if (SSL_Keybord_Keyname_Pressed("_7", event)) {
-			action = SSL_IniFile_GetString(dialog, current_node, "option_7_action", "null");
-		}
-		if (SSL_Keybord_Keyname_Pressed("_8", event)) {
-			action = SSL_IniFile_GetString(dialog, current_node, "option_8_action", "null");
-		}
-		if (SSL_Keybord_Keyname_Pressed("_9", event)) {
-			action = SSL_IniFile_GetString(dialog, current_node, "option_9_action", "null");
-		}
-
-		if (strcmp(action, "null") == 0) {
-
-		} else if (strcmp(action, "end") == 0) {
-			return 0;
-		} else {
-			load_node(action);
 		}
 	}
 
@@ -142,9 +157,25 @@ void render_dialog() {
 	SSL_Image_Draw(portait, 2,2, 0,0, SDL_FLIP_NONE, game_window);
 	SSL_Image_Draw(dialog_back, 0,0, 0,0, SDL_FLIP_NONE, game_window);
 
-	SSL_Font_Draw(10, 150, 0 ,SDL_FLIP_NONE, text, (SSL_Font *)asset_manager_getFont("dialog_font"), SSL_Color_Create(255,255,255,0), game_window);
-
-	if (option_count == 0) {
+	int i;
+	int start_y = 150;
+	int y_inc = 25;
+	if (number_of_lines == 1) {
+		SSL_Font_Draw(10, start_y, 0 ,SDL_FLIP_NONE, text, (SSL_Font *)asset_manager_getFont("dialog_font"), SSL_Color_Create(255,255,255,0), game_window);
+	} else {
+		for (i = 0; i < max_lines_per_page; i++) {
+			char *final_text = SSL_String_Substring(text, (current_page + i) * max_chars, ((current_page + i) * max_chars) + max_chars);
+			if (final_text == NULL) {
+				if (current_page + i > number_of_lines) {
+					break;
+				}
+				final_text = SSL_String_Substring(text, (current_page + i) * max_chars, strlen(text));
+			}
+			SSL_Font_Draw(10, start_y, 0 ,SDL_FLIP_NONE, final_text, (SSL_Font *)asset_manager_getFont("dialog_font"), SSL_Color_Create(255,255,255,0), game_window);
+			start_y += y_inc;
+		}
+	}
+	if (option_count == 0 || current_page != number_of_lines) {
 		SSL_Font_Draw(225, 10, 0 ,SDL_FLIP_NONE, "1. ...", (SSL_Font *)asset_manager_getFont("dialog_font"), SSL_Color_Create(255,255,255,0), game_window);
 	} else {
 		int i;
