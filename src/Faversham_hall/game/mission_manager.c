@@ -71,6 +71,7 @@ static void act_switch(int new_act) {
 			lock_room("dining_room");
 			lock_room("reception");
 			lock_room("hallway");
+			lock_room("test_map_other");
 		}
 		break;
 	}

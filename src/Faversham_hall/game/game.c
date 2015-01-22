@@ -42,6 +42,7 @@ static Player *player;				/**< The player */
 static SSL_List *ai;				/**< The Ai list */
 
 int in_dialog;						/**< Are we in dialogue */
+int locked_room;					/**< is the room we are tying to load locked */
 
 
 /*----------------------------------
@@ -74,6 +75,11 @@ static void load_next_level() {
 	sprintf(pos, "%i%i", player->entity.pos.x / SSL_Tiled_Get_Tile_Width(current_map), player->entity.pos.y / SSL_Tiled_Get_Tile_Height(current_map));
 	int start_x = SSL_IniFile_GetInt(map_ini, pos , "startX", 1);							// read the current map ini, for the next map name,
 	int start_y = SSL_IniFile_GetInt(map_ini, pos, "startY", 1);							// and starting x, y coordinates
+
+	if (is_room_locked(SSL_IniFile_GetString(map_ini, pos, "load", "test_map"))) {
+		locked_room = 1;
+		return;
+	}
 
 	load_level(SSL_IniFile_GetString(map_ini, pos, "load", "test_map"));					// load the level
 
@@ -112,6 +118,7 @@ void game_init() {
 
 	world_offset_x = 0;
 	world_offset_y = 0;
+	locked_room = 0;
 
 	act_init();						// current act / level
 }
@@ -159,7 +166,10 @@ void game_ticks(double delta, int uptime) {
 	// exit dialog on player move
 	if (player->moving) {
 		in_dialog = 0;
+		locked_room = 0;
 	}
+
+	update_act();
 }
 
 
@@ -234,5 +244,12 @@ void game_render() {
 		if (SSL_Tiled_Get_TileId(current_map, entity_get_tile_x((Entity *)&player->entity, current_map), entity_get_tile_y((Entity *)&player->entity, current_map), layer) == 4) {
 			SSL_Font_Draw(10, 25, 0 ,SDL_FLIP_NONE, "Press E to Talk", (SSL_Font *)asset_manager_getFont("test_font"), SSL_Color_Create(255,255,255,0), game_window);
 		}
+
+		// let them know the room is locked
+		if (locked_room) {
+			SSL_Font_Draw(10, 40, 0 ,SDL_FLIP_NONE, "Room Locked!", (SSL_Font *)asset_manager_getFont("test_font"), SSL_Color_Create(255,255,255,0), game_window);
+		}
+
+		draw_act();
 	}
 }
