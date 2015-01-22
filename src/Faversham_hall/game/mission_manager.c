@@ -115,8 +115,10 @@ void update_act() {
 			switch (mission) {
 				case (0): {
 					if (game_in_dialog()) {
-						unlock_room("test_map_other");
-						mission = 1;
+						if (strcmp(game_get_talking_ai(), "butler") == 0) {
+							unlock_room("test_map_other");
+							mission = 1;
+						}
 					}
 				}
 				break;
@@ -135,7 +137,7 @@ void draw_act() {
 		case 0: {
 			switch (mission) {
 				case (0): {
-					SSL_Font_Draw(10, 10, 0 ,SDL_FLIP_NONE, "Mission:  Talk to an npc", (SSL_Font *)asset_manager_getFont("test_font"), SSL_Color_Create(255,255,255,0), game_window);
+					SSL_Font_Draw(10, 10, 0 ,SDL_FLIP_NONE, "Mission:  Talk to the bulter!", (SSL_Font *)asset_manager_getFont("test_font"), SSL_Color_Create(255,255,255,0), game_window);
 				}
 				break;
 				case (1):{
@@ -146,4 +148,12 @@ void draw_act() {
 		}
 		break;
 	}
+}
+
+int get_current_act() {
+	return act;
+}
+
+int get_current_mission() {
+	return mission;
 }

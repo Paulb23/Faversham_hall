@@ -95,4 +95,24 @@ void game_render();
 \-----------------------------------------------------------------------------*/
 int game_in_dialog();
 
+
+/*!--------------------------------------------------------------------------
+  @brief	Gets ai name
+  @return 	name of the ai, else null
+
+  Gets the name of the ai we are talking to
+
+\-----------------------------------------------------------------------------*/
+char *game_get_talking_ai();
+
+
+/*!--------------------------------------------------------------------------
+  @brief	Gets room currently in
+  @return 	name of the room the player is in
+
+  Gets the name of the room the player is currently in
+
+\-----------------------------------------------------------------------------*/
+char *game_get_room();
+
 #endif
