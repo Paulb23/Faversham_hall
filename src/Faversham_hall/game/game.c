@@ -253,3 +253,15 @@ void game_render() {
 		draw_act();
 	}
 }
+
+
+/*!--------------------------------------------------------------------------
+  @brief	Gets weatherer are in dialog
+  @return 	1 on true else 0
+
+  Gets weatherer are in dialog, returns 1 on true else 0
+
+\-----------------------------------------------------------------------------*/
+int game_in_dialog() {
+	return in_dialog;
+}

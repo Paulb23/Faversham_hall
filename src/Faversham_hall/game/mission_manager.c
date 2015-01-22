@@ -15,6 +15,7 @@
  ---------------------------------------------------------------------------*/
 
 #include "mission_manager.h"
+#include "game.h"
 #include "../window_manager.h"
 #include "../asset_manager.h"
 
@@ -73,6 +74,7 @@ static void act_switch(int new_act) {
 			lock_room("reception");
 			lock_room("hallway");
 			lock_room("test_map_other");
+			unlock_room("test_map");
 		}
 		break;
 	}
@@ -110,7 +112,19 @@ int is_npc_locked(char *npc) {
 void update_act() {
 	switch (act) {
 		case 0: {
+			switch (mission) {
+				case (0): {
+					if (game_in_dialog()) {
+						unlock_room("test_map_other");
+						mission = 1;
+					}
+				}
+				break;
+				case (1): {
 
+				}
+				break;
+			}
 		}
 		break;
 	}
@@ -125,7 +139,7 @@ void draw_act() {
 				}
 				break;
 				case (1):{
-
+					SSL_Font_Draw(10, 10, 0 ,SDL_FLIP_NONE, "Mission:  Move to the next room!", (SSL_Font *)asset_manager_getFont("test_font"), SSL_Color_Create(255,255,255,0), game_window);
 				}
 				break;
 			}

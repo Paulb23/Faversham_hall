@@ -85,4 +85,14 @@ void game_event_handle(SDL_Event event, int uptime);
 \-----------------------------------------------------------------------------*/
 void game_render();
 
+
+/*!--------------------------------------------------------------------------
+  @brief	Gets weatherer are in dialog
+  @return 	1 on true else 0
+
+  Gets weatherer are in dialog, returns 1 on true else 0
+
+\-----------------------------------------------------------------------------*/
+int game_in_dialog();
+
 #endif
