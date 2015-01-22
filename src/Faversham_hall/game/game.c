@@ -120,7 +120,8 @@ void game_init() {
 	world_offset_y = 0;
 	locked_room = 0;
 
-	act_init();						// current act / level
+	// set up the mssion counter
+	act_init();
 }
 
 
@@ -169,6 +170,7 @@ void game_ticks(double delta, int uptime) {
 		locked_room = 0;
 	}
 
+	// update the mission
 	update_act();
 }
 
@@ -250,6 +252,7 @@ void game_render() {
 			SSL_Font_Draw(10, 40, 0 ,SDL_FLIP_NONE, "Room Locked!", (SSL_Font *)asset_manager_getFont("test_font"), SSL_Color_Create(255,255,255,0), game_window);
 		}
 
+		// draw the mission info
 		draw_act();
 	}
 }
