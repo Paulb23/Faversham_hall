@@ -47,7 +47,6 @@ static void load_node(char *node) {
 
 	number_of_lines = (strlen(text) / max_chars);
 	current_page = 0;
-	printf("%i %i \n", strlen(text), number_of_lines);
 
 	option_count = SSL_IniFile_GetInt(dialog, node, "option_count", 0);
 	if (option_count != 0) {

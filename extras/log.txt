@@ -4652,3 +4652,59 @@ Thu Jan 22 02:13:08 2015
 : Failed to create font texture! 
 Thu Jan 22 02:13:08 2015
 : Failed to create font texture! 
+Thu Jan 22 02:35:46 2015
+: Failed to create font texture! 
+Thu Jan 22 02:35:46 2015
+: Failed to create font texture! 
+Thu Jan 22 02:35:46 2015
+: Failed to create font texture! 
+Thu Jan 22 02:35:46 2015
+: Failed to create font texture! 
+Thu Jan 22 02:35:46 2015
+: Failed to create font texture! 
+Thu Jan 22 02:35:46 2015
+: Failed to create font texture! 
+Thu Jan 22 02:35:46 2015
+: Failed to create font texture! 
+Thu Jan 22 02:35:46 2015
+: Failed to create font texture! 
+Thu Jan 22 02:35:46 2015
+: Failed to create font texture! 
+Thu Jan 22 02:35:46 2015
+: Failed to create font texture! 
+Thu Jan 22 02:35:46 2015
+: Failed to create font texture! 
+Thu Jan 22 02:35:47 2015
+: Failed to create font texture! 
+Thu Jan 22 02:35:47 2015
+: Failed to create font texture! 
+Thu Jan 22 02:35:47 2015
+: Failed to create font texture! 
+Thu Jan 22 02:35:47 2015
+: Failed to create font texture! 
+Thu Jan 22 02:35:47 2015
+: Failed to create font texture! 
+Thu Jan 22 02:35:47 2015
+: Failed to create font texture! 
+Thu Jan 22 02:35:47 2015
+: Failed to create font texture! 
+Thu Jan 22 02:35:47 2015
+: Failed to create font texture! 
+Thu Jan 22 02:35:47 2015
+: Failed to create font texture! 
+Thu Jan 22 02:35:47 2015
+: Failed to create font texture! 
+Thu Jan 22 02:35:47 2015
+: Failed to create font texture! 
+Thu Jan 22 02:35:47 2015
+: Failed to create font texture! 
+Thu Jan 22 02:35:47 2015
+: Failed to create font texture! 
+Thu Jan 22 02:35:47 2015
+: Failed to create font texture! 
+Thu Jan 22 02:35:47 2015
+: Failed to create font texture! 
+Thu Jan 22 02:35:47 2015
+: Failed to create font texture! 
+Thu Jan 22 02:35:47 2015
+: Failed to create font texture! 

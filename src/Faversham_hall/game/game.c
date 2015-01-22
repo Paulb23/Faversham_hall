@@ -20,6 +20,7 @@
 #include "../objects/player.h"
 #include "../objects/ai.h"
 #include "map_manager.h"
+#include "mission_manager.h"
 #include "../asset_manager.h"
 #include "dialogue_parser.h"
 #include "SDL2/SDL.h"
@@ -41,7 +42,7 @@ static Player *player;				/**< The player */
 static SSL_List *ai;				/**< The Ai list */
 
 int in_dialog;						/**< Are we in dialogue */
-int act;							/**< Current act we are in */
+
 
 /*----------------------------------
      Loads the level
@@ -91,7 +92,7 @@ static void load_next_level() {
 
 /*!--------------------------------------------------------------------------
   @brief	initialises the game
-  @return 	Void
+  @return 	Voids
 
   Starts the game.
 
@@ -112,7 +113,7 @@ void game_init() {
 	world_offset_x = 0;
 	world_offset_y = 0;
 
-	act = 0;							// current act / level
+	act_init();						// current act / level
 }
 
 
