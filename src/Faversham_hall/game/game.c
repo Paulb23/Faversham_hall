@@ -203,6 +203,13 @@ void game_event_handle(SDL_Event event, int uptime) {
 			start_dialog(get_closest_ai_name(player, ai), 1);
 			in_dialog = 1;
 		}
+
+		/* check for clue interaction and if so
+		 * start the puzzle
+		 */
+		if (player_clue_interaction_check(event, player, current_map)) {
+
+		}
 	} else {
 		// else update the dialog
 		in_dialog = update_dialog(event);
@@ -245,6 +252,9 @@ void game_render() {
 		}
 		if (SSL_Tiled_Get_TileId(current_map, entity_get_tile_x((Entity *)&player->entity, current_map), entity_get_tile_y((Entity *)&player->entity, current_map), layer) == 4) {
 			SSL_Font_Draw(10, 25, 0 ,SDL_FLIP_NONE, "Press E to Talk", (SSL_Font *)asset_manager_getFont("test_font"), SSL_Color_Create(255,255,255,0), game_window);
+		}
+		if (SSL_Tiled_Get_TileId(current_map, entity_get_tile_x((Entity *)&player->entity, current_map), entity_get_tile_y((Entity *)&player->entity, current_map), layer) == 3) {
+			SSL_Font_Draw(10, 25, 0 ,SDL_FLIP_NONE, "Press E to collect", (SSL_Font *)asset_manager_getFont("test_font"), SSL_Color_Create(255,255,255,0), game_window);
 		}
 
 		// let them know the room is locked

@@ -176,6 +176,27 @@ int player_character_interaction_check(SDL_Event event, Player *player, SSL_Tile
 
 
 /*!--------------------------------------------------------------------------
+  @brief	Should we start the clue / puzzle
+  @param	event 		 the event queue
+  @param    player		 player to check
+  @param    map			 map the player is on
+  @return 	1 on loading, else 0
+
+  Checks whether the player is on a clue tile, and has started the clue interaction.
+
+\-----------------------------------------------------------------------------*/
+int player_clue_interaction_check(SDL_Event event, Player *player, SSL_Tiled_Map *map) {
+	int layer = SSL_Tiled_Get_LayerIndex(map, "other");					// get the clue tile layer
+	if (SSL_Tiled_Get_TileId(map, entity_get_tile_x((Entity *)&player->entity, map), entity_get_tile_y((Entity *)&player->entity, map), layer) == 3) {
+		if (SSL_Keybord_Keyname_Pressed(INTERACT_KEY, event)) {			// check the player wants to load
+			return 1;
+		}
+	}
+ return 0;
+}
+
+
+/*!--------------------------------------------------------------------------
   @brief	Gets the name of the closest ai
   @param    player		 player to check
   @param    list		 The list of ai
