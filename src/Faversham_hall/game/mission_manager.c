@@ -186,6 +186,7 @@ void update_act() {
 				case (0): {
 					if (game_in_dialog()) {
 						if (strcmp(game_get_talking_ai(), "butler") == 0) {
+							lock_dialog();
 							if (strcmp(game_get_dialog_node_name(), "intro_end") == 0) {
 								unlock_room("test_map_other");
 								mission = 1;

@@ -125,4 +125,23 @@ char *game_get_dialog_node_name();
 \-----------------------------------------------------------------------------*/
 char *game_get_room();
 
+/*!--------------------------------------------------------------------------
+  @brief	Locks the dialog
+  @return 	Void
+
+  Stops the player from the leaving the dialog
+
+\-----------------------------------------------------------------------------*/
+void lock_dialog();
+
+
+/*!--------------------------------------------------------------------------
+  @brief	Unlocks the dialog
+  @return 	Void
+
+  Allows the player from the leaving the dialog
+
+\-----------------------------------------------------------------------------*/
+void unlock_dialog();
+
 #endif

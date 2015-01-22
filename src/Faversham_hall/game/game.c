@@ -41,8 +41,9 @@ static int world_offset_y;			/**< Y offset of the world */
 static Player *player;				/**< The player */
 static SSL_List *ai;				/**< The Ai list */
 
-int in_dialog;						/**< Are we in dialogue */
-int locked_room;					/**< is the room we are tying to load locked */
+static int in_dialog;				/**< Are we in dialogue */
+static int locked_room;				/**< is the room we are tying to load locked */
+static int locked_dialog;			/**< can we leave the dialog */
 
 
 /*----------------------------------
@@ -89,6 +90,7 @@ static void load_next_level() {
 	player->destination_y = start_y * SSL_Tiled_Get_Tile_Width(current_map);
 	SSL_Tiled_Add_Light(current_map, player->entity.light);
 	in_dialog = 0;
+	locked_dialog = 0;
 }
 
 
@@ -119,6 +121,7 @@ void game_init() {
 	world_offset_x = 0;
 	world_offset_y = 0;
 	locked_room = 0;
+	locked_dialog = 0;
 
 	// set up the mssion counter
 	act_init();
@@ -158,7 +161,9 @@ void game_ticks(double delta, int uptime) {
 	}
 
 	// handle player movment
-	player_move(player,current_map);
+	if (locked_dialog == 0) {
+		player_move(player,current_map);
+	}
 
 	// update camrea offset
 	world_offset_x = -((player->entity.pos.x) - (WINDOW_RES_WIDTH / 2));
@@ -166,7 +171,9 @@ void game_ticks(double delta, int uptime) {
 
 	// exit dialog on player move
 	if (player->moving) {
-		in_dialog = 0;
+		if (locked_dialog == 0) {
+			in_dialog = 0;
+		}
 		locked_room = 0;
 	}
 
@@ -210,6 +217,9 @@ void game_event_handle(SDL_Event event, int uptime) {
 		if (player_clue_interaction_check(event, player, current_map)) {
 
 		}
+
+		// unlock the dialog when it has ended
+		unlock_dialog();
 	} else {
 		// else update the dialog
 		in_dialog = update_dialog(event);
@@ -321,4 +331,28 @@ char *game_get_dialog_node_name() {
 \-----------------------------------------------------------------------------*/
 char *game_get_room() {
 	return current_map_name;
+}
+
+
+/*!--------------------------------------------------------------------------
+  @brief	Locks the dialog
+  @return 	Void
+
+  Stops the player from the leaving the dialog
+
+\-----------------------------------------------------------------------------*/
+void lock_dialog() {
+	locked_dialog = 1;
+}
+
+
+/*!--------------------------------------------------------------------------
+  @brief	Unlocks the dialog
+  @return 	Void
+
+  Allows the player from the leaving the dialog
+
+\-----------------------------------------------------------------------------*/
+void unlock_dialog() {
+	locked_dialog = 0;
 }
