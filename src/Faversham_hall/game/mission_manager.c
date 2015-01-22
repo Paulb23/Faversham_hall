@@ -16,6 +16,7 @@
 
 #include "mission_manager.h"
 #include "../window_manager.h"
+#include "../asset_manager.h"
 
 /*---------------------------------------------------------------------------
                             Private functions
@@ -109,12 +110,26 @@ int is_npc_locked(char *npc) {
 void update_act() {
 	switch (act) {
 		case 0: {
-			// update act stuff here
+
 		}
 		break;
 	}
 }
 
 void draw_act() {
- // draw the mission objectvie here
+	switch (act) {
+		case 0: {
+			switch (mission) {
+				case (0): {
+					SSL_Font_Draw(10, 10, 0 ,SDL_FLIP_NONE, "Mission:  Talk to an npc", (SSL_Font *)asset_manager_getFont("test_font"), SSL_Color_Create(255,255,255,0), game_window);
+				}
+				break;
+				case (1):{
+
+				}
+				break;
+			}
+		}
+		break;
+	}
 }
