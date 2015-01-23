@@ -55,7 +55,7 @@ static void load_level(char *map_name) {
 	map_ini = load_ini(map_name);
 	current_map_name = map_name;	  // update the map name
 	load_lights(current_map);		  // set up lighting
-	SSL_Tiled_Set_Lighting(current_map, SSL_Color_Create(0, 0, 0, 230));
+	SSL_Tiled_Set_Lighting(current_map, SSL_Color_Create(0, 0, 0, 150));
 
 	// destory the old list
 	if (ai) {

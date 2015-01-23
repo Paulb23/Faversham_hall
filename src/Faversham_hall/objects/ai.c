@@ -52,7 +52,7 @@ AI *ai_create(char *name) {
 	ai->entity.image.next_frame = 0;
 	ai->entity.image.time_frame = 150;
 
-	ai->entity.light = SSL_Light_Create(16, 16, 0, 0, 4, 0, SSL_Color_Create(255,255,255,255));
+	ai->entity.light = SSL_Light_Create(16, 16, 0, 0, 6, 0, SSL_Color_Create(255,255,255,255));
 	ai->entity.image.image = SSL_Image_Load("../extras/resources/sprites/test_sprite_ignore_me.png", 16,16,game_window);
 
 	ai->name = name;
