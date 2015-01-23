@@ -56,7 +56,7 @@ Player *player_create() {
 	player->entity.image.time_frame = 150;
 	player->entity.image.image = SSL_Image_Load("../extras/resources/sprites/test_sprite_ignore_me.png", 16,16,game_window);
 
-	player->entity.light = SSL_Light_Create(16, 16, 0, 0, 4, 0, SSL_Color_Create(255,255,255,255));
+	player->entity.light = SSL_Light_Create(16, 16, 0, 0, 6, 0, SSL_Color_Create(255,255,255,255));
 
 	player->destination_x = 0;
 	player->destination_y = 0;
