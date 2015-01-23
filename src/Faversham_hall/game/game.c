@@ -20,6 +20,7 @@
 #include "../objects/player.h"
 #include "../objects/ai.h"
 #include "map_manager.h"
+#include "mission_manager.h"
 #include "../asset_manager.h"
 #include "dialogue_parser.h"
 #include "SDL2/SDL.h"
@@ -40,8 +41,10 @@ static int world_offset_y;			/**< Y offset of the world */
 static Player *player;				/**< The player */
 static SSL_List *ai;				/**< The Ai list */
 
-int in_dialog;						/**< Are we in dialogue */
-int act;							/**< Current act we are in */
+static int in_dialog;				/**< Are we in dialogue */
+static int locked_room;				/**< is the room we are tying to load locked */
+static int locked_dialog;			/**< can we leave the dialog */
+
 
 /*----------------------------------
      Loads the level
@@ -74,6 +77,11 @@ static void load_next_level() {
 	int start_x = SSL_IniFile_GetInt(map_ini, pos , "startX", 1);							// read the current map ini, for the next map name,
 	int start_y = SSL_IniFile_GetInt(map_ini, pos, "startY", 1);							// and starting x, y coordinates
 
+	if (is_room_locked(SSL_IniFile_GetString(map_ini, pos, "load", "test_map"))) {
+		locked_room = 1;
+		return;
+	}
+
 	load_level(SSL_IniFile_GetString(map_ini, pos, "load", "test_map"));					// load the level
 
 																							// set up the player for the new map
@@ -82,6 +90,7 @@ static void load_next_level() {
 	player->destination_y = start_y * SSL_Tiled_Get_Tile_Width(current_map);
 	SSL_Tiled_Add_Light(current_map, player->entity.light);
 	in_dialog = 0;
+	locked_dialog = 0;
 }
 
 
@@ -91,7 +100,7 @@ static void load_next_level() {
 
 /*!--------------------------------------------------------------------------
   @brief	initialises the game
-  @return 	Void
+  @return 	Voids
 
   Starts the game.
 
@@ -111,8 +120,11 @@ void game_init() {
 
 	world_offset_x = 0;
 	world_offset_y = 0;
+	locked_room = 0;
+	locked_dialog = 0;
 
-	act = 0;							// current act / level
+	// set up the mssion counter
+	act_init();
 }
 
 
@@ -149,7 +161,9 @@ void game_ticks(double delta, int uptime) {
 	}
 
 	// handle player movment
-	player_move(player,current_map);
+	if (locked_dialog == 0) {
+		player_move(player,current_map);
+	}
 
 	// update camrea offset
 	world_offset_x = -((player->entity.pos.x) - (WINDOW_RES_WIDTH / 2));
@@ -157,8 +171,14 @@ void game_ticks(double delta, int uptime) {
 
 	// exit dialog on player move
 	if (player->moving) {
-		in_dialog = 0;
+		if (locked_dialog == 0) {
+			in_dialog = 0;
+		}
+		locked_room = 0;
 	}
+
+	// update the mission
+	update_act();
 }
 
 
@@ -190,6 +210,16 @@ void game_event_handle(SDL_Event event, int uptime) {
 			start_dialog(get_closest_ai_name(player, ai), 1);
 			in_dialog = 1;
 		}
+
+		/* check for clue interaction and if so
+		 * start the puzzle
+		 */
+		if (player_clue_interaction_check(event, player, current_map)) {
+
+		}
+
+		// unlock the dialog when it has ended
+		unlock_dialog();
 	} else {
 		// else update the dialog
 		in_dialog = update_dialog(event);
@@ -228,10 +258,101 @@ void game_render() {
 		// else check and draw info about available interactions
 		int layer = SSL_Tiled_Get_LayerIndex(current_map, "other");					// get the loading tile layer
 		if (SSL_Tiled_Get_TileId(current_map, entity_get_tile_x((Entity *)&player->entity, current_map), entity_get_tile_y((Entity *)&player->entity, current_map), layer) == 1) {
-			SSL_Font_Draw(10, 10, 0 ,SDL_FLIP_NONE, "Press E to load", (SSL_Font *)asset_manager_getFont("test_font"), SSL_Color_Create(255,255,255,0), game_window);
+			SSL_Font_Draw(10, 25, 0 ,SDL_FLIP_NONE, "Press E to load", (SSL_Font *)asset_manager_getFont("test_font"), SSL_Color_Create(255,255,255,0), game_window);
 		}
 		if (SSL_Tiled_Get_TileId(current_map, entity_get_tile_x((Entity *)&player->entity, current_map), entity_get_tile_y((Entity *)&player->entity, current_map), layer) == 4) {
 			SSL_Font_Draw(10, 25, 0 ,SDL_FLIP_NONE, "Press E to Talk", (SSL_Font *)asset_manager_getFont("test_font"), SSL_Color_Create(255,255,255,0), game_window);
 		}
+		if (SSL_Tiled_Get_TileId(current_map, entity_get_tile_x((Entity *)&player->entity, current_map), entity_get_tile_y((Entity *)&player->entity, current_map), layer) == 3) {
+			SSL_Font_Draw(10, 25, 0 ,SDL_FLIP_NONE, "Press E to collect", (SSL_Font *)asset_manager_getFont("test_font"), SSL_Color_Create(255,255,255,0), game_window);
+		}
+
+		// let them know the room is locked
+		if (locked_room) {
+			SSL_Font_Draw(10, 40, 0 ,SDL_FLIP_NONE, "Room Locked!", (SSL_Font *)asset_manager_getFont("test_font"), SSL_Color_Create(255,255,255,0), game_window);
+		}
+
+		// draw the mission info
+		draw_act();
 	}
+}
+
+
+/*!--------------------------------------------------------------------------
+  @brief	Gets weatherer are in dialog
+  @return 	1 on true else 0
+
+  Gets weatherer are in dialog, returns 1 on true else 0
+
+\-----------------------------------------------------------------------------*/
+int game_in_dialog() {
+	return in_dialog;
+}
+
+
+/*!--------------------------------------------------------------------------
+  @brief	Gets ai name
+  @return 	name of the ai, else null
+
+  Gets the name of the ai we are talking to
+
+\-----------------------------------------------------------------------------*/
+char *game_get_talking_ai() {
+	if (in_dialog) {
+		return get_closest_ai_name(player, ai);
+	} else {
+		return NULL;
+	}
+}
+
+
+/*!--------------------------------------------------------------------------
+  @brief	Gets dialog node name
+  @return 	name of the dialog node else  null
+
+  Gets the name of the current dialog node in conversation else null
+
+\-----------------------------------------------------------------------------*/
+char *game_get_dialog_node_name() {
+	if (in_dialog) {
+		return get_node_name();
+	} else {
+		return NULL;
+	}
+}
+
+
+/*!--------------------------------------------------------------------------
+  @brief	Gets room currently in
+  @return 	name of the room the player is in
+
+  Gets the name of the room the player is currently in
+
+\-----------------------------------------------------------------------------*/
+char *game_get_room() {
+	return current_map_name;
+}
+
+
+/*!--------------------------------------------------------------------------
+  @brief	Locks the dialog
+  @return 	Void
+
+  Stops the player from the leaving the dialog
+
+\-----------------------------------------------------------------------------*/
+void lock_dialog() {
+	locked_dialog = 1;
+}
+
+
+/*!--------------------------------------------------------------------------
+  @brief	Unlocks the dialog
+  @return 	Void
+
+  Allows the player from the leaving the dialog
+
+\-----------------------------------------------------------------------------*/
+void unlock_dialog() {
+	locked_dialog = 0;
 }
