@@ -140,8 +140,8 @@ static void map_tile_layer_handeler(mxml_node_t *node, SSL_Tiled_Map *map) {
 
 			int i, j;
 			l = 0;
-			for (i=0;i<layer->width;i++){
-				for (j=0;j<layer->height;j++){
+			for (i=0;i<layer->height;i++){
+				for (j=0;j<layer->width;j++){
 					tile_map[map->map.map_width * i + j] = tiles[l++];
 				}
 			}
