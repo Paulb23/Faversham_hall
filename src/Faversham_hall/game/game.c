@@ -87,7 +87,7 @@ static void load_next_level() {
 																							// set up the player for the new map
 	entity_set_pos((Entity *)&player->entity, start_x * SSL_Tiled_Get_Tile_Width(current_map), start_y * SSL_Tiled_Get_Tile_Height(current_map));
 	player->destination_x = start_x * SSL_Tiled_Get_Tile_Width(current_map);
-	player->destination_y = start_y * SSL_Tiled_Get_Tile_Width(current_map);
+	player->destination_y = start_y * SSL_Tiled_Get_Tile_Height(current_map);
 	SSL_Tiled_Add_Light(current_map, player->entity.light);
 	in_dialog = 0;
 	locked_dialog = 0;
