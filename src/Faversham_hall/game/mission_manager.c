@@ -144,6 +144,7 @@ void act_init() {
 	unlock_all_npcs();
 
 	act_switch(act);				// switch to the stating act
+	clue_found = "none";
 }
 
 
@@ -188,16 +189,16 @@ void update_act() {
 					if (game_in_dialog()) {
 						if (strcmp(game_get_talking_ai(), "butler") == 0) {
 							lock_dialog();
-							if (strcmp(game_get_dialog_node_name(), "intro_end") == 0) {
 								unlock_room("test_map_other");
 								mission = 1;
-							}
 						}
 					}
 				}
 				break;
 				case (1): {
-
+					if (strcmp(clue_found,"clue?") == 0) {
+						mission = 2;
+					}
 				}
 				break;
 			}
@@ -223,7 +224,7 @@ void draw_act() {
 				}
 				break;
 				case (1): {
-					SSL_Font_Draw(10, 10, 0 ,SDL_FLIP_NONE, "Mission:  Move to the next room!", (SSL_Font *)asset_manager_getFont("test_font"), SSL_Color_Create(255,255,255,0), game_window);
+					SSL_Font_Draw(10, 10, 0 ,SDL_FLIP_NONE, "Mission:  Find the clue!", (SSL_Font *)asset_manager_getFont("test_font"), SSL_Color_Create(255,255,255,0), game_window);
 				}
 				break;
 			}
