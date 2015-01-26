@@ -81,6 +81,16 @@ void draw_act();
 
 
 /*!--------------------------------------------------------------------------
+  @brief	Sets the current last clue found
+  @return 	Void
+
+  Sets the last clue to be found inside the mission manager
+
+\-----------------------------------------------------------------------------*/
+void found_clue(char *clue);
+
+
+/*!--------------------------------------------------------------------------
   @brief	Gets the current act
   @return 	current act number
 

@@ -33,6 +33,7 @@ static SSL_Hashmap *npcs;				// hashmap to store the npc states
 
 static int act;							// current act
 static int mission;						// current mission
+static char *clue_found;				// last clue to be found
 
 
 /*----------------------------------
@@ -229,6 +230,18 @@ void draw_act() {
 		}
 		break;
 	}
+}
+
+
+/*!--------------------------------------------------------------------------
+  @brief	Sets the current last clue found
+  @return 	Void
+
+  Sets the last clue to be found inside the mission manager
+
+\-----------------------------------------------------------------------------*/
+void found_clue(char *clue) {
+	clue_found = clue;
 }
 
 

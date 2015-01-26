@@ -171,7 +171,7 @@ int update_dialog(SDL_Event event) {
 }
 
 void render_dialog() {
-	SSL_Image_Draw(portait, 2,2, 0,0, SDL_FLIP_NONE, game_window);
+	SSL_Image_Draw(portait, 1,2, 0,0, SDL_FLIP_NONE, game_window);
 	SSL_Image_Draw(dialog_back, 0,0, 0,0, SDL_FLIP_NONE, game_window);
 
 	int i;
