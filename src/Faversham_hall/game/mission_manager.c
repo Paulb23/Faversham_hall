@@ -104,6 +104,7 @@ static void unlock_npc(char *npc) {
 static void act_switch(int new_act) {
 	unlock_all_rooms();	// unlock everything
 	unlock_all_npcs();
+	unlock_room("test_map");
 
 	switch (new_act) {	// switch and set up the act
 		case 0: {
@@ -111,8 +112,16 @@ static void act_switch(int new_act) {
 			lock_room("dining_room");
 			lock_room("reception");
 			lock_room("hallway");
-			lock_room("test_map_other");
-			unlock_room("test_map");
+			lock_room("bacement_hallway");
+			lock_room("hallway");
+		}
+		break;
+		case 1: {
+			lock_room("entrance");
+		}
+		break;
+		case 2: {
+			lock_room("entrance");
 		}
 		break;
 	}
@@ -189,19 +198,61 @@ void update_act() {
 					if (game_in_dialog()) {
 						if (strcmp(game_get_talking_ai(), "butler") == 0) {
 							lock_dialog();
-								unlock_room("test_map_other");
+							if (strcmp(game_get_dialog_node_name(),"chef_goes_crazy5") == 0) { // todo: update with real dialog node!
+								unlock_room("bacement_hallway");
 								mission = 1;
+							}
 						}
 					}
 				}
 				break;
 				case (1): {
-					if (strcmp(clue_found,"clue?") == 0) {
-						mission = 2;
+					if (strcmp(game_get_room(),"bacement_hallway") == 0) {
+						act_switch(1);
 					}
 				}
 				break;
 			}
+		}
+		break;
+		case 1: {
+			switch(mission) {
+				case (0): {
+					if (strcmp(game_get_room(),"servants_quarters") == 0) {
+						mission = 1;
+					}
+				}
+				break;
+				case (1): {
+					if (strcmp(clue_found,"diary") == 0) {		// todo: actual puzzle
+						act_switch(2);
+					}
+				}
+				break;
+			}
+			break;
+			case (2): {
+				switch (mission) {
+					case(0): {
+						if (game_in_dialog()) {
+							lock_dialog();
+							if (strcmp(game_get_talking_ai(), "chef") == 0) {
+								if (strcmp("chef_goes_crazy5", game_get_dialog_node_name()) == 0) {
+									mission = 1;
+								}
+							}
+						}
+					}
+					break;
+					case (1): {
+						if (strcmp(clue_found,"knifes") == 0) {
+							act_switch(3);
+						}
+					}
+				}
+				break;
+			}
+			break;
 		}
 		break;
 	}
@@ -220,11 +271,38 @@ void draw_act() {
 		case 0: {
 			switch (mission) {
 				case (0): {
-					SSL_Font_Draw(10, 10, 0 ,SDL_FLIP_NONE, "Mission:  Talk to the bulter!", (SSL_Font *)asset_manager_getFont("test_font"), SSL_Color_Create(255,255,255,0), game_window);
+					SSL_Font_Draw(10, 10, 0 ,SDL_FLIP_NONE, "Talk to the Butler!", (SSL_Font *)asset_manager_getFont("test_font"), SSL_Color_Create(255,255,255,0), game_window);
 				}
 				break;
 				case (1): {
-					SSL_Font_Draw(10, 10, 0 ,SDL_FLIP_NONE, "Mission:  Find the clue!", (SSL_Font *)asset_manager_getFont("test_font"), SSL_Color_Create(255,255,255,0), game_window);
+					SSL_Font_Draw(10, 10, 0 ,SDL_FLIP_NONE, "Enter the Basement!", (SSL_Font *)asset_manager_getFont("test_font"), SSL_Color_Create(255,255,255,0), game_window);
+				}
+				break;
+			}
+		}
+		break;
+		case (1): {
+			switch(mission) {
+				case (0): {
+					SSL_Font_Draw(10, 10, 0 ,SDL_FLIP_NONE, "Enter the servants room!", (SSL_Font *)asset_manager_getFont("test_font"), SSL_Color_Create(255,255,255,0), game_window);
+				}
+				break;
+				case (1): {
+					SSL_Font_Draw(10, 10, 0 ,SDL_FLIP_NONE, "Find an solve the clue!", (SSL_Font *)asset_manager_getFont("test_font"), SSL_Color_Create(255,255,255,0), game_window);
+				}
+				break;
+			}
+			break;
+		}
+		break;
+		case(2): {
+			switch(mission) {
+				case (0): {
+					SSL_Font_Draw(10, 10, 0 ,SDL_FLIP_NONE, "Talk to the Chef!", (SSL_Font *)asset_manager_getFont("test_font"), SSL_Color_Create(255,255,255,0), game_window);
+				}
+				break;
+				case (1): {
+					SSL_Font_Draw(10, 10, 0 ,SDL_FLIP_NONE, "Count the knifes", (SSL_Font *)asset_manager_getFont("test_font"), SSL_Color_Create(255,255,255,0), game_window);
 				}
 				break;
 			}
