@@ -143,7 +143,7 @@ static void act_switch(int new_act) {
 
 \-----------------------------------------------------------------------------*/
 void act_init() {
-	act = 0;						// start at 0, could add possibility to pass in starting act and mission for saves
+	act = 1;						// start at 0, could add possibility to pass in starting act and mission for saves
 	mission = 0;
 
 	rooms = SSL_Hashmap_Create();	// create and unlock all the rooms
