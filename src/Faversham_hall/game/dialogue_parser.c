@@ -36,7 +36,7 @@ static char *name;
 static char *text;
 static int number_of_lines;
 static int number_of_pages;
-static int current_page;
+static int current_line;
 static int current_page_number;
 static char *current_node;
 static int option_count;
@@ -46,6 +46,7 @@ static SSL_Image *dialog_back;
 static SSL_Image *portait;
 
 static void load_node(char *node) {
+	max_chars = 41;
 	current_node = node;
 	name = SSL_IniFile_GetString(dialog, node, "name", "detective");
 	text = SSL_IniFile_GetString(dialog, node, "text", "detective");
@@ -55,14 +56,14 @@ static void load_node(char *node) {
 	}
 
 	number_of_lines = (strlen(text) / max_chars);
-	printf("%i ", number_of_lines);
+
 	if (number_of_lines != 0) {
 		number_of_pages = (number_of_lines / max_lines_per_page);
 	} else {
 		number_of_pages = 0;
 	}
 
-	current_page = 0;
+	current_line = 0;
 	current_page_number = 0;
 
 	option_count = SSL_IniFile_GetInt(dialog, node, "option_count", 0);
@@ -80,7 +81,6 @@ static void load_node(char *node) {
 	if (portait) {
 		SSL_Image_Destroy(portait);
 	}
-
 	char buf[100];
 	sprintf(buf, "../extras/resources/portraits/%s.png" ,name);
 	portait = SSL_Image_Load(buf, 100, 140, game_window);
@@ -111,7 +111,7 @@ int update_dialog(SDL_Event event) {
 
 	if (current_page_number < number_of_pages && number_of_lines > 1) {
 		if (SSL_Keybord_Keyname_Pressed("_1", event)) {
-			current_page += max_lines_per_page;
+			current_line += max_lines_per_page;
 			current_page_number++;
 		}
 	} else {
@@ -177,16 +177,16 @@ void render_dialog() {
 	int i;
 	int start_y = 150;
 	int y_inc = 15;
-	if (number_of_lines == 1) {
+	if (number_of_lines == 0) {
 		SSL_Font_Draw(10, start_y, 0 ,SDL_FLIP_NONE, text, (SSL_Font *)asset_manager_getFont("dialog_font"), SSL_Color_Create(255,255,255,0), game_window);
 	} else {
 		for (i = 0; i < max_lines_per_page; i++) {
-			if (current_page + i > number_of_lines) {
+			if (current_line + i > number_of_lines) {
 				break;
 			}
-			char *final_text = SSL_String_Substring(text, (current_page + i) * max_chars, ((current_page + i) * max_chars) + max_chars);
+			char *final_text = SSL_String_Substring(text, (current_line + i) * max_chars, ((current_line + i) * max_chars) + max_chars);
 			if (final_text == NULL) {
-				final_text = SSL_String_Substring(text, (current_page + i) * max_chars, strlen(text));
+				final_text = SSL_String_Substring(text, (current_line + i) * max_chars, strlen(text));
 			}
 			if (final_text[0] == ' ') {
 				final_text++;
