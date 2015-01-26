@@ -29,13 +29,25 @@
 
 int valid_clue(int act, int mission) {
 
-	// if valid return 1 else 0
-	return 1;
+	if (act == 1 && mission == 1 && strcmp(game_get_room(), "servants_quarters") == 0) {
+		return 1;
+	}
+
+	if (act == 2 && mission == 1 && strcmp(game_get_room(), "kitchen") == 0) {
+		return 1;
+	}
+
+	return 0;
 }
 
 
 void start_clue(int act, int mission) {
 
+	if (act == 1 && mission == 1) {
+		found_clue("diary");
+	}
+	if (act == 2 && mission == 1) {
+		found_clue("knifes");
+	}
 
-	found_clue("clue?");
 }

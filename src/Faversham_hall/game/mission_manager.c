@@ -235,8 +235,8 @@ void update_act() {
 				switch (mission) {
 					case(0): {
 						if (game_in_dialog()) {
-							lock_dialog();
 							if (strcmp(game_get_talking_ai(), "chef") == 0) {
+								lock_dialog();
 								if (strcmp("chef_goes_crazy5", game_get_dialog_node_name()) == 0) {
 									mission = 1;
 								}
