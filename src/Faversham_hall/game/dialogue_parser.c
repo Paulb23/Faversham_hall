@@ -100,11 +100,15 @@ void start_dialog(char *other, int act) {
 	}
 	dialog = SSL_IniFIle_Create();
 	char path[100];
-	//sprintf(path, "%s%s_%i.ini", dialog_path, other, act);
-	sprintf(path, "%s%s", dialog_path, "chef1.ini");
-	SSL_IniFile_Load(dialog, path);
-
-	load_node("root");
+	sprintf(path, "%s%s%i.ini", dialog_path, other, act);
+	if( access( path, F_OK ) != -1 ) {
+		SSL_IniFile_Load(dialog, path);
+		load_node("root");
+	} else {
+		sprintf(path, "%s%s.ini", dialog_path, "test_dialogue");
+		SSL_IniFile_Load(dialog, path);
+		load_node("root");
+	}
 }
 
 int update_dialog(SDL_Event event) {
@@ -171,6 +175,7 @@ int update_dialog(SDL_Event event) {
 }
 
 void render_dialog() {
+
 	SSL_Image_Draw(portait, 1,2, 0,0, SDL_FLIP_NONE, game_window);
 	SSL_Image_Draw(dialog_back, 0,0, 0,0, SDL_FLIP_NONE, game_window);
 

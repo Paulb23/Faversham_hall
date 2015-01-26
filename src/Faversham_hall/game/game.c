@@ -213,7 +213,7 @@ void game_event_handle(SDL_Event event, int uptime) {
 		 * start the conversation
 		 */
 		if(player_character_interaction_check(event, player, current_map)) {
-			start_dialog(get_closest_ai_name(player, ai), 1);
+			start_dialog(get_closest_ai_name(player, ai), get_current_act());
 			in_dialog = 1;
 		}
 
