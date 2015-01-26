@@ -267,15 +267,18 @@ void update_act() {
 
 \-----------------------------------------------------------------------------*/
 void draw_act() {
+	int mission_x = 55;
+	int mission_y = 5;
+
 	switch (act) {
 		case 0: {
 			switch (mission) {
 				case (0): {
-					SSL_Font_Draw(10, 10, 0 ,SDL_FLIP_NONE, "Talk to the Butler!", (SSL_Font *)asset_manager_getFont("test_font"), SSL_Color_Create(255,255,255,0), game_window);
+					SSL_Font_Draw(mission_x, mission_y, 0 ,SDL_FLIP_NONE, "Talk to the Butler!", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
 				}
 				break;
 				case (1): {
-					SSL_Font_Draw(10, 10, 0 ,SDL_FLIP_NONE, "Enter the Basement!", (SSL_Font *)asset_manager_getFont("test_font"), SSL_Color_Create(255,255,255,0), game_window);
+					SSL_Font_Draw(mission_x, mission_y, 0 ,SDL_FLIP_NONE, "Enter the Basement!", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
 				}
 				break;
 			}
@@ -284,11 +287,11 @@ void draw_act() {
 		case (1): {
 			switch(mission) {
 				case (0): {
-					SSL_Font_Draw(10, 10, 0 ,SDL_FLIP_NONE, "Enter the servants room!", (SSL_Font *)asset_manager_getFont("test_font"), SSL_Color_Create(255,255,255,0), game_window);
+					SSL_Font_Draw(mission_x, mission_y, 0 ,SDL_FLIP_NONE, "Enter the servants room!", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
 				}
 				break;
 				case (1): {
-					SSL_Font_Draw(10, 10, 0 ,SDL_FLIP_NONE, "Find an solve the clue!", (SSL_Font *)asset_manager_getFont("test_font"), SSL_Color_Create(255,255,255,0), game_window);
+					SSL_Font_Draw(mission_x, mission_y, 0 ,SDL_FLIP_NONE, "Find an solve the clue!", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
 				}
 				break;
 			}
@@ -298,11 +301,11 @@ void draw_act() {
 		case(2): {
 			switch(mission) {
 				case (0): {
-					SSL_Font_Draw(10, 10, 0 ,SDL_FLIP_NONE, "Talk to the Chef!", (SSL_Font *)asset_manager_getFont("test_font"), SSL_Color_Create(255,255,255,0), game_window);
+					SSL_Font_Draw(mission_x, mission_y, 0 ,SDL_FLIP_NONE, "Talk to the Chef!", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
 				}
 				break;
 				case (1): {
-					SSL_Font_Draw(10, 10, 0 ,SDL_FLIP_NONE, "Count the knifes", (SSL_Font *)asset_manager_getFont("test_font"), SSL_Color_Create(255,255,255,0), game_window);
+					SSL_Font_Draw(mission_x, mission_y, 0 ,SDL_FLIP_NONE, "Count the knifes", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
 				}
 				break;
 			}

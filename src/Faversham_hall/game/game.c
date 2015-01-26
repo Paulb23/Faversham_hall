@@ -46,6 +46,8 @@ static int in_dialog;				/**< Are we in dialogue */
 static int locked_room;				/**< is the room we are tying to load locked */
 static int locked_dialog;			/**< can we leave the dialog */
 
+static SSL_Image *ui_background;	/**< the ui background */
+
 
 /*----------------------------------
      Loads the level
@@ -123,6 +125,9 @@ void game_init() {
 	world_offset_y = 0;
 	locked_room = 0;
 	locked_dialog = 0;
+
+	// load the ui
+	ui_background = SSL_Image_Load("../extras/resources/gui/game/ui.png", WINDOW_RES_WIDTH, WINDOW_RES_HEIGHT, game_window);
 
 	// set up the mssion counter
 	act_init();
@@ -255,6 +260,9 @@ void game_render() {
 	if (in_dialog) {
 		render_dialog();
 	} else {
+
+		// draw the ui
+		SSL_Image_Draw(ui_background, 0, 0, 0, 1, SDL_FLIP_NONE, game_window);
 
 		// else check and draw info about available interactions
 		int layer = SSL_Tiled_Get_LayerIndex(current_map, "other");					// get the loading tile layer
