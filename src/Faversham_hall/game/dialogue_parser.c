@@ -24,10 +24,10 @@
                             Private functions
  ---------------------------------------------------------------------------*/
 
-static int max_chars = 10;
-static int max_lines_per_page = 2;
+static int max_chars = 41;
+static int max_lines_per_page = 5;
 
-static int max_option_chars = 2;
+static int max_option_chars = 11;
 
 static char *dialog_path = "../extras/resources/dialog/";
 static SSL_IniFile *dialog;
@@ -35,7 +35,9 @@ static SSL_IniFile *dialog;
 static char *name;
 static char *text;
 static int number_of_lines;
+static int number_of_pages;
 static int current_page;
+static int current_page_number;
 static char *current_node;
 static int option_count;
 static SSL_List *options;
@@ -48,8 +50,20 @@ static void load_node(char *node) {
 	name = SSL_IniFile_GetString(dialog, node, "name", "detective");
 	text = SSL_IniFile_GetString(dialog, node, "text", "detective");
 
+	if (strcmp(name, "assistant") == 0) {
+		name = "companion";
+	}
+
 	number_of_lines = (strlen(text) / max_chars);
+	printf("%i ", number_of_lines);
+	if (number_of_lines != 0) {
+		number_of_pages = (number_of_lines / max_lines_per_page);
+	} else {
+		number_of_pages = 0;
+	}
+
 	current_page = 0;
+	current_page_number = 0;
 
 	option_count = SSL_IniFile_GetInt(dialog, node, "option_count", 0);
 	if (option_count != 0) {
@@ -87,7 +101,7 @@ void start_dialog(char *other, int act) {
 	dialog = SSL_IniFIle_Create();
 	char path[100];
 	//sprintf(path, "%s%s_%i.ini", dialog_path, other, act);
-	sprintf(path, "%s%s", dialog_path, "test_dialogue.ini");
+	sprintf(path, "%s%s", dialog_path, "chef1.ini");
 	SSL_IniFile_Load(dialog, path);
 
 	load_node("root");
@@ -95,9 +109,10 @@ void start_dialog(char *other, int act) {
 
 int update_dialog(SDL_Event event) {
 
-	if (current_page < number_of_lines && number_of_lines > 1) {
+	if (current_page_number < number_of_pages && number_of_lines > 1) {
 		if (SSL_Keybord_Keyname_Pressed("_1", event)) {
 			current_page += max_lines_per_page;
+			current_page_number++;
 		}
 	} else {
 		if (option_count == 0) {
@@ -161,23 +176,26 @@ void render_dialog() {
 
 	int i;
 	int start_y = 150;
-	int y_inc = 25;
+	int y_inc = 15;
 	if (number_of_lines == 1) {
 		SSL_Font_Draw(10, start_y, 0 ,SDL_FLIP_NONE, text, (SSL_Font *)asset_manager_getFont("dialog_font"), SSL_Color_Create(255,255,255,0), game_window);
 	} else {
 		for (i = 0; i < max_lines_per_page; i++) {
+			if (current_page + i > number_of_lines) {
+				break;
+			}
 			char *final_text = SSL_String_Substring(text, (current_page + i) * max_chars, ((current_page + i) * max_chars) + max_chars);
 			if (final_text == NULL) {
-				if (current_page + i > number_of_lines) {
-					break;
-				}
 				final_text = SSL_String_Substring(text, (current_page + i) * max_chars, strlen(text));
+			}
+			if (final_text[0] == ' ') {
+				final_text++;
 			}
 			SSL_Font_Draw(10, start_y, 0 ,SDL_FLIP_NONE, final_text, (SSL_Font *)asset_manager_getFont("dialog_font"), SSL_Color_Create(255,255,255,0), game_window);
 			start_y += y_inc;
 		}
 	}
-	if (option_count == 0 || current_page != number_of_lines) {
+	if (option_count == 0 || current_page_number < number_of_pages) {
 		SSL_Font_Draw(225, 10, 0 ,SDL_FLIP_NONE, "1. ...", (SSL_Font *)asset_manager_getFont("dialog_font"), SSL_Color_Create(255,255,255,0), game_window);
 	} else {
 		int i;
