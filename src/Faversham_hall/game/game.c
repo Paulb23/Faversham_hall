@@ -21,6 +21,7 @@
 #include "../objects/ai.h"
 #include "map_manager.h"
 #include "mission_manager.h"
+#include "puzzle_manager.h"
 #include "../asset_manager.h"
 #include "dialogue_parser.h"
 #include "SDL2/SDL.h"
@@ -214,8 +215,8 @@ void game_event_handle(SDL_Event event, int uptime) {
 		/* check for clue interaction and if so
 		 * start the puzzle
 		 */
-		if (player_clue_interaction_check(event, player, current_map)) {
-
+		if (player_clue_interaction_check(event, player, current_map) && valid_clue(get_current_act(), get_current_mission())) {
+			start_clue(get_current_act(), get_current_mission());
 		}
 
 		// unlock the dialog when it has ended
@@ -263,7 +264,7 @@ void game_render() {
 		if (SSL_Tiled_Get_TileId(current_map, entity_get_tile_x((Entity *)&player->entity, current_map), entity_get_tile_y((Entity *)&player->entity, current_map), layer) == 4) {
 			SSL_Font_Draw(10, 25, 0 ,SDL_FLIP_NONE, "Press E to Talk", (SSL_Font *)asset_manager_getFont("test_font"), SSL_Color_Create(255,255,255,0), game_window);
 		}
-		if (SSL_Tiled_Get_TileId(current_map, entity_get_tile_x((Entity *)&player->entity, current_map), entity_get_tile_y((Entity *)&player->entity, current_map), layer) == 3) {
+		if (valid_clue(get_current_act(), get_current_mission()) && SSL_Tiled_Get_TileId(current_map, entity_get_tile_x((Entity *)&player->entity, current_map), entity_get_tile_y((Entity *)&player->entity, current_map), layer) == 3) {
 			SSL_Font_Draw(10, 25, 0 ,SDL_FLIP_NONE, "Press E to collect", (SSL_Font *)asset_manager_getFont("test_font"), SSL_Color_Create(255,255,255,0), game_window);
 		}
 

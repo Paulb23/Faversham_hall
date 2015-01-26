@@ -15,6 +15,7 @@
 
 #include "puzzle_manager.h"
 #include "mission_manager.h"
+#include "game.h"
 
 /*---------------------------------------------------------------------------
                             Private functions
@@ -29,6 +30,7 @@
 int valid_clue(int act, int mission) {
 
 	// if valid return 1 else 0
+	return 1;
 }
 
 
