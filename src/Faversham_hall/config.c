@@ -42,6 +42,7 @@ char *DOWN_KEY;
 char *LEFT_KEY;
 char *RIGHT_KEY;
 char *INTERACT_KEY;
+char *PAUSE_KEY;
 
 
 /*----------------------------------
@@ -69,7 +70,7 @@ static char *down_key_default = "_s";
 static char *left_key_default = "_a";
 static char *right_key_default = "_d";
 static char *interact_key_default = "_e";
-
+static char *pause_key_defualt = "_esc";
 
 
 /*----------------------------------
@@ -124,11 +125,13 @@ static void print_key_block(FILE *file) {
 	"left_key = %s\t; movement left key\n"
 	"right_key = %s\t; movement right key\n"
 	"interact_key = %s\t; interaction key\n"
+	"pause_key = %s\t; pause key\n"
 	,up_key_default
 	,down_key_default
 	,left_key_default
 	,right_key_default
 	,interact_key_default
+	,pause_key_defualt
 	);
 }
 
@@ -279,6 +282,12 @@ static void read_key_section(SSL_IniFile *ini) {
 	if (INTERACT_KEY == (char *)-1) {
 		INTERACT_KEY = interact_key_default;
 		SSL_Log_Write("Error: ini missing interact_key, reverting to default!");
+	}
+
+	PAUSE_KEY = SSL_IniFile_GetString(ini, "keys", "pause_key", (char *)-1);
+	if (INTERACT_KEY == (char *)-1) {
+		INTERACT_KEY = pause_key_defualt;
+		SSL_Log_Write("Error: ini missing pause_key, reverting to default!");
 	}
 }
 

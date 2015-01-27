@@ -44,6 +44,7 @@ extern char *DOWN_KEY;				/**< the down moment key */
 extern char *LEFT_KEY;				/**< the left moment key */
 extern char *RIGHT_KEY;				/**< the right moment key */
 extern char *INTERACT_KEY;			/**< the interact moment key */
+extern char *PAUSE_KEY;				/**< the interact moment key */
 
 
 /*---------------------------------------------------------------------------

@@ -249,7 +249,7 @@ void game_event_handle(SDL_Event event, int uptime) {
 			/* check if the player want to pause
 			 * and if so pause
 			 */
-			if (SSL_Keybord_Keyname_Pressed("_esc", event)) {
+			if (SSL_Keybord_Keyname_Pressed(PAUSE_KEY, event)) {
 				paused = 1;
 			}
 
@@ -265,7 +265,7 @@ void game_event_handle(SDL_Event event, int uptime) {
 		/* check if the player want to unpause
 		 * and if so unpause
 		 */
-		if (SSL_Keybord_Keyname_Pressed("_esc", event)) {
+		if (SSL_Keybord_Keyname_Pressed(PAUSE_KEY, event)) {
 			paused = 0;
 		}
 	}
