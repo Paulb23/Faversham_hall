@@ -49,6 +49,8 @@ static int locked_dialog;			/**< can we leave the dialog */
 
 static SSL_Image *ui_background;	/**< the ui background */
 
+static int paused;					/**< are we paused */
+
 
 /*----------------------------------
      Loads the level
@@ -137,6 +139,7 @@ void game_init() {
 	world_offset_y = 0;
 	locked_room = 0;
 	locked_dialog = 0;
+	paused = 0;
 
 	// load the ui
 	ui_background = SSL_Image_Load("../extras/resources/gui/game/ui.png", WINDOW_RES_WIDTH, WINDOW_RES_HEIGHT, game_window);
@@ -178,25 +181,30 @@ void game_ticks(double delta, int uptime) {
 		entity_update_frame((Entity *)&character->entity);
 	}
 
-	// handle player movment
-	if (locked_dialog == 0) {
-		player_move(player,current_map);
-	}
-
-	// update camrea offset
-	world_offset_x = -((player->entity.pos.x) - (WINDOW_RES_WIDTH / 2));
-	world_offset_y = -((player->entity.pos.y) - (WINDOW_RES_HEIGHT / 2));
-
-	// exit dialog on player move
-	if (player->moving) {
+	// if we are not paused
+	if (!paused) {
+		// handle player movment
 		if (locked_dialog == 0) {
-			in_dialog = 0;
+			player_move(player,current_map);
 		}
-		locked_room = 0;
-	}
 
-	// update the mission
-	update_act();
+		// update camrea offset
+		world_offset_x = -((player->entity.pos.x) - (WINDOW_RES_WIDTH / 2));
+		world_offset_y = -((player->entity.pos.y) - (WINDOW_RES_HEIGHT / 2));
+
+		// exit dialog on player move
+		if (player->moving) {
+			if (locked_dialog == 0) {
+				in_dialog = 0;
+			}
+			locked_room = 0;
+		}
+
+		// update the mission
+		update_act();
+	} else {
+		// psued code here
+	}
 }
 
 
@@ -211,36 +219,55 @@ void game_ticks(double delta, int uptime) {
 \-----------------------------------------------------------------------------*/
 void game_event_handle(SDL_Event event, int uptime) {
 
-	// if we are not in dialog
-	if (!in_dialog) {
+	// if we are not paused
+	if (!paused) {
+		// if we are not in dialog
+		if (!in_dialog) {
 
-		/* check for loading and if so
-		 * load the map and set up the player
-		 */
-		if(player_check_load(event, player, current_map) && !player->moving) {
-			load_next_level();
+			/* check for loading and if so
+			 * load the map and set up the player
+			 */
+			if(player_check_load(event, player, current_map) && !player->moving) {
+				load_next_level();
+			}
+
+			/* check for character interaction and if so
+			 * start the conversation
+			 */
+			if(player_character_interaction_check(event, player, current_map)) {
+				start_dialog(get_closest_ai_name(player, ai), get_current_act());
+				in_dialog = 1;
+			}
+
+			/* check for clue interaction and if so
+			 * start the puzzle
+			 */
+			if (player_clue_interaction_check(event, player, current_map) && valid_clue(get_current_act(), get_current_mission())) {
+				start_clue(get_current_act(), get_current_mission());
+			}
+
+			/* check if the player want to pause
+			 * and if so pause
+			 */
+			if (SSL_Keybord_Keyname_Pressed("_esc", event)) {
+				paused = 1;
+			}
+
+			// unlock the dialog when it has ended
+			unlock_dialog();
+		} else {
+			// else update the dialog
+			in_dialog = update_dialog(event);
 		}
-
-		/* check for character interaction and if so
-		 * start the conversation
-		 */
-		if(player_character_interaction_check(event, player, current_map)) {
-			start_dialog(get_closest_ai_name(player, ai), get_current_act());
-			in_dialog = 1;
-		}
-
-		/* check for clue interaction and if so
-		 * start the puzzle
-		 */
-		if (player_clue_interaction_check(event, player, current_map) && valid_clue(get_current_act(), get_current_mission())) {
-			start_clue(get_current_act(), get_current_mission());
-		}
-
-		// unlock the dialog when it has ended
-		unlock_dialog();
 	} else {
-		// else update the dialog
-		in_dialog = update_dialog(event);
+		// paused code heere
+
+		/* check if the player want to unpause
+		 * and if so unpause
+		 */
+		if (SSL_Keybord_Keyname_Pressed("_esc", event)) {
+			paused = 0;
+		}
 	}
 }
 

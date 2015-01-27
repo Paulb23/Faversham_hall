@@ -107,6 +107,8 @@ const SDL_Scancode _rshift = SDL_SCANCODE_RSHIFT;
 const SDL_Scancode _rctrl  = SDL_SCANCODE_RCTRL;
 const SDL_Scancode _ralt  = SDL_SCANCODE_RALT;
 
+const SDL_Scancode _esc  = SDL_SCANCODE_ESCAPE;
+
 
 /*!--------------------------------------------------------------------------
   @brief	 Gets the SDL key code from string.
@@ -336,6 +338,10 @@ const SDL_Scancode _ralt  = SDL_SCANCODE_RALT;
 		}
 		if (strcmp(&key[0], "_ralt") == 0) {
 		  return _ralt;
+		}
+
+		if (strcmp(&key[0], "_esc") == 0) {
+		  return _esc;
 		}
 
    return -1;

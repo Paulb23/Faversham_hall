@@ -102,6 +102,8 @@ extern const SDL_Scancode _rshift;
 extern const SDL_Scancode _rctrl ;
 extern const SDL_Scancode _ralt ;
 
+extern const SDL_Scancode _esc;
+
 
 /*---------------------------------------------------------------------------
                             Function prototypes
