@@ -205,7 +205,7 @@ void game_event_handle(SDL_Event event, int uptime) {
 		/* check for loading and if so
 		 * load the map and set up the player
 		 */
-		if(player_check_load(event, player, current_map)) {
+		if(player_check_load(event, player, current_map) && !player->moving) {
 			load_next_level();
 		}
 
