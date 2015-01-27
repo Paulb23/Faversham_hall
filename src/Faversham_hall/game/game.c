@@ -271,6 +271,9 @@ void game_event_handle(SDL_Event event, int uptime) {
 			paused = 0;
 		}
 
+		/** if the user want to exit
+		 * exit the game
+		 */
 		if (SSL_Keybord_Keyname_Pressed("_4", event)) {
 			switch_state(EXIT);
 		}
