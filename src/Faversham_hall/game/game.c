@@ -48,6 +48,7 @@ static int locked_room;				/**< is the room we are tying to load locked */
 static int locked_dialog;			/**< can we leave the dialog */
 
 static SSL_Image *ui_background;	/**< the ui background */
+static SSL_Image *pause_background;	/**< the pause background */
 
 static int paused;					/**< are we paused */
 
@@ -143,6 +144,7 @@ void game_init() {
 
 	// load the ui
 	ui_background = SSL_Image_Load("../extras/resources/gui/game/ui.png", WINDOW_RES_WIDTH, WINDOW_RES_HEIGHT, game_window);
+	pause_background = SSL_Image_Load("../extras/resources/gui/game/pause.png", WINDOW_RES_WIDTH, WINDOW_RES_HEIGHT, game_window);
 
 	// set up the mssion counter
 	act_init();
@@ -265,7 +267,7 @@ void game_event_handle(SDL_Event event, int uptime) {
 		/* check if the player want to unpause
 		 * and if so unpause
 		 */
-		if (SSL_Keybord_Keyname_Pressed(PAUSE_KEY, event)) {
+		if (SSL_Keybord_Keyname_Pressed(PAUSE_KEY, event) || SSL_Keybord_Keyname_Pressed("_1", event)) {
 			paused = 0;
 		}
 	}
@@ -326,6 +328,16 @@ void game_render() {
 
 		// draw the mission info
 		draw_act();
+	}
+
+	if (paused) {
+		SSL_Image_Draw(pause_background, 0, 0, 0, 1, SDL_FLIP_NONE, game_window);
+		SSL_Font_Draw(118, 20, 0 ,SDL_FLIP_NONE, "PAUSED!", (SSL_Font *)asset_manager_getFont("ui_title_font"), SSL_Color_Create(255,255,255,0), game_window);
+
+		SSL_Font_Draw(118, 50, 0 ,SDL_FLIP_NONE, "1. Continue", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
+		SSL_Font_Draw(118, 70, 0 ,SDL_FLIP_NONE, "2. Instructions", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
+		SSL_Font_Draw(118, 90, 0 ,SDL_FLIP_NONE, "3. Main Menu", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
+		SSL_Font_Draw(118, 110, 0 ,SDL_FLIP_NONE, "4. Exit", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
 	}
 }
 
