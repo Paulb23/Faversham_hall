@@ -270,6 +270,10 @@ void game_event_handle(SDL_Event event, int uptime) {
 		if (SSL_Keybord_Keyname_Pressed(PAUSE_KEY, event) || SSL_Keybord_Keyname_Pressed("_1", event)) {
 			paused = 0;
 		}
+
+		if (SSL_Keybord_Keyname_Pressed("_4", event)) {
+			switch_state(EXIT);
+		}
 	}
 }
 
