@@ -32,6 +32,7 @@
  ---------------------------------------------------------------------------*/
 
 static char *current_map_name = "";	/**< Name of the current map we are on*/
+static int current_floor;			/**< keeps track of what floor we are on */
 
 static SSL_Tiled_Map *current_map;	/**< Current tmx map we are on */
 static SSL_IniFile *map_ini;		/**< Current ini file for the map */
@@ -67,6 +68,16 @@ static void load_level(char *map_name) {
 	ai = SSL_List_Create();			// set up ai
 	load_ai(current_map, ai);
 	load_servant(current_map, ai);
+
+	if (strcmp(map_name, "bacement_hallway") == 0) {
+		current_floor = 0;
+	}
+	if (strcmp(map_name, "entrance") == 0) {
+		current_floor = 1;
+	}
+	if (strcmp(map_name, "hallway") == 0) {
+		current_floor = 2;
+	}
 }
 
 
@@ -110,6 +121,7 @@ static void load_next_level() {
 \-----------------------------------------------------------------------------*/
 void game_init() {
 	dialog_init();	// set up the dialog
+	current_floor = 0;
 
 	map_ini = load_ini("start_map");	// get the start_map ini and read it
 	int start_x = SSL_IniFile_GetInt(map_ini, "00", "startX", 1);
