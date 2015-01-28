@@ -35,6 +35,7 @@
 typedef enum {
 	MAIN_MENU,
 	GAME_STATE,
+	GAME_LOAD_STATE,
 	EXIT
 } Game_States;
 

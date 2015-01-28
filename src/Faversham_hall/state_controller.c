@@ -156,7 +156,8 @@ void start_game() {
 \-----------------------------------------------------------------------------*/
 void switch_state(Game_States new_state) {
 
-	if (game_state != NULL) {
+
+	if (game_state) {
 		/* clean up the previous state */
 		switch (game_state) {
 			case MAIN_MENU: {
@@ -180,7 +181,12 @@ void switch_state(Game_States new_state) {
 			break;
 		}
 		case GAME_STATE: {
-			game_init();
+			game_init(0);
+			break;
+		}
+		case GAME_LOAD_STATE: {
+			new_state = GAME_STATE;
+			game_init(1);
 			break;
 		}
 		case EXIT: {

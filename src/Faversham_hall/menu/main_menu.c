@@ -24,8 +24,8 @@
                             Private functions
  ---------------------------------------------------------------------------*/
 
-SSL_Image *background;
-SSL_Image *title;
+static SSL_Image *background;
+static SSL_Image *title;
 
 /*---------------------------------------------------------------------------
                             Function codes
@@ -80,9 +80,14 @@ void main_menu_ticks() {
 void main_menu_event_handeler(SDL_Event event) {
 
 	if (SSL_Keybord_Keyname_Pressed("_1", event)) {
+		switch_state(GAME_LOAD_STATE);
+	}
+
+	if (SSL_Keybord_Keyname_Pressed("_2", event)) {
 		switch_state(GAME_STATE);
 	}
-	if (SSL_Keybord_Keyname_Pressed("_4", event)) {
+
+	if (SSL_Keybord_Keyname_Pressed("_5", event)) {
 		switch_state(EXIT);
 	}
 }
@@ -99,9 +104,10 @@ void main_menu_renderer() {
 	SSL_Image_Draw(background, 0, 0, 0, 0, SDL_FLIP_NONE, game_window);
 	SSL_Image_Draw(title, 0, 0, 0, 0, SDL_FLIP_NONE, game_window);
 
-	SSL_Font_Draw(118, 130, 0 ,SDL_FLIP_NONE, "1. Play", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
-	SSL_Font_Draw(118, 150, 0 ,SDL_FLIP_NONE, "2. Instructions", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
-	SSL_Font_Draw(118, 170, 0 ,SDL_FLIP_NONE, "3. Credits", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
-	SSL_Font_Draw(118, 190, 0 ,SDL_FLIP_NONE, "4. Exit", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
+	SSL_Font_Draw(118, 130, 0 ,SDL_FLIP_NONE, "1. Resume", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
+	SSL_Font_Draw(118, 150, 0 ,SDL_FLIP_NONE, "2. New Game", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
+	SSL_Font_Draw(118, 170, 0 ,SDL_FLIP_NONE, "3. Instructions", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
+	SSL_Font_Draw(118, 190, 0 ,SDL_FLIP_NONE, "4. Credits", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
+	SSL_Font_Draw(118, 210, 0 ,SDL_FLIP_NONE, "5. Exit", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
 }
 
