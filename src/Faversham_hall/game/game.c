@@ -160,7 +160,7 @@ void save_game() {
 				   , SSL_IniFile_GetInt(save, "00", "start_act", 0)
 				   , SSL_IniFile_GetInt(save, "00", "start_mission", 0)
 				   , SSL_IniFile_GetString(save, "11", "load", "bacement_hallway")
-				   , SSL_IniFile_GetInt(save, "00", "floor", 0)
+				   , SSL_IniFile_GetInt(save, "11", "floor", 0)
 				   , SSL_IniFile_GetInt(save, "11", "startX", 2)
 				   , SSL_IniFile_GetInt(save, "11", "startY", 11)
 				   , SSL_IniFile_GetInt(save, "11", "start_act", 0)
@@ -191,6 +191,7 @@ static void load_game() {
 
 	act_set(start_act);
 	mission_set(start_mission);
+	paused = 0;
 }
 
 
