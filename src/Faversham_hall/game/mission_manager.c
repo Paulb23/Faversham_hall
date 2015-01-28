@@ -158,6 +158,19 @@ void act_init() {
 
 
 /*!--------------------------------------------------------------------------
+  @brief	Cleans up the act
+  @return 	Void
+
+  Cleans up the act
+
+\-----------------------------------------------------------------------------*/
+void act_clean_up() {
+	SSL_Hashmap_Destroy(rooms);
+	SSL_Hashmap_Destroy(npcs);
+}
+
+
+/*!--------------------------------------------------------------------------
   @brief	Checks if a room is locked
   @param	room		Name of the room to check
   @return 	1 on true else 0

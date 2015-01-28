@@ -29,6 +29,7 @@
  ---------------------------------------------------------------------------*/
 
 void dialog_init();
+void dialog_clean_up();
 void start_dialog(char *other, int act);
 int update_dialog(SDL_Event event);
 void render_dialog();

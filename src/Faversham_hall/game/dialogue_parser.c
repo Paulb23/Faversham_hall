@@ -94,6 +94,10 @@ void dialog_init() {
 	dialog_back = SSL_Image_Load("../extras/resources/gui/dialog/dialog.png", WINDOW_RES_WIDTH, WINDOW_RES_HEIGHT, game_window);
 }
 
+void dialog_clean_up() {
+	SSL_Image_Destroy(dialog_back);
+}
+
 void start_dialog(char *other, int act) {
 	if (dialog) {
 		SSL_IniFile_Destroy(dialog);

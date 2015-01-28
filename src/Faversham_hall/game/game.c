@@ -160,7 +160,22 @@ void game_init() {
 
 \-----------------------------------------------------------------------------*/
 void game_clean_up(Game_States new_state) {
+	SSL_Tiled_Map_Destroy(current_map);
+	SSL_IniFile_Destroy(map_ini);
+	player_destroy(player);
 
+	int i;
+	for (i = 0; i < SSL_List_Size(ai); i++) {
+		AI *character = (AI *)SSL_List_Get(ai, i);
+		ai_destroy(character);
+	}
+	SSL_List_Destroy(ai);
+
+	SSL_Image_Destroy(ui_background);
+	SSL_Image_Destroy(pause_background);
+
+	dialog_clean_up();
+	act_clean_up();
 }
 
 
