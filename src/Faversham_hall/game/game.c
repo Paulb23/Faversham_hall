@@ -111,6 +111,62 @@ static void load_next_level() {
 }
 
 
+/*----------------------------------
+     Saves the game
+ ----------------------------------*/
+
+void save_game() {
+	SSL_IniFile *save = load_ini("start_map");	// open the ini
+
+	char buf[100];	// buffer for ints
+
+												// set the data
+	SSL_IniFile_Set(save, "11", "load", current_map_name);
+
+	itoa(player->entity.pos.x / SSL_Tiled_Get_Tile_Width(current_map), buf, 10);
+	SSL_IniFile_Set(save, "11", "startX", buf);
+
+	itoa(player->entity.pos.y / SSL_Tiled_Get_Tile_Height(current_map), buf, 10);
+	SSL_IniFile_Set(save, "11", "startY", buf);
+
+	itoa(get_current_act(), buf, 10);
+	SSL_IniFile_Set(save, "11", "start_act", buf);
+
+	itoa(get_current_mission(), buf, 10);
+	SSL_IniFile_Set(save, "11", "start_mission", buf);
+
+											// save the data
+	FILE *file = fopen("../extras/resources/maps/loading/start_map.ini", "wb");
+	fprintf(file, ";DO NOT DELETE THIS CONTAINS THE FISRT MAP TO LOAD AND AND THE PLAYERS POSITION \n"
+				  ";COULD BE USED FOR SAVES! \n\n"
+				  "[00]\n "
+				  "load = \"%s\" \n"
+				  "startX = %i \n"
+				  "startY = %i \n"
+				  "start_act = %i \n"
+				  "start_mission = %i \n\n\n"
+				  "[11]\n"
+				  "load = \"%s\" \n"
+				  "startX = %i \n"
+				  "startY = %i \n"
+				  "start_act = %i \n"
+				  "start_mission = %i \n\n\n"
+				   , SSL_IniFile_GetString(save, "00", "load", "bacement_hallway")
+				   , SSL_IniFile_GetInt(save, "00", "startX", 2)
+				   , SSL_IniFile_GetInt(save, "00", "startY", 11)
+				   , SSL_IniFile_GetInt(save, "00", "start_act", 0)
+				   , SSL_IniFile_GetInt(save, "00", "start_mission", 0)
+				   , SSL_IniFile_GetString(save, "11", "load", "bacement_hallway")
+				   , SSL_IniFile_GetInt(save, "11", "startX", 2)
+				   , SSL_IniFile_GetInt(save, "11", "startY", 11)
+				   , SSL_IniFile_GetInt(save, "11", "start_act", 0)
+				   , SSL_IniFile_GetInt(save, "11", "start_mission", 0)
+				   );
+    fclose(file);
+	SSL_IniFile_Destroy(save);	// free the memory
+}
+
+
 /*---------------------------------------------------------------------------
                             Function codes
  ---------------------------------------------------------------------------*/
@@ -290,17 +346,24 @@ void game_event_handle(SDL_Event event, int uptime) {
 			paused = 0;
 		}
 
-		/* check if the player want to go to the main menu
-		 * and if so unpause
+		/* check if the player want to save
+		 * and if so save
 		 */
-		if (SSL_Keybord_Keyname_Pressed("_3", event)) {
+		if (SSL_Keybord_Keyname_Pressed("_2", event)) {
+			save_game();
+		}
+
+		/* check if the player want to go to the main menu
+		 * and if so go to the main menu
+		 */
+		if (SSL_Keybord_Keyname_Pressed("_4", event)) {
 			switch_state(MAIN_MENU);
 		}
 
 		/** if the user want to exit
 		 * exit the game
 		 */
-		if (SSL_Keybord_Keyname_Pressed("_4", event)) {
+		if (SSL_Keybord_Keyname_Pressed("_5", event)) {
 			switch_state(EXIT);
 		}
 	}
@@ -368,9 +431,10 @@ void game_render() {
 		SSL_Font_Draw(118, 20, 0 ,SDL_FLIP_NONE, "PAUSED!", (SSL_Font *)asset_manager_getFont("ui_title_font"), SSL_Color_Create(255,255,255,0), game_window);
 
 		SSL_Font_Draw(118, 50, 0 ,SDL_FLIP_NONE, "1. Continue", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
-		SSL_Font_Draw(118, 70, 0 ,SDL_FLIP_NONE, "2. Instructions", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
-		SSL_Font_Draw(118, 90, 0 ,SDL_FLIP_NONE, "3. Main Menu", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
-		SSL_Font_Draw(118, 110, 0 ,SDL_FLIP_NONE, "4. Exit", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
+		SSL_Font_Draw(118, 70, 0 ,SDL_FLIP_NONE, "2. Save", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
+		SSL_Font_Draw(118, 90, 0 ,SDL_FLIP_NONE, "3. Instructions", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
+		SSL_Font_Draw(118, 110, 0 ,SDL_FLIP_NONE, "4. Main Menu", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
+		SSL_Font_Draw(118, 130, 0 ,SDL_FLIP_NONE, "5. Exit", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
 	}
 }
 
