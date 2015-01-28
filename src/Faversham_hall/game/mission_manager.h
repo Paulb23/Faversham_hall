@@ -119,4 +119,26 @@ int get_current_act();
 \-----------------------------------------------------------------------------*/
 int get_current_mission();
 
+
+/*!--------------------------------------------------------------------------
+  @brief	Sets the current act
+  @param	act		Act to set to
+  @return 	Void
+
+  Sets the current act
+
+\-----------------------------------------------------------------------------*/
+void act_set(int act);
+
+
+/*!--------------------------------------------------------------------------
+  @brief	Sets the current mission
+  @param	mission		mission to set to
+  @return 	Void
+
+  Sets the mission
+
+\-----------------------------------------------------------------------------*/
+void mission_set(int mission);
+
 #endif

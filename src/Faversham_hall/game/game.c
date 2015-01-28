@@ -129,6 +129,8 @@ void game_init() {
 	map_ini = load_ini("start_map");	// get the start_map ini and read it
 	int start_x = SSL_IniFile_GetInt(map_ini, "00", "startX", 1);
 	int start_y = SSL_IniFile_GetInt(map_ini, "00", "startY", 1);
+	int start_act = SSL_IniFile_GetInt(map_ini, "00", "start_act", 1);
+	int start_mission = SSL_IniFile_GetInt(map_ini, "00", "start_mission", 1);
 										// load the map stored in the start_map ini
 	load_level(SSL_IniFile_GetString(map_ini, "00", "load", "test_map"));
 
@@ -148,6 +150,8 @@ void game_init() {
 
 	// set up the mssion counter
 	act_init();
+	act_set(start_act);
+	mission_set(start_mission);
 }
 
 
