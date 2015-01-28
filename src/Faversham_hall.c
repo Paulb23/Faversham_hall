@@ -116,7 +116,7 @@ int main(int argc, char *argv[]) {
 	asset_manager_addFont("dialog_font", SSL_Font_Load("../extras/resources/font/8bitOperatorPlus8-Regular.ttf", 14));
 
 	// switch state and start game
-	switch_state(GAME_STATE);
+	switch_state(MAIN_MENU);
 	start_game();
 
 	return 0;

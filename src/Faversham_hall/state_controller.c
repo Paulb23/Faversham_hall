@@ -15,6 +15,7 @@
 
 #include "state_controller.h"
 #include "game/game.h"
+#include "menu/main_menu.h"
 #include "config.h"
 #include "window_manager.h"
 #include "SDL2/SDL.h"
@@ -71,7 +72,7 @@ void start_game() {
 			 */
 			switch (game_state) {
 				case MAIN_MENU: {
-					// main_menu_ticks();
+					main_menu_ticks();
 					break;
 				}
 				case GAME_STATE: {
@@ -91,7 +92,7 @@ void start_game() {
 				 */
 				switch (game_state) {
 					case MAIN_MENU: {
-						// main_menu_event_handeler();
+					    main_menu_event_handeler(event);
 						break;
 					}
 					case GAME_STATE: {
@@ -122,7 +123,7 @@ void start_game() {
 		 */
 		switch (game_state) {
 			case MAIN_MENU: {
-				// main_menu_renderer();
+				main_menu_renderer();
 				break;
 			}
 			case GAME_STATE: {
@@ -155,25 +156,27 @@ void start_game() {
 \-----------------------------------------------------------------------------*/
 void switch_state(Game_States new_state) {
 
-	/* clean up the previous state */
-	switch (game_state) {
-		case MAIN_MENU: {
-			// main_menu_clean_up();
-			break;
-		}
-		case GAME_STATE: {
-			game_clean_up(new_state);
-			break;
-		}
-		case EXIT: {
-			break;
+	if (game_state != NULL) {
+		/* clean up the previous state */
+		switch (game_state) {
+			case MAIN_MENU: {
+				main_menu_clean_up();
+				break;
+			}
+			case GAME_STATE: {
+				game_clean_up(new_state);
+				break;
+			}
+			case EXIT: {
+				break;
+			}
 		}
 	}
 
 	/* init the new state */
 	switch (new_state) {
 		case MAIN_MENU: {
-			// main_menu_init();
+			main_menu_init();
 			break;
 		}
 		case GAME_STATE: {

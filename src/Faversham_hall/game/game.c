@@ -271,6 +271,13 @@ void game_event_handle(SDL_Event event, int uptime) {
 			paused = 0;
 		}
 
+		/* check if the player want to go to the main menu
+		 * and if so unpause
+		 */
+		if (SSL_Keybord_Keyname_Pressed("_3", event)) {
+			switch_state(MAIN_MENU);
+		}
+
 		/** if the user want to exit
 		 * exit the game
 		 */
