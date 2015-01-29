@@ -11,18 +11,6 @@ int main(int argc, char *argv[]) {
 	LOG_FILE_PATH = "../../extras/log.txt";
 	create_window();
 
-	switch_state(MAIN_MENU);
-	assert(game_state == MAIN_MENU);
-
-	switch_state(GAME_STATE);
-	assert(game_state == GAME_STATE);
-
-	switch_state(MAIN_MENU);
-	assert(game_state == MAIN_MENU);
-
-	switch_state(MAIN_MENU);
-	assert(game_state == MAIN_MENU);
-
 	switch_state(EXIT);
 	assert(game_state == EXIT);
 
