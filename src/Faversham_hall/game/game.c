@@ -195,6 +195,51 @@ static void load_game() {
 }
 
 
+/*----------------------------------
+     updates animations
+ ----------------------------------*/
+
+static void update_animation() {
+	entity_update_frame((Entity *)&player->entity);
+	int i;
+	for (i = 0; i < SSL_List_Size(ai); i++) {
+		AI *character = (AI *)SSL_List_Get(ai, i);
+		entity_update_frame((Entity *)&character->entity);
+	}
+}
+
+
+/*----------------------------------
+     updates camrea
+ ----------------------------------*/
+static void update_camrea() {
+	world_offset_x = -((player->entity.pos.x) - (WINDOW_RES_WIDTH / 2));
+	world_offset_y = -((player->entity.pos.y) - (WINDOW_RES_HEIGHT / 2));
+}
+
+
+/*----------------------------------
+     updates player
+ ----------------------------------*/
+static void update_player() {
+	if (locked_dialog == 0) {
+		player_move(player,current_map);
+	}
+}
+
+
+/*----------------------------------
+     updates player status
+ ----------------------------------*/
+static void update_player_status() {
+	if (player->moving) {
+		if (locked_dialog == 0) {
+			in_dialog = 0;
+		}
+		locked_room = 0;
+	}
+}
+
 /*---------------------------------------------------------------------------
                             Function codes
  ---------------------------------------------------------------------------*/
@@ -286,33 +331,14 @@ void game_clean_up(Game_States new_state) {
 void game_ticks(double delta, int uptime) {
 
 	// update animations
-	entity_update_frame((Entity *)&player->entity);
-	int i;
-	for (i = 0; i < SSL_List_Size(ai); i++) {
-		AI *character = (AI *)SSL_List_Get(ai, i);
-		entity_update_frame((Entity *)&character->entity);
-	}
+	update_animation();
 
 	// if we are not paused
 	if (!paused) {
-		// handle player movment
-		if (locked_dialog == 0) {
-			player_move(player,current_map);
-		}
+		update_player();
+		update_player_status();
 
-		// update camrea offset
-		world_offset_x = -((player->entity.pos.x) - (WINDOW_RES_WIDTH / 2));
-		world_offset_y = -((player->entity.pos.y) - (WINDOW_RES_HEIGHT / 2));
-
-		// exit dialog on player move
-		if (player->moving) {
-			if (locked_dialog == 0) {
-				in_dialog = 0;
-			}
-			locked_room = 0;
-		}
-
-		// update the mission
+		update_camrea();
 		update_act();
 	} else {
 		// psued code here
