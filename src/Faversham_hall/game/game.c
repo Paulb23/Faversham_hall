@@ -343,6 +343,9 @@ void game_ticks(double delta, int uptime) {
 	} else {
 		// psued code here
 	}
+
+	// set background draw color
+	SDL_SetRenderDrawColor(game_window->renderer, 0, 0, 0, 255);
 }
 
 
