@@ -257,7 +257,7 @@ void game_init(int load) {
 	current_floor = 0;
 
 	map_ini = load_ini("start_map");	// get the start_map ini and read it
-	current_floor = SSL_IniFile_GetInt(map_ini, "11", "floor", 0);
+	current_floor = SSL_IniFile_GetInt(map_ini, "00", "floor", 0);
 	int start_x = SSL_IniFile_GetInt(map_ini, "00", "startX", 1);
 	int start_y = SSL_IniFile_GetInt(map_ini, "00", "startY", 1);
 	int start_act = SSL_IniFile_GetInt(map_ini, "00", "start_act", 1);
@@ -309,7 +309,6 @@ void game_clean_up(Game_States new_state) {
 		AI *character = (AI *)SSL_List_Get(ai, i);
 		ai_destroy(character);
 	}
-	SSL_List_Destroy(ai);
 
 	SSL_Image_Destroy(ui_background);
 	SSL_Image_Destroy(pause_background);
