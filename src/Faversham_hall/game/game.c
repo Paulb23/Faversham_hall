@@ -58,6 +58,10 @@ static int paused;					/**< are we paused */
  ----------------------------------*/
 
 static void load_level(char *map_name) {
+
+	if (current_map) {
+		SSL_Tiled_Map_Destroy(current_map);
+	}
 	current_map = load_map(map_name); // load the map and ini files
 	map_ini = load_ini(map_name);
 	current_map_name = map_name;	  // update the map name
@@ -448,6 +452,8 @@ void game_event_handle(SDL_Event event, int uptime) {
 
 \-----------------------------------------------------------------------------*/
 void game_render() {
+	// set background draw color
+	SDL_SetRenderDrawColor(game_window->renderer, 0, 0, 0, 255);
 
 	// draw the world
 	SSL_Tiled_Draw_Map(current_map, world_offset_x, world_offset_y, game_window);
