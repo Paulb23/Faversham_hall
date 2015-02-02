@@ -299,7 +299,7 @@ void draw_act() {
 				}
 				break;
 				case (1): {
-					SSL_Font_Draw(mission_x, mission_y, 0 ,SDL_FLIP_NONE, "Find an solve the clue!", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
+					SSL_Font_Draw(mission_x, mission_y, 0 ,SDL_FLIP_NONE, "Find and solve the clue!", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
 				}
 				break;
 			}

@@ -62,7 +62,7 @@ int valid_clue(int act, int mission) {
 void start_clue(int act, int mission) {
 
 	if (act == 1 && mission == 1) {
-		found_clue("diary");
+		start_puzzle("diary");
 	}
 }
 
@@ -90,7 +90,7 @@ void puzzle_update(int act, int mission) {
   Updates the puzzle events
 \-----------------------------------------------------------------------------*/
 int puzzle_update_events(SDL_Event event, int act, int mission) {
-	return 1;
+	return 0;
 }
 
 

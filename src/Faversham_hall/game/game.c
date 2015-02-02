@@ -47,6 +47,7 @@ static int in_dialog;				/**< Are we in dialogue */
 static int locked_room;				/**< is the room we are tying to load locked */
 static int locked_dialog;			/**< can we leave the dialog */
 static int in_puzzle;				/**< are we in a puzzle */
+static char *puzzle;				/**< name of the puzzle currently solving */
 
 static SSL_Image *ui_background;	/**< the ui background */
 static SSL_Image *pause_background;	/**< the pause background */
@@ -376,6 +377,9 @@ void game_event_handle(SDL_Event event, int uptime) {
 			in_dialog = update_dialog(event);
 		} else if (in_puzzle) {
 			in_puzzle = puzzle_update_events(event, get_current_act(), get_current_mission());
+			if (in_puzzle == 0) {
+				found_clue(puzzle);
+			}
 		} else {
 
 			/* check for loading and if so
@@ -607,11 +611,13 @@ void unlock_dialog() {
 
 /*!--------------------------------------------------------------------------
   @brief	Starts a puzzle sequence
+  @param	puzzle_name		name of the puzzle to pass to the mission manager
   @return 	Void
 
   Starts a puzzle sequence.
 
 \-----------------------------------------------------------------------------*/
-void start_puzzle() {
+void start_puzzle(char *puzzle_name) {
 	in_puzzle = 1;
+	puzzle = puzzle_name;
 }
