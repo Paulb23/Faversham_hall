@@ -46,6 +46,7 @@ static SSL_List *ai;				/**< The Ai list */
 static int in_dialog;				/**< Are we in dialogue */
 static int locked_room;				/**< is the room we are tying to load locked */
 static int locked_dialog;			/**< can we leave the dialog */
+static int in_puzzle;				/**< are we in a puzzle */
 
 static SSL_Image *ui_background;	/**< the ui background */
 static SSL_Image *pause_background;	/**< the pause background */
@@ -279,6 +280,7 @@ void game_init(int load) {
 	locked_room = 0;
 	locked_dialog = 0;
 	paused = 0;
+	in_puzzle = 0;
 
 	// load the ui
 	ui_background = SSL_Image_Load("../extras/resources/gui/game/ui.png", WINDOW_RES_WIDTH, WINDOW_RES_HEIGHT, game_window);
@@ -338,11 +340,15 @@ void game_ticks(double delta, int uptime) {
 
 	// if we are not paused
 	if (!paused) {
-		update_player();
-		update_player_status();
+		if (!in_puzzle) {
+			update_player();
+			update_player_status();
 
-		update_camrea();
-		update_act();
+			update_camrea();
+			update_act();
+		} else {
+			puzzle_update(get_current_act(), get_current_mission());
+		}
 	} else {
 		// psued code here
 	}
@@ -365,8 +371,12 @@ void game_event_handle(SDL_Event event, int uptime) {
 
 	// if we are not paused
 	if (!paused) {
-		// if we are not in dialog
-		if (!in_dialog) {
+
+		if (in_dialog) {
+			in_dialog = update_dialog(event);
+		} else if (in_puzzle) {
+			in_puzzle = puzzle_update_events(event, get_current_act(), get_current_mission());
+		} else {
 
 			/* check for loading and if so
 			 * load the map and set up the player
@@ -399,9 +409,6 @@ void game_event_handle(SDL_Event event, int uptime) {
 
 			// unlock the dialog when it has ended
 			unlock_dialog();
-		} else {
-			// else update the dialog
-			in_dialog = update_dialog(event);
 		}
 	} else {
 		// paused code heere
@@ -472,6 +479,8 @@ void game_render() {
 	//if we are in dialog draw it
 	if (in_dialog) {
 		render_dialog();
+	} else if (in_puzzle) {
+		puzzle_render(get_current_act(), get_current_mission());
 	} else {
 
 		// draw the ui
@@ -593,4 +602,16 @@ void lock_dialog() {
 \-----------------------------------------------------------------------------*/
 void unlock_dialog() {
 	locked_dialog = 0;
+}
+
+
+/*!--------------------------------------------------------------------------
+  @brief	Starts a puzzle sequence
+  @return 	Void
+
+  Starts a puzzle sequence.
+
+\-----------------------------------------------------------------------------*/
+void start_puzzle() {
+	in_puzzle = 1;
 }

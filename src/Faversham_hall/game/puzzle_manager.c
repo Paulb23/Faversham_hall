@@ -64,8 +64,44 @@ void start_clue(int act, int mission) {
 	if (act == 1 && mission == 1) {
 		found_clue("diary");
 	}
-	if (act == 2 && mission == 1) {
-		found_clue("knifes");
-	}
+}
+
+
+/*!--------------------------------------------------------------------------
+  @brief    Updates the puzzle
+  @param	act			act number to check on
+  @param	mission		mission number to check on
+  @return Void
+
+  Updates the puzzle
+\-----------------------------------------------------------------------------*/
+void puzzle_update(int act, int mission) {
+
+}
+
+
+/*!--------------------------------------------------------------------------
+  @brief    Handles the puzzle events
+  @param	event		the event queue
+  @param	act			act number to check on
+  @param	mission		mission number to check on
+  @return 1 if failed else 0 on completion
+
+  Updates the puzzle events
+\-----------------------------------------------------------------------------*/
+int puzzle_update_events(SDL_Event event, int act, int mission) {
+	return 1;
+}
+
+
+/*!--------------------------------------------------------------------------
+  @brief    Renders the puzzle
+  @param	act			act number to check on
+  @param	mission		mission number to check on
+  @return Void
+
+  Renders the puzzle
+\-----------------------------------------------------------------------------*/
+void puzzle_render(int act, int mission) {
 
 }

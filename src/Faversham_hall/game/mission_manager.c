@@ -211,10 +211,10 @@ void update_act() {
 					if (game_in_dialog()) {
 						if (strcmp(game_get_talking_ai(), "butler") == 0) {
 							lock_dialog();
-							if (strcmp(game_get_dialog_node_name(),"chef_goes_crazy5") == 0) { // todo: update with real dialog node!
+						//	if (strcmp(game_get_dialog_node_name(),"chef_goes_crazy5") == 0) { // todo: update with real dialog node!
 								unlock_room("bacement_hallway");
 								mission = 1;
-							}
+						//	}
 						}
 					}
 				}
@@ -251,17 +251,12 @@ void update_act() {
 							if (strcmp(game_get_talking_ai(), "chef") == 0) {
 								lock_dialog();
 								if (strcmp("chef_goes_crazy5", game_get_dialog_node_name()) == 0) {
-									mission = 1;
+									act_switch(3);
 								}
 							}
 						}
 					}
 					break;
-					case (1): {
-						if (strcmp(clue_found,"knifes") == 0) {
-							act_switch(3);
-						}
-					}
 				}
 				break;
 			}
