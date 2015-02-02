@@ -42,10 +42,6 @@ int valid_clue(int act, int mission) {
 		return 1;
 	}
 
-	if (act == 2 && mission == 1 && strcmp(game_get_room(), "kitchen") == 0) {
-		return 1;
-	}
-
 	return 0;
 }
 
@@ -90,6 +86,7 @@ void puzzle_update(int act, int mission) {
   Updates the puzzle events
 \-----------------------------------------------------------------------------*/
 int puzzle_update_events(SDL_Event event, int act, int mission) {
+
 	return 0;
 }
 

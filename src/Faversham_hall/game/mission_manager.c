@@ -312,10 +312,6 @@ void draw_act() {
 					SSL_Font_Draw(mission_x, mission_y, 0 ,SDL_FLIP_NONE, "Talk to the Chef!", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
 				}
 				break;
-				case (1): {
-					SSL_Font_Draw(mission_x, mission_y, 0 ,SDL_FLIP_NONE, "Count the knifes", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
-				}
-				break;
 			}
 		}
 		break;
