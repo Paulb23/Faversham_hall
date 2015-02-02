@@ -378,6 +378,7 @@ void game_event_handle(SDL_Event event, int uptime) {
 		} else if (in_puzzle) {
 			in_puzzle = puzzle_update_events(event, get_current_act(), get_current_mission());
 			if (in_puzzle == 0) {
+				puzzle_clean_up(get_current_act(), get_current_mission());
 				found_clue(puzzle);
 			}
 		} else {
@@ -620,4 +621,5 @@ void unlock_dialog() {
 void start_puzzle(char *puzzle_name) {
 	in_puzzle = 1;
 	puzzle = puzzle_name;
+	puzzle_init(get_current_act(), get_current_mission());
 }

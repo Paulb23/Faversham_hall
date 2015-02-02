@@ -52,6 +52,30 @@ void start_clue(int act, int mission);
 
 
 /*!--------------------------------------------------------------------------
+  @brief    Inits the puzzle
+  @param	act			act number to check on
+  @param	mission		mission number to check on
+  @return Void
+
+  Inits the puzzle
+
+\-----------------------------------------------------------------------------*/
+void puzzle_init(int act, int mission);
+
+
+/*!--------------------------------------------------------------------------
+  @brief    Cleans up the puzzle
+  @param	act			act number to check on
+  @param	mission		mission number to check on
+  @return Void
+
+  Cleans up the puzzle
+
+\-----------------------------------------------------------------------------*/
+void puzzle_clean_up(int act, int mission);
+
+
+/*!--------------------------------------------------------------------------
   @brief    Updates the puzzle
   @param	act			act number to check on
   @param	mission		mission number to check on

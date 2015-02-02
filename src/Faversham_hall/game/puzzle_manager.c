@@ -15,13 +15,15 @@
 
 #include "puzzle_manager.h"
 #include "mission_manager.h"
+#include "../asset_manager.h"
 #include "game.h"
 
 /*---------------------------------------------------------------------------
                             Private functions
  ---------------------------------------------------------------------------*/
 
-
+static SSL_Image *diary_full_page;
+static SSL_Image *button;
 
 /*---------------------------------------------------------------------------
                             Function codes
@@ -64,6 +66,42 @@ void start_clue(int act, int mission) {
 
 
 /*!--------------------------------------------------------------------------
+  @brief    Inits the puzzle
+  @param	act			act number to check on
+  @param	mission		mission number to check on
+  @return Void
+
+  Inits the puzzle
+
+\-----------------------------------------------------------------------------*/
+void puzzle_init(int act, int mission) {
+	button = SSL_Image_Load("../extras/resources/gui/game/button.png", 155, 15, game_window);
+
+	if (act == 1 && mission == 1) {
+		diary_full_page = SSL_Image_Load("../extras/resources/gui/game/diary_full_page.png", 320 / 2, WINDOW_RES_HEIGHT, game_window);
+	}
+}
+
+
+/*!--------------------------------------------------------------------------
+  @brief    Cleans up the puzzle
+  @param	act			act number to check on
+  @param	mission		mission number to check on
+  @return Void
+
+  Cleans up the puzzle
+
+\-----------------------------------------------------------------------------*/
+void puzzle_clean_up(int act, int mission) {
+	SSL_Image_Destroy(button);
+
+	if (act == 1 && mission == 1) {
+		SSL_Image_Destroy(diary_full_page);
+	}
+}
+
+
+/*!--------------------------------------------------------------------------
   @brief    Updates the puzzle
   @param	act			act number to check on
   @param	mission		mission number to check on
@@ -72,7 +110,9 @@ void start_clue(int act, int mission) {
   Updates the puzzle
 \-----------------------------------------------------------------------------*/
 void puzzle_update(int act, int mission) {
+	if (act == 1 && mission == 1) {
 
+	}
 }
 
 
@@ -86,7 +126,12 @@ void puzzle_update(int act, int mission) {
   Updates the puzzle events
 \-----------------------------------------------------------------------------*/
 int puzzle_update_events(SDL_Event event, int act, int mission) {
-
+	if (act == 1 && mission == 1) {
+		if (SSL_Keybord_Keyname_Pressed("_2", event)) {
+			return 0;
+		}
+		return 1;
+	}
 	return 0;
 }
 
@@ -100,5 +145,10 @@ int puzzle_update_events(SDL_Event event, int act, int mission) {
   Renders the puzzle
 \-----------------------------------------------------------------------------*/
 void puzzle_render(int act, int mission) {
+	if (act == 1 && mission == 1) {
+		SSL_Image_Draw(diary_full_page, 0, 0, 0, 1, SDL_FLIP_NONE, game_window);
+	}
 
+	SSL_Image_Draw(button, 162, 217, 0, 1, SDL_FLIP_NONE, game_window);
+	SSL_Font_Draw(167, 220, 0 ,SDL_FLIP_NONE, "1. Restart        2. Check", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
 }
