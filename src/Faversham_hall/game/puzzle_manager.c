@@ -24,6 +24,7 @@
 
 static SSL_Image *diary_full_page;
 static SSL_Image *button;
+static SSL_Image *paper_strip;
 
 /*---------------------------------------------------------------------------
                             Function codes
@@ -79,6 +80,7 @@ void puzzle_init(int act, int mission) {
 
 	if (act == 1 && mission == 1) {
 		diary_full_page = SSL_Image_Load("../extras/resources/gui/game/diary_full_page.png", 320 / 2, WINDOW_RES_HEIGHT, game_window);
+		paper_strip = SSL_Image_Load("../extras/resources/gui/game/paper_strip.png", 155, 13, game_window);
 	}
 }
 
@@ -147,6 +149,31 @@ int puzzle_update_events(SDL_Event event, int act, int mission) {
 void puzzle_render(int act, int mission) {
 	if (act == 1 && mission == 1) {
 		SSL_Image_Draw(diary_full_page, 0, 0, 0, 1, SDL_FLIP_NONE, game_window);
+		SSL_Font_Draw(5, 15, 0 ,SDL_FLIP_NONE, "1234567890123456789012", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
+		SSL_Font_Draw(5, 30, 0 ,SDL_FLIP_NONE, "1234567890123456789012", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
+		SSL_Font_Draw(5, 45, 0 ,SDL_FLIP_NONE, "1234567890123456789012", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
+		SSL_Font_Draw(5, 60, 0 ,SDL_FLIP_NONE, "1234567890123456789012", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
+		SSL_Font_Draw(5, 75, 0 ,SDL_FLIP_NONE, "1234567890123456789012", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
+		SSL_Font_Draw(5, 90, 0 ,SDL_FLIP_NONE, "1234567890123456789012", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
+		SSL_Font_Draw(5, 105, 0 ,SDL_FLIP_NONE, "1234567890123456789012", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
+		SSL_Font_Draw(5, 120, 0 ,SDL_FLIP_NONE, "1234567890123456789012", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
+		SSL_Font_Draw(5, 135, 0 ,SDL_FLIP_NONE, "1234567890123456789012", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
+		SSL_Font_Draw(5, 150, 0 ,SDL_FLIP_NONE, "1234567890123456789012", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
+		SSL_Font_Draw(5, 165, 0 ,SDL_FLIP_NONE, "1234567890123456789012", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
+		SSL_Font_Draw(5, 180, 0 ,SDL_FLIP_NONE, "1234567890123456789012", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
+		SSL_Font_Draw(5, 195, 0 ,SDL_FLIP_NONE, "1234567890123456789012", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
+		SSL_Font_Draw(5, 210, 0 ,SDL_FLIP_NONE, "1234567890123456789012", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
+
+		SSL_Image_Draw(paper_strip, 162, 15, 0, 1, SDL_FLIP_NONE, game_window);
+		SSL_Image_Draw(paper_strip, 162, 35, 0, 1, SDL_FLIP_NONE, game_window);
+		SSL_Image_Draw(paper_strip, 162, 55, 0, 1, SDL_FLIP_NONE, game_window);
+		SSL_Image_Draw(paper_strip, 162, 75, 0, 1, SDL_FLIP_NONE, game_window);
+		SSL_Image_Draw(paper_strip, 162, 95, 0, 1, SDL_FLIP_NONE, game_window);
+		SSL_Image_Draw(paper_strip, 162, 115, 0, 1, SDL_FLIP_NONE, game_window);
+		SSL_Image_Draw(paper_strip, 162, 135, 0, 1, SDL_FLIP_NONE, game_window);
+		SSL_Image_Draw(paper_strip, 162, 155, 0, 1, SDL_FLIP_NONE, game_window);
+		SSL_Image_Draw(paper_strip, 162, 175, 0, 1, SDL_FLIP_NONE, game_window);
+		SSL_Image_Draw(paper_strip, 162, 195, 0, 1, SDL_FLIP_NONE, game_window);
 	}
 
 	SSL_Image_Draw(button, 162, 217, 0, 1, SDL_FLIP_NONE, game_window);

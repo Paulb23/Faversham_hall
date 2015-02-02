@@ -467,20 +467,21 @@ void game_render() {
 	// set background draw color
 	SDL_SetRenderDrawColor(game_window->renderer, 0, 0, 0, 255);
 
-	// draw the world
-	SSL_Tiled_Draw_Map(current_map, world_offset_x, world_offset_y, game_window);
-	SSL_Tiled_Draw_Lights(current_map, world_offset_x, world_offset_y, game_window, raytrace);
+	if (!in_puzzle) {
+		// draw the world
+		SSL_Tiled_Draw_Map(current_map, world_offset_x, world_offset_y, game_window);
+		SSL_Tiled_Draw_Lights(current_map, world_offset_x, world_offset_y, game_window, raytrace);
 
-	// draw the player
-	SSL_Image_Draw(player->entity.image.image, player->entity.pos.x + world_offset_x, player->entity.pos.y + world_offset_y, 0, player->entity.image.current_frame + (player->entity.image.max_frames * player->entity.image.current_row), 0, game_window);
+		// draw the player
+		SSL_Image_Draw(player->entity.image.image, player->entity.pos.x + world_offset_x, player->entity.pos.y + world_offset_y, 0, player->entity.image.current_frame + (player->entity.image.max_frames * player->entity.image.current_row), 0, game_window);
 
-	// draw the ai
-	int i;
-	for (i = 0; i < SSL_List_Size(ai); i++) {
-		AI *character = (AI *)SSL_List_Get(ai, i);
-		SSL_Image_Draw(character->entity.image.image, character->entity.pos.x + world_offset_x, character->entity.pos.y + world_offset_y, 0, character->entity.image.current_frame + (character->entity.image.max_frames * character->entity.image.current_row), 0, game_window);
+		// draw the ai
+		int i;
+		for (i = 0; i < SSL_List_Size(ai); i++) {
+			AI *character = (AI *)SSL_List_Get(ai, i);
+			SSL_Image_Draw(character->entity.image.image, character->entity.pos.x + world_offset_x, character->entity.pos.y + world_offset_y, 0, character->entity.image.current_frame + (character->entity.image.max_frames * character->entity.image.current_row), 0, game_window);
+		}
 	}
-
 	//if we are in dialog draw it
 	if (in_dialog) {
 		render_dialog();
