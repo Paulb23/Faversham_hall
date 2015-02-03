@@ -83,7 +83,7 @@ static void lock_npc(char *npc) {
 static void unlock_all_npcs() {
 	int i;
 	for (i = 0; i < number_of_npc; i++) {
-		SSL_Hashmap_Add(rooms, npc_names[i], "0");
+		SSL_Hashmap_Add(npcs, npc_names[i], "0");
 	}
 }
 
@@ -122,6 +122,30 @@ static void act_switch(int new_act) {
 		break;
 		case 2: {
 			lock_room("entrance");
+		}
+		break;
+		case 3: {
+			lock_room("kids_room");
+		}
+		break;
+		case 4: {
+			lock_room("entrance");
+		}
+		break;
+		case 5: {
+			lock_room("entrance");
+		}
+		break;
+		case 6: {
+
+		}
+		break;
+		case 7: {
+
+		}
+		break;
+		case 8: {
+
 		}
 		break;
 	}
@@ -192,7 +216,7 @@ int is_room_locked(char *room) {
 
 \-----------------------------------------------------------------------------*/
 int is_npc_locked(char *npc) {
-	return SSL_Hashmap_Get_Int(npcs, npc);
+	return 0;
 }
 
 
@@ -237,30 +261,138 @@ void update_act() {
 				}
 				break;
 				case (1): {
-					if (strcmp(clue_found,"diary") == 0) {		// todo: actual puzzle
+					if (strcmp(clue_found,"diary") == 0) {
 						act_switch(2);
 					}
 				}
 				break;
 			}
-			break;
-			case (2): {
-				switch (mission) {
-					case(0): {
-						if (game_in_dialog()) {
-							if (strcmp(game_get_talking_ai(), "chef") == 0) {
-								lock_dialog();
-								if (strcmp("chef_goes_crazy5", game_get_dialog_node_name()) == 0) {
-									act_switch(3);
-								}
+		}
+		break;
+		case (2): {
+			switch (mission) {
+				case(0): {
+					if (game_in_dialog()) {
+						if (strcmp(game_get_talking_ai(), "chef") == 0) {
+							lock_dialog();
+							if (strcmp("chef_goes_crazy5", game_get_dialog_node_name()) == 0) {
+								act_switch(3);
 							}
 						}
 					}
-					break;
 				}
 				break;
 			}
 			break;
+		}
+		break;
+		case (3): {
+			switch (mission) {
+				case (0): {
+					if (game_in_dialog()) {
+						if (strcmp(game_get_talking_ai(), "nephew") == 0 || strcmp(game_get_talking_ai(), "soninlaw") == 0) {
+						lock_dialog();
+						//	if (strcmp("chef_goes_crazy5", game_get_dialog_node_name()) == 0) { todo: update with real node
+							lock_npc(game_get_talking_ai());
+						//	}
+						}
+					}
+
+					if (SSL_Hashmap_Get_Int(npcs, "nephew") && SSL_Hashmap_Get_Int(npcs, "soninlaw")) {
+						act_switch(4);
+					}
+				}
+				break;
+			}
+		}
+		break;
+		case (4): {
+			switch (mission) {
+				case (0) : {
+					if (game_in_dialog()) {
+						if (strcmp(game_get_talking_ai(), "dutchess") == 0) {
+							lock_dialog();
+							//	if (strcmp("chef_goes_crazy5", game_get_dialog_node_name()) == 0) { todo: update with real node
+								start_puzzle("plumber");
+							//}
+						}
+					}
+
+					if (strcmp(clue_found,"plumber") == 0) {
+						act_switch(5);
+					}
+				}
+				break;
+			}
+		}
+		break;
+		case (5): {
+			switch (mission) {
+				case (0) : {
+					if (game_in_dialog()) {
+						if (strcmp(game_get_talking_ai(), "maid") == 0 || strcmp(game_get_talking_ai(), "twins") == 0) {
+						lock_dialog();
+						//	if (strcmp("chef_goes_crazy5", game_get_dialog_node_name()) == 0) { todo: update with real node
+							lock_npc(game_get_talking_ai());
+						//	}
+						}
+					}
+
+					if (SSL_Hashmap_Get_Int(npcs, "maid") && SSL_Hashmap_Get_Int(npcs, "twins")) {
+						act_switch(6);
+					}
+				}
+				break;
+			}
+		}
+		break;
+		case (6): {
+			switch(mission) {
+				case (0) : {
+					if (game_in_dialog()) {
+						if (strcmp(game_get_talking_ai(), "servant") == 0) {
+							lock_dialog();
+							//	if (strcmp("chef_goes_crazy5", game_get_dialog_node_name()) == 0) { todo: update with real node
+								act_switch(7);
+							//}
+						}
+					}
+				}
+				break;
+			}
+		}
+		break;
+		case (7) : {
+			switch (mission) {
+				case (0): {
+					if (game_in_dialog()) {
+						lock_dialog();
+						lock_npc(game_get_talking_ai());
+					}
+
+					int valid = 1;
+					int i;
+					for (i = 0; i < number_of_npc; i++) {
+						if (SSL_Hashmap_Get_Int(npcs, npc_names[i]) == 0) {
+							valid = 0;
+							break;
+						}
+					}
+					if (valid) {
+						act_switch(8);
+					}
+				}
+				break;
+			}
+		}
+		break;
+		case (8) : {
+			switch (mission) {
+				case (0): {
+					// accuse
+				}
+				break;
+			}
 		}
 		break;
 	}
@@ -310,6 +442,60 @@ void draw_act() {
 			switch(mission) {
 				case (0): {
 					SSL_Font_Draw(mission_x, mission_y, 0 ,SDL_FLIP_NONE, "Talk to the Chef!", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
+				}
+				break;
+			}
+		}
+		break;
+		case(3): {
+			switch(mission) {
+				case(0): {
+					SSL_Font_Draw(mission_x, mission_y, 0 ,SDL_FLIP_NONE, "Talk to the Nephew and Son in Law!", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
+				}
+				break;
+			}
+		}
+		break;
+		case(4): {
+			switch(mission) {
+				case(0): {
+					SSL_Font_Draw(mission_x, mission_y, 0 ,SDL_FLIP_NONE, "Talk to the Dutchess!", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
+				}
+				break;
+			}
+		}
+		break;
+		case(5): {
+			switch(mission) {
+				case(0): {
+					SSL_Font_Draw(mission_x, mission_y, 0 ,SDL_FLIP_NONE, "Talk to the Maid and Twins!", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
+				}
+				break;
+			}
+		}
+		break;
+		case(6): {
+			switch(mission) {
+				case (0) : {
+					SSL_Font_Draw(mission_x, mission_y, 0 ,SDL_FLIP_NONE, "Track down the servant!", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
+				}
+				break;
+			}
+		}
+		break;
+		case(7): {
+			switch(mission) {
+				case (0) : {
+					SSL_Font_Draw(mission_x, mission_y, 0 ,SDL_FLIP_NONE, "Talk to everyone!", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
+				}
+				break;
+			}
+		}
+		break;
+		case(8): {
+			switch(mission) {
+				case (0) : {
+					SSL_Font_Draw(mission_x, mission_y, 0 ,SDL_FLIP_NONE, "Accuse someone!", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
 				}
 				break;
 			}
