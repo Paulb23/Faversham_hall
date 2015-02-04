@@ -641,6 +641,16 @@ int SSL_Tiled_Get_LayerIndex(SSL_Tiled_Map *map, char *name) {
 }
 
 
+void show_layer(SSL_Tiled_Map *map, int layer_index) {
+	SSL_Tile_Layer *layer = SSL_List_Get(map->layers, layer_index);
+	layer->visible = 1;
+}
+
+void hide_layer(SSL_Tiled_Map *map, int layer_index) {
+	SSL_Tile_Layer *layer = SSL_List_Get(map->layers, layer_index);
+	layer->visible = 0;
+}
+
 /*!--------------------------------------------------------------------------
   @brief    Removes a light from the map
   @param    map			 map to remove the light from

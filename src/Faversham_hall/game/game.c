@@ -60,15 +60,12 @@ static int paused;					/**< are we paused */
  ----------------------------------*/
 
 static void load_level(char *map_name) {
-
 	if (current_map) {
 		SSL_Tiled_Map_Destroy(current_map);
 	}
 	current_map = load_map(map_name); // load the map and ini files
 	map_ini = load_ini(map_name);
 	current_map_name = map_name;	  // update the map name
-	load_lights(current_map);		  // set up lighting
-	SSL_Tiled_Set_Lighting(current_map, SSL_Color_Create(0, 0, 0, 150));
 
 	// destory the old list
 	if (ai) {
@@ -77,6 +74,14 @@ static void load_level(char *map_name) {
 	ai = SSL_List_Create();			// set up ai
 	load_ai(current_map, ai);
 	load_servant(current_map, ai);
+
+	if (get_current_act() == 6 && get_current_mission() == 0) {
+		SSL_Tiled_Set_Lighting(current_map, SSL_Color_Create(0, 0, 0, 255));
+		show_layer(current_map, SSL_Tiled_Get_LayerIndex(current_map, "puzzle"));
+	} else {
+		load_lights(current_map);		  // set up lighting
+		SSL_Tiled_Set_Lighting(current_map, SSL_Color_Create(0, 0, 0, 150));
+	}
 
 	if (strcmp(map_name, "bacement_hallway") == 0) {
 		current_floor = 0;
@@ -111,6 +116,11 @@ static void load_next_level() {
 	entity_set_pos((Entity *)&player->entity, start_x * SSL_Tiled_Get_Tile_Width(current_map), start_y * SSL_Tiled_Get_Tile_Height(current_map));
 	player->destination_x = start_x * SSL_Tiled_Get_Tile_Width(current_map);
 	player->destination_y = start_y * SSL_Tiled_Get_Tile_Height(current_map);
+	if (get_current_act() == 6 && get_current_mission() == 0) {
+		player->entity.light->range = 4;
+	} else {
+		player->entity.light->range = 6;
+	}
 	SSL_Tiled_Add_Light(current_map, player->entity.light);
 	in_dialog = 0;
 	locked_dialog = 0;
