@@ -637,3 +637,23 @@ void start_puzzle(char *puzzle_name) {
 	puzzle = puzzle_name;
 	puzzle_init(get_current_act(), get_current_mission());
 }
+
+
+/*!--------------------------------------------------------------------------
+  @brief	Reloads the map for lights out
+  @return 	Void
+
+  Reloads the map for lights out
+
+\-----------------------------------------------------------------------------*/
+void lights_out() {
+	player->entity.light->range = 4;
+	SSL_Tiled_Set_Lighting(current_map, SSL_Color_Create(0, 0, 0, 255));
+	show_layer(current_map, SSL_Tiled_Get_LayerIndex(current_map, "puzzle"));
+
+	int i;
+	for (i = 0; i < SSL_List_Size(ai); i++) {
+		AI *character = (AI *)SSL_List_Get(ai, i);
+		character->entity.light->range = 2;
+	}
+}

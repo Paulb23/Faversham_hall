@@ -137,7 +137,7 @@ static void act_switch(int new_act) {
 		}
 		break;
 		case 6: {
-
+			lights_out();
 		}
 		break;
 		case 7: {
