@@ -170,14 +170,18 @@ void load_ai(SSL_Tiled_Map *map, SSL_List *list) {
 						break;
 					}
 				}
-																// set up the ai's light and position
-				entity_set_pos((Entity *)&ai->entity, i * SSL_Tiled_Get_Tile_Width(map), j * SSL_Tiled_Get_Tile_Height(map));
-				SSL_Light_SetPos(ai->entity.light, ai->entity.pos.x ,ai->entity.pos.y);
-				if (get_current_act() == 6 && get_current_mission() == 0) {
-					ai->entity.light->range = 2;
+				if (tile_id == 9 && get_current_act() != 6) {
+
+				} else {
+																	// set up the ai's light and position
+					entity_set_pos((Entity *)&ai->entity, i * SSL_Tiled_Get_Tile_Width(map), j * SSL_Tiled_Get_Tile_Height(map));
+					SSL_Light_SetPos(ai->entity.light, ai->entity.pos.x ,ai->entity.pos.y);
+					if (get_current_act() == 6 && get_current_mission() == 0) {
+						ai->entity.light->range = 2;
+					}
+					SSL_Tiled_Add_Light(map, ai->entity.light);
+					SSL_List_Add(list, ai);
 				}
-				SSL_Tiled_Add_Light(map, ai->entity.light);
-				SSL_List_Add(list, ai);
 			}
 		}
 	}

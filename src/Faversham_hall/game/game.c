@@ -73,7 +73,10 @@ static void load_level(char *map_name) {
 	}
 	ai = SSL_List_Create();			// set up ai
 	load_ai(current_map, ai);
-	load_servant(current_map, ai);
+
+	if (get_current_act() < 5 || get_current_act() > 6) {
+		load_servant(current_map, ai);
+	}
 
 	if (get_current_act() == 6 && get_current_mission() == 0) {
 		SSL_Tiled_Set_Lighting(current_map, SSL_Color_Create(0, 0, 0, 255));
