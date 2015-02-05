@@ -25,6 +25,7 @@
 static SSL_Image *diary_full_page;
 static SSL_Image *button;
 static SSL_Image *paper_strip;
+static SSL_List  *objects;
 
 /*---------------------------------------------------------------------------
                             Function codes
@@ -117,11 +118,22 @@ void start_clue(int act, int mission) {
 
 \-----------------------------------------------------------------------------*/
 void puzzle_init(int act, int mission) {
+	objects = SSL_List_Create();
+
 	button = SSL_Image_Load("../extras/resources/gui/game/button.png", 155, 15, game_window);
 
 	if (act == 1 && mission == 1) {
 		diary_full_page = SSL_Image_Load("../extras/resources/gui/game/diary_full_page.png", 320 / 2, WINDOW_RES_HEIGHT, game_window);
 		paper_strip = SSL_Image_Load("../extras/resources/gui/game/paper_strip.png", 155, 13, game_window);
+
+		int start_y = 15;
+		int y_inc = 20;
+		int i;
+		for (i = 0; i < 10; i++) {
+			Puzzle_Object *puzzle_object = puzzle_object_create(162, start_y, 0, paper_strip);
+			SSL_List_Add(objects, puzzle_object);
+			start_y += y_inc;
+		}
 	}
 }
 
@@ -204,17 +216,12 @@ void puzzle_render(int act, int mission) {
 		SSL_Font_Draw(5, 180, 0 ,SDL_FLIP_NONE, "1234567890123456789012", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
 		SSL_Font_Draw(5, 195, 0 ,SDL_FLIP_NONE, "1234567890123456789012", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
 		SSL_Font_Draw(5, 210, 0 ,SDL_FLIP_NONE, "1234567890123456789012", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
+	}
 
-		SSL_Image_Draw(paper_strip, 162, 15, 0, 1, SDL_FLIP_NONE, game_window);
-		SSL_Image_Draw(paper_strip, 162, 35, 0, 1, SDL_FLIP_NONE, game_window);
-		SSL_Image_Draw(paper_strip, 162, 55, 0, 1, SDL_FLIP_NONE, game_window);
-		SSL_Image_Draw(paper_strip, 162, 75, 0, 1, SDL_FLIP_NONE, game_window);
-		SSL_Image_Draw(paper_strip, 162, 95, 0, 1, SDL_FLIP_NONE, game_window);
-		SSL_Image_Draw(paper_strip, 162, 115, 0, 1, SDL_FLIP_NONE, game_window);
-		SSL_Image_Draw(paper_strip, 162, 135, 0, 1, SDL_FLIP_NONE, game_window);
-		SSL_Image_Draw(paper_strip, 162, 155, 0, 1, SDL_FLIP_NONE, game_window);
-		SSL_Image_Draw(paper_strip, 162, 175, 0, 1, SDL_FLIP_NONE, game_window);
-		SSL_Image_Draw(paper_strip, 162, 195, 0, 1, SDL_FLIP_NONE, game_window);
+	int i;
+	for(i = 0 ; i < SSL_List_Size(objects); i++) {
+		Puzzle_Object *puzzle_object = SSL_List_Get(objects, i);
+		SSL_Image_Draw(puzzle_object->image, puzzle_object->x, puzzle_object->y, puzzle_object->rot, 0, SDL_FLIP_NONE, game_window);
 	}
 
 	SSL_Image_Draw(button, 162, 217, 0, 1, SDL_FLIP_NONE, game_window);
