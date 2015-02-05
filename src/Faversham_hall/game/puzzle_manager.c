@@ -32,6 +32,8 @@ static SSL_Image *horizontal;
 static SSL_Image *vertical;
 static SSL_Image *up_left;
 static SSL_Image *up_right;
+static SSL_Image *start;
+static SSL_Image *end;
 
 static int selected;
 static const int diary_start_y = 15;
@@ -186,6 +188,8 @@ void puzzle_init(int act, int mission) {
 		horizontal = SSL_Image_Load("../extras/resources/gui/game/water/horizontal.png", 32, 32, game_window);
 		up_left = SSL_Image_Load("../extras/resources/gui/game/water/up_left.png", 32, 32, game_window);
 		up_right = SSL_Image_Load("../extras/resources/gui/game/water/up_right.png", 32, 32, game_window);
+		start = SSL_Image_Load("../extras/resources/gui/game/water/start.png", 32, 32, game_window);
+		end = SSL_Image_Load("../extras/resources/gui/game/water/end.png", 32, 32, game_window);
 
 		SSL_List_Add(objects, puzzle_object_create(12, 12, 0, vertical));
 	}
@@ -368,6 +372,11 @@ void puzzle_render(int act, int mission) {
 	//	SSL_Font_Draw(5, 180, 0 ,SDL_FLIP_NONE, "1234567890123456789012", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
 	//	SSL_Font_Draw(5, 195, 0 ,SDL_FLIP_NONE, "1234567890123456789012", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
 	//	SSL_Font_Draw(5, 210, 0 ,SDL_FLIP_NONE, "1234567890123456789012", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
+	}
+
+	if (act == 4 && mission == 1) {
+		SSL_Image_Draw(start, 50, 210, 0, 1, SDL_FLIP_NONE, game_window);
+		SSL_Image_Draw(end, 290, 20, 270, 1, SDL_FLIP_NONE, game_window);
 	}
 
 	int i;
