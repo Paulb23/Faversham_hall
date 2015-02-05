@@ -32,6 +32,24 @@ static int selected;
 static const int diary_start_y = 15;
 static const int diary_y_inc = 15;
 static const int diary_end_y = 165;
+static const int diary_order[10] = {8,5,1,4,2,10,11,3,9,6};
+
+static int check_puzzle(int act, int mission) {
+	if (act == 1 && mission == 1) {
+		int i;
+		for(i = 0 ; i < SSL_List_Size(objects); i++) {
+			Puzzle_Object *puzzle_object = SSL_List_Get(objects, i);
+			if (puzzle_object->y == diary_y_inc * diary_order[i]) {
+
+			} else {
+				return 1;
+			}
+
+		}
+	}
+
+	return 0;
+}
 
 /*---------------------------------------------------------------------------
                             Function codes
@@ -224,7 +242,11 @@ int puzzle_update_events(SDL_Event event, int act, int mission) {
 			puzzle_restart(act, mission);
 		}
 		if (SSL_Keybord_Keyname_Pressed("_2", event)) {
-			return 0;
+			int result =  check_puzzle(act, mission);
+			if (result) {
+				puzzle_restart(act, mission);
+			}
+			return result;
 		}
 
 		if (SSL_Keybord_Keyname_Pressed("_a", event)) {
