@@ -111,6 +111,10 @@ int valid_clue(int act, int mission) {
 		return 1;
 	}
 
+	if (act == 4 && mission == 1 && strcmp(game_get_room(), "test_map") == 0) {
+		return 1;
+	}
+
 	return 0;
 }
 
@@ -128,6 +132,10 @@ void start_clue(int act, int mission) {
 
 	if (act == 1 && mission == 1) {
 		start_puzzle("diary");
+	}
+
+	if (act == 4 && mission == 1) {
+		start_puzzle("plumber");
 	}
 }
 

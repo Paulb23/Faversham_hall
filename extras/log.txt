@@ -1,0 +1,2 @@
+Thu Feb 05 17:38:20 2015
+: Failed to create image texture! 

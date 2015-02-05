@@ -313,13 +313,29 @@ void update_act() {
 						if (strcmp(game_get_talking_ai(), "dutchess") == 0) {
 							lock_dialog();
 							//	if (strcmp("chef_goes_crazy5", game_get_dialog_node_name()) == 0) { todo: update with real node
-								start_puzzle("plumber");
+								mission++;
 							//}
 						}
 					}
 
 					if (strcmp(clue_found,"plumber") == 0) {
 						act_switch(5);
+					}
+				}
+				break;
+				case (1): {
+					if (strcmp(clue_found,"plumber") == 0) {
+						mission++;
+					}
+				}
+				break;
+				case (2): {
+					if (game_in_dialog()) {
+						if (strcmp(game_get_talking_ai(), "dutchess") == 0) {
+							//	if (strcmp("chef_goes_crazy5", game_get_dialog_node_name()) == 0) { todo: update with real node
+								act_switch(5);
+							//}
+						}
 					}
 				}
 				break;
@@ -459,6 +475,14 @@ void draw_act() {
 		case(4): {
 			switch(mission) {
 				case(0): {
+					SSL_Font_Draw(mission_x, mission_y, 0 ,SDL_FLIP_NONE, "Talk to the Dutchess!", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
+				}
+				break;
+				case(1): {
+					SSL_Font_Draw(mission_x, mission_y, 0 ,SDL_FLIP_NONE, "Fix the pipes!", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
+				}
+				break;
+				case(2): {
 					SSL_Font_Draw(mission_x, mission_y, 0 ,SDL_FLIP_NONE, "Talk to the Dutchess!", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
 				}
 				break;
