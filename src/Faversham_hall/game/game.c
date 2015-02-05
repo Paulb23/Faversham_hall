@@ -60,6 +60,10 @@ static int paused;					/**< are we paused */
  ----------------------------------*/
 
 static void load_level(char *map_name) {
+	if (strcmp(map_name,"reception") == 0 && get_current_act() == 8) {
+		map_name = "reception_accuse";
+	}
+
 	if (current_map) {
 		SSL_Tiled_Map_Destroy(current_map);
 	}
@@ -74,7 +78,7 @@ static void load_level(char *map_name) {
 	ai = SSL_List_Create();			// set up ai
 	load_ai(current_map, ai);
 
-	if (get_current_act() < 5 || get_current_act() > 6) {
+	if (get_current_act() != 5 && get_current_act() != 6 && get_current_act() != 8) {
 		load_servant(current_map, ai);
 	}
 

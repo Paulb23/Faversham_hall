@@ -170,7 +170,7 @@ void load_ai(SSL_Tiled_Map *map, SSL_List *list) {
 						break;
 					}
 				}
-				if (tile_id == 9 && get_current_act() != 6) {
+				if (tile_id == 9 && get_current_act() != 6 && get_current_act() != 8) {
 
 				} else {
 																	// set up the ai's light and position
