@@ -31,7 +31,7 @@ static SSL_List  *objects;
 static int selected;
 static const int diary_start_y = 15;
 static const int diary_y_inc = 15;
-static const int diary_end_y = 210;
+static const int diary_end_y = 165;
 
 /*---------------------------------------------------------------------------
                             Function codes
@@ -138,6 +138,9 @@ void puzzle_init(int act, int mission) {
 		int y_inc = 15;
 		int i;
 		for (i = 0; i < 10; i++) {
+			char buffer[100];
+			sprintf(buffer, "../extras/resources/gui/game/paper/%i.png", i);
+			paper_strip = SSL_Image_Load(buffer, 155, 13, game_window);
 			Puzzle_Object *puzzle_object = puzzle_object_create(162, start_y, 0, paper_strip);
 			SSL_List_Add(objects, puzzle_object);
 			start_y += y_inc;
@@ -249,7 +252,6 @@ int puzzle_update_events(SDL_Event event, int act, int mission) {
 				if (selected < SSL_List_Size(objects) - 1) {
 					selected++;
 				} else {
-					return 0;
 				}
 			}
 		}
@@ -271,26 +273,26 @@ int puzzle_update_events(SDL_Event event, int act, int mission) {
 void puzzle_render(int act, int mission) {
 	if (act == 1 && mission == 1) {
 		SSL_Image_Draw(diary_full_page, 0, 0, 0, 1, SDL_FLIP_NONE, game_window);
-		SSL_Font_Draw(5, 15, 0 ,SDL_FLIP_NONE, "1234567890123456789012", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
-		SSL_Font_Draw(5, 30, 0 ,SDL_FLIP_NONE, "1234567890123456789012", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
-		SSL_Font_Draw(5, 45, 0 ,SDL_FLIP_NONE, "1234567890123456789012", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
-		SSL_Font_Draw(5, 60, 0 ,SDL_FLIP_NONE, "1234567890123456789012", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
-		SSL_Font_Draw(5, 75, 0 ,SDL_FLIP_NONE, "1234567890123456789012", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
-		SSL_Font_Draw(5, 90, 0 ,SDL_FLIP_NONE, "1234567890123456789012", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
-		SSL_Font_Draw(5, 105, 0 ,SDL_FLIP_NONE, "1234567890123456789012", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
-		SSL_Font_Draw(5, 120, 0 ,SDL_FLIP_NONE, "1234567890123456789012", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
-		SSL_Font_Draw(5, 135, 0 ,SDL_FLIP_NONE, "1234567890123456789012", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
-		SSL_Font_Draw(5, 150, 0 ,SDL_FLIP_NONE, "1234567890123456789012", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
-		SSL_Font_Draw(5, 165, 0 ,SDL_FLIP_NONE, "1234567890123456789012", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
-		SSL_Font_Draw(5, 180, 0 ,SDL_FLIP_NONE, "1234567890123456789012", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
-		SSL_Font_Draw(5, 195, 0 ,SDL_FLIP_NONE, "1234567890123456789012", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
-		SSL_Font_Draw(5, 210, 0 ,SDL_FLIP_NONE, "1234567890123456789012", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
+		SSL_Font_Draw(5, 15, 0 ,SDL_FLIP_NONE,  "Tuesday 15 march", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
+		SSL_Font_Draw(5, 30, 0 ,SDL_FLIP_NONE,  "Tense evening. Servant", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
+		SSL_Font_Draw(5, 45, 0 ,SDL_FLIP_NONE,  "Caught the butler", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
+		SSL_Font_Draw(5, 60, 0 ,SDL_FLIP_NONE,  "Looking at my breasts", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
+		SSL_Font_Draw(5, 75, 0 ,SDL_FLIP_NONE,  "I hate him. He is", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
+		SSL_Font_Draw(5, 90, 0 ,SDL_FLIP_NONE,  "Spoiling my studying", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
+		SSL_Font_Draw(5, 105, 0 ,SDL_FLIP_NONE, "and my life. I'm", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
+		SSL_Font_Draw(5, 120, 0 ,SDL_FLIP_NONE, "Meeting my lawyer", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
+		SSL_Font_Draw(5, 135, 0 ,SDL_FLIP_NONE, "At walnut-tree inn", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
+		SSL_Font_Draw(5, 150, 0 ,SDL_FLIP_NONE, "Tomorrow at 3pm.", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
+		SSL_Font_Draw(5, 165, 0 ,SDL_FLIP_NONE, "He is in trouble.", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
+	//	SSL_Font_Draw(5, 180, 0 ,SDL_FLIP_NONE, "1234567890123456789012", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
+	//	SSL_Font_Draw(5, 195, 0 ,SDL_FLIP_NONE, "1234567890123456789012", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
+	//	SSL_Font_Draw(5, 210, 0 ,SDL_FLIP_NONE, "1234567890123456789012", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
 	}
 
 	int i;
 	for(i = 0 ; i < SSL_List_Size(objects); i++) {
 		Puzzle_Object *puzzle_object = SSL_List_Get(objects, i);
-		SSL_Image_Draw(puzzle_object->image, puzzle_object->x, puzzle_object->y, puzzle_object->rot, 0, SDL_FLIP_NONE, game_window);
+		SSL_Image_Draw(puzzle_object->image, puzzle_object->x, puzzle_object->y - 1, puzzle_object->rot, 0, SDL_FLIP_NONE, game_window);
 	}
 
 	SSL_Image_Draw(big_button, 162, 167, 0, 1, SDL_FLIP_NONE, game_window);
