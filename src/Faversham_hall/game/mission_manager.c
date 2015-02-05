@@ -386,8 +386,11 @@ void update_act() {
 					int i;
 					for (i = 0; i < number_of_npc; i++) {
 						if (SSL_Hashmap_Get_Int(npcs, npc_names[i]) == 0) {
-							valid = 0;
-							break;
+							if (strcmp(npc_names[i], "servant") == 0 || strcmp(npc_names[i], "twins") == 0 || strcmp(npc_names[i], "nanny") == 0 || strcmp(npc_names[i], "companion") == 0 || strcmp(npc_names[i], "detective") == 0) {
+							} else {
+								valid = 0;
+								break;
+							}
 						}
 					}
 					if (valid) {
