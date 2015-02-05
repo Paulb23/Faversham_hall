@@ -231,14 +231,14 @@ int puzzle_update_events(SDL_Event event, int act, int mission) {
 
 		if (SSL_Keybord_Keyname_Pressed("_s", event)) {
 			Puzzle_Object *puzzle_object = SSL_List_Get(objects, selected);
-			if (puzzle_object->y < diary_end_y) {
+			if (puzzle_object->y < diary_end_y && puzzle_object-> x == 1) {
 				puzzle_object->y += diary_y_inc;
 			}
 		}
 
 		if (SSL_Keybord_Keyname_Pressed("_w", event)) {
 			Puzzle_Object *puzzle_object = SSL_List_Get(objects, selected);
-			if (puzzle_object->y > diary_start_y) {
+			if (puzzle_object->y > diary_start_y && puzzle_object-> x == 1) {
 				puzzle_object->y -= diary_y_inc;
 			}
 		}
