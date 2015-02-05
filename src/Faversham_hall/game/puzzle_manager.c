@@ -139,6 +139,30 @@ void puzzle_init(int act, int mission) {
 
 
 /*!--------------------------------------------------------------------------
+  @brief    Restarts the puzzle
+  @param	act			act number to check on
+  @param	mission		mission number to check on
+  @return Void
+
+  Restarts the puzzle
+
+\-----------------------------------------------------------------------------*/
+void puzzle_restart(int act, int mission) {
+	if (act == 1 && mission == 1) {
+		int start_y = 15;
+		int y_inc = 20;
+		int i;
+		for (i = 0; i < SSL_List_Size(objects); i++) {
+			Puzzle_Object *puzzle_object = SSL_List_Get(objects, i);
+			puzzle_object->x = 162;
+			puzzle_object->y = start_y;
+			start_y += y_inc;
+		}
+	}
+}
+
+
+/*!--------------------------------------------------------------------------
   @brief    Cleans up the puzzle
   @param	act			act number to check on
   @param	mission		mission number to check on
@@ -182,6 +206,9 @@ void puzzle_update(int act, int mission) {
 \-----------------------------------------------------------------------------*/
 int puzzle_update_events(SDL_Event event, int act, int mission) {
 	if (act == 1 && mission == 1) {
+		if (SSL_Keybord_Keyname_Pressed("_1", event)) {
+			puzzle_restart(act, mission);
+		}
 		if (SSL_Keybord_Keyname_Pressed("_2", event)) {
 			return 0;
 		}

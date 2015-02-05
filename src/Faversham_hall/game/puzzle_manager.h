@@ -103,6 +103,18 @@ void puzzle_init(int act, int mission);
 
 
 /*!--------------------------------------------------------------------------
+  @brief    Restarts the puzzle
+  @param	act			act number to check on
+  @param	mission		mission number to check on
+  @return Void
+
+  Restarts the puzzle
+
+\-----------------------------------------------------------------------------*/
+void puzzle_restart(int act, int mission);
+
+
+/*!--------------------------------------------------------------------------
   @brief    Cleans up the puzzle
   @param	act			act number to check on
   @param	mission		mission number to check on
