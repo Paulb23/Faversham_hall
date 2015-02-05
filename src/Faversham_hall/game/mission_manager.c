@@ -105,6 +105,7 @@ static void act_switch(int new_act) {
 	unlock_all_rooms();	// unlock everything
 	unlock_all_npcs();
 	unlock_room("test_map");
+	unlock_room("reception_accuse");
 
 	switch (new_act) {	// switch and set up the act
 		case 0: {
@@ -146,6 +147,10 @@ static void act_switch(int new_act) {
 		break;
 		case 8: {
 
+		}
+		break;
+		case 9: {
+			lock_room("entrance");
 		}
 		break;
 	}
@@ -404,6 +409,17 @@ void update_act() {
 		case (8) : {
 			switch (mission) {
 				case (0): {
+					if (strcmp(game_get_room(),"reception_accuse") == 0) {
+						act_switch(9);
+					}
+				}
+				break;
+			}
+		}
+		break;
+		case (9) : {
+			switch (mission) {
+				case (0): {
 					// accuse
 				}
 				break;
@@ -518,6 +534,15 @@ void draw_act() {
 		case(8): {
 			switch(mission) {
 				case (0) : {
+					SSL_Font_Draw(mission_x, mission_y, 0 ,SDL_FLIP_NONE, "Enter the reception room!", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
+				}
+				break;
+			}
+		}
+		break;
+		case (9): {
+			switch (mission) {
+				case  (0): {
 					SSL_Font_Draw(mission_x, mission_y, 0 ,SDL_FLIP_NONE, "Accuse someone!", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
 				}
 				break;
