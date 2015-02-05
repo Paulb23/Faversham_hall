@@ -28,6 +28,11 @@ static SSL_Image *button;
 static SSL_Image *paper_strip;
 static SSL_List  *objects;
 
+static SSL_Image *horizontal;
+static SSL_Image *vertical;
+static SSL_Image *up_left;
+static SSL_Image *up_right;
+
 static int selected;
 static const int diary_start_y = 15;
 static const int diary_y_inc = 15;
@@ -46,6 +51,10 @@ static int check_puzzle(int act, int mission) {
 			}
 
 		}
+	}
+
+	if (act == 4 && mission == 1) {
+		return 1;
 	}
 
 	return 0;
@@ -158,7 +167,6 @@ void puzzle_init(int act, int mission) {
 
 	if (act == 1 && mission == 1) {
 		diary_full_page = SSL_Image_Load("../extras/resources/gui/game/diary_full_page.png", 320 / 2, WINDOW_RES_HEIGHT, game_window);
-		paper_strip = SSL_Image_Load("../extras/resources/gui/game/paper_strip.png", 155, 13, game_window);
 
 		int start_y = 15;
 		int y_inc = 15;
@@ -171,6 +179,15 @@ void puzzle_init(int act, int mission) {
 			SSL_List_Add(objects, puzzle_object);
 			start_y += y_inc;
 		}
+	}
+
+	if (act == 4 && mission == 1) {
+		vertical = SSL_Image_Load("../extras/resources/gui/game/water/vertical.png", 32, 32, game_window);
+		horizontal = SSL_Image_Load("../extras/resources/gui/game/water/horizontal.png", 32, 32, game_window);
+		up_left = SSL_Image_Load("../extras/resources/gui/game/water/up_left.png", 32, 32, game_window);
+		up_right = SSL_Image_Load("../extras/resources/gui/game/water/up_right.png", 32, 32, game_window);
+
+		SSL_List_Add(objects, puzzle_object_create(162, 162, 0, vertical));
 	}
 }
 
@@ -288,6 +305,22 @@ int puzzle_update_events(SDL_Event event, int act, int mission) {
 
 		return 1;
 	}
+
+	if (act == 4 && mission == 1) {
+		if (SSL_Keybord_Keyname_Pressed("_1", event)) {
+			puzzle_restart(act, mission);
+		}
+		if (SSL_Keybord_Keyname_Pressed("_2", event)) {
+			int result =  check_puzzle(act, mission);
+			if (result) {
+				puzzle_restart(act, mission);
+			}
+			return result;
+		}
+
+		return 1;
+	}
+
 	return 0;
 }
 
@@ -332,6 +365,12 @@ void puzzle_render(int act, int mission) {
 		SSL_Font_Draw(167, 180, 0 ,SDL_FLIP_NONE, "W. Move Up", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
 		SSL_Font_Draw(167, 190, 0 ,SDL_FLIP_NONE, "S. Move Down", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
 		SSL_Font_Draw(167, 200, 0 ,SDL_FLIP_NONE, "E. Place", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
+	}
+
+	if (act == 4 && mission == 1) {
+		SSL_Font_Draw(167, 170, 0 ,SDL_FLIP_NONE, "W. Next", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
+		SSL_Font_Draw(167, 180, 0 ,SDL_FLIP_NONE, "S. Previous", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
+		SSL_Font_Draw(167, 190, 0 ,SDL_FLIP_NONE, "E. Rotate", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
 	}
 
 	SSL_Image_Draw(button, 162, 217, 0, 1, SDL_FLIP_NONE, game_window);

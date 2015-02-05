@@ -317,10 +317,6 @@ void update_act() {
 							//}
 						}
 					}
-
-					if (strcmp(clue_found,"plumber") == 0) {
-						act_switch(5);
-					}
 				}
 				break;
 				case (1): {
