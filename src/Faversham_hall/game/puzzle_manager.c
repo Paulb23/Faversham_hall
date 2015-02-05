@@ -187,7 +187,7 @@ void puzzle_init(int act, int mission) {
 		up_left = SSL_Image_Load("../extras/resources/gui/game/water/up_left.png", 32, 32, game_window);
 		up_right = SSL_Image_Load("../extras/resources/gui/game/water/up_right.png", 32, 32, game_window);
 
-		SSL_List_Add(objects, puzzle_object_create(162, 162, 0, vertical));
+		SSL_List_Add(objects, puzzle_object_create(12, 12, 0, vertical));
 	}
 }
 
@@ -316,6 +316,24 @@ int puzzle_update_events(SDL_Event event, int act, int mission) {
 				puzzle_restart(act, mission);
 			}
 			return result;
+		}
+		if (SSL_Keybord_Keyname_Pressed("_w", event)) {
+			if (selected < SSL_List_Size(objects) - 1) {
+				selected++;
+			}
+		}
+		if (SSL_Keybord_Keyname_Pressed("_s", event)) {
+			if (selected != 0) {
+				selected--;
+			}
+		}
+
+		if (SSL_Keybord_Keyname_Pressed(INTERACT_KEY, event)) {
+			Puzzle_Object *puzzle_object = SSL_List_Get(objects, selected);
+			puzzle_object->rot += 90;
+			if (puzzle_object->rot > 360) {
+				puzzle_object->rot = 90;
+			}
 		}
 
 		return 1;
