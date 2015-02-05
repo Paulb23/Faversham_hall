@@ -41,6 +41,8 @@ static const int diary_y_inc = 15;
 static const int diary_end_y = 165;
 static const int diary_order[10] = {8,5,1,4,2,10,11,3,9,6};
 
+static const int water_order[18] = {360,90,360,360,270,360,360,360,360,90, 180, 360, 360, 180, 360, 180, 360, 360};
+
 static int check_puzzle(int act, int mission) {
 	if (act == 1 && mission == 1) {
 		int i;
@@ -56,7 +58,16 @@ static int check_puzzle(int act, int mission) {
 	}
 
 	if (act == 4 && mission == 1) {
-		return 1;
+		int i;
+		for(i = 0 ; i < SSL_List_Size(objects); i++) {
+			Puzzle_Object *puzzle_object = SSL_List_Get(objects, i);
+			if (puzzle_object->rot == water_order[i]) {
+
+			} else {
+				return 1;
+			}
+
+		}
 	}
 
 	return 0;
