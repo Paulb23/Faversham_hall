@@ -27,6 +27,11 @@ static SSL_Image *button;
 static SSL_Image *paper_strip;
 static SSL_List  *objects;
 
+static int selected;
+static const int diary_start_y = 15;
+static const int diary_y_inc = 15;
+static const int diary_end_y = 210;
+
 /*---------------------------------------------------------------------------
                             Function codes
  ---------------------------------------------------------------------------*/
@@ -118,6 +123,7 @@ void start_clue(int act, int mission) {
 
 \-----------------------------------------------------------------------------*/
 void puzzle_init(int act, int mission) {
+	selected = 0;
 	objects = SSL_List_Create();
 
 	button = SSL_Image_Load("../extras/resources/gui/game/button.png", 155, 15, game_window);
@@ -127,7 +133,7 @@ void puzzle_init(int act, int mission) {
 		paper_strip = SSL_Image_Load("../extras/resources/gui/game/paper_strip.png", 155, 13, game_window);
 
 		int start_y = 15;
-		int y_inc = 20;
+		int y_inc = 15;
 		int i;
 		for (i = 0; i < 10; i++) {
 			Puzzle_Object *puzzle_object = puzzle_object_create(162, start_y, 0, paper_strip);
@@ -148,9 +154,11 @@ void puzzle_init(int act, int mission) {
 
 \-----------------------------------------------------------------------------*/
 void puzzle_restart(int act, int mission) {
+	selected = 0;
+
 	if (act == 1 && mission == 1) {
 		int start_y = 15;
-		int y_inc = 20;
+		int y_inc = 15;
 		int i;
 		for (i = 0; i < SSL_List_Size(objects); i++) {
 			Puzzle_Object *puzzle_object = SSL_List_Get(objects, i);
@@ -212,6 +220,37 @@ int puzzle_update_events(SDL_Event event, int act, int mission) {
 		if (SSL_Keybord_Keyname_Pressed("_2", event)) {
 			return 0;
 		}
+
+		if (SSL_Keybord_Keyname_Pressed("_a", event)) {
+			Puzzle_Object *puzzle_object = SSL_List_Get(objects, selected);
+			puzzle_object->x = 1;
+		}
+
+		if (SSL_Keybord_Keyname_Pressed("_s", event)) {
+			Puzzle_Object *puzzle_object = SSL_List_Get(objects, selected);
+			if (puzzle_object->y < diary_end_y) {
+				puzzle_object->y += diary_y_inc;
+			}
+		}
+
+		if (SSL_Keybord_Keyname_Pressed("_w", event)) {
+			Puzzle_Object *puzzle_object = SSL_List_Get(objects, selected);
+			if (puzzle_object->y > diary_start_y) {
+				puzzle_object->y -= diary_y_inc;
+			}
+		}
+
+		if (SSL_Keybord_Keyname_Pressed(INTERACT_KEY, event)) {
+			Puzzle_Object *puzzle_object = SSL_List_Get(objects, selected);
+			if (puzzle_object->x == 1) {
+				if (selected < SSL_List_Size(objects) - 1) {
+					selected++;
+				} else {
+					return 0;
+				}
+			}
+		}
+
 		return 1;
 	}
 	return 0;
