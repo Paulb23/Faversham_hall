@@ -30,6 +30,7 @@ static SSL_List  *objects;
 
 static SSL_Image *horizontal;
 static SSL_Image *vertical;
+static SSL_Image *selected_pipe;
 static SSL_Image *up_left;
 static SSL_Image *up_right;
 static SSL_Image *start;
@@ -202,6 +203,7 @@ void puzzle_init(int act, int mission) {
 		up_right = SSL_Image_Load("../extras/resources/gui/game/water/up_right.png", 32, 32, game_window);
 		start = SSL_Image_Load("../extras/resources/gui/game/water/start.png", 32, 32, game_window);
 		end = SSL_Image_Load("../extras/resources/gui/game/water/end.png", 32, 32, game_window);
+		selected_pipe = SSL_Image_Load("../extras/resources/gui/game/water/selected.png", 32, 32, game_window);
 
 		int rot = rand() % 4;
 		SSL_List_Add(objects, puzzle_object_create(50, 180, water_rot[rot], up_right));
@@ -441,6 +443,11 @@ void puzzle_render(int act, int mission) {
 	for(i = 0 ; i < SSL_List_Size(objects); i++) {
 		Puzzle_Object *puzzle_object = SSL_List_Get(objects, i);
 		SSL_Image_Draw(puzzle_object->image, puzzle_object->x, puzzle_object->y - 1, puzzle_object->rot, 0, SDL_FLIP_NONE, game_window);
+	}
+
+	if (act == 4 && mission == 1) {
+		Puzzle_Object *puzzle_object = SSL_List_Get(objects, selected);
+		SSL_Image_Draw(selected_pipe, puzzle_object->x, puzzle_object->y - 1, 0, 0, SDL_FLIP_NONE, game_window);
 	}
 
 	SSL_Image_Draw(big_button, 162, 167, 0, 1, SDL_FLIP_NONE, game_window);
