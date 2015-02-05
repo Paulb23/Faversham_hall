@@ -142,7 +142,7 @@ static void act_switch(int new_act) {
 		}
 		break;
 		case 7: {
-
+			lights_on();
 		}
 		break;
 		case 8: {
