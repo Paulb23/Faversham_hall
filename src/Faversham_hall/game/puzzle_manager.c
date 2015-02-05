@@ -42,6 +42,7 @@ static const int diary_end_y = 165;
 static const int diary_order[10] = {8,5,1,4,2,10,11,3,9,6};
 
 static const int water_order[18] = {360,90,360,360,270,360,360,360,360,90, 180, 360, 360, 180, 360, 180, 360, 360};
+static const int water_rot[4] = {90,180,270,360};
 
 static int check_puzzle(int act, int mission) {
 	if (act == 1 && mission == 1) {
@@ -202,24 +203,43 @@ void puzzle_init(int act, int mission) {
 		start = SSL_Image_Load("../extras/resources/gui/game/water/start.png", 32, 32, game_window);
 		end = SSL_Image_Load("../extras/resources/gui/game/water/end.png", 32, 32, game_window);
 
-		SSL_List_Add(objects, puzzle_object_create(50, 180, 360, up_right));
-		SSL_List_Add(objects, puzzle_object_create(90, 180, 90, up_left));
-		SSL_List_Add(objects, puzzle_object_create(90, 145, 360, up_left));
-		SSL_List_Add(objects, puzzle_object_create(50, 145, 360, horizontal));
-		SSL_List_Add(objects, puzzle_object_create(15, 145, 270, up_right));
-		SSL_List_Add(objects, puzzle_object_create(15, 110, 360, vertical));
-		SSL_List_Add(objects, puzzle_object_create(15, 75, 360, vertical));
-		SSL_List_Add(objects, puzzle_object_create(15, 40, 360, up_right));
-		SSL_List_Add(objects, puzzle_object_create(50, 40, 360, horizontal));
-		SSL_List_Add(objects, puzzle_object_create(87, 40, 90, up_right));
-		SSL_List_Add(objects, puzzle_object_create(87, 75, 180, up_left));
-		SSL_List_Add(objects, puzzle_object_create(125, 75, 360, horizontal));
-		SSL_List_Add(objects, puzzle_object_create(160, 75, 360, horizontal));
-		SSL_List_Add(objects, puzzle_object_create(195, 75, 180, up_right));
-		SSL_List_Add(objects, puzzle_object_create(195, 40, 360, up_right));
-		SSL_List_Add(objects, puzzle_object_create(230, 40, 180, up_right));
-		SSL_List_Add(objects, puzzle_object_create(230, 5, 360, up_right));
-		SSL_List_Add(objects, puzzle_object_create(265, 5, 360, horizontal));
+		int rot = rand() % 4;
+		SSL_List_Add(objects, puzzle_object_create(50, 180, water_rot[rot], up_right));
+		rot = rand() % 4;
+		SSL_List_Add(objects, puzzle_object_create(90, 180, water_rot[rot], up_left));
+		rot = rand() % 4;
+		SSL_List_Add(objects, puzzle_object_create(90, 145, water_rot[rot], up_left));
+		rot = rand() % 4;
+		SSL_List_Add(objects, puzzle_object_create(50, 145, water_rot[rot], horizontal));
+		rot = rand() % 4;
+		SSL_List_Add(objects, puzzle_object_create(15, 145, water_rot[rot], up_right));
+		rot = rand() % 4;
+		SSL_List_Add(objects, puzzle_object_create(15, 110, water_rot[rot], vertical));
+		rot = rand() % 4;
+		SSL_List_Add(objects, puzzle_object_create(15, 75, water_rot[rot], vertical));
+		rot = rand() % 4;
+		SSL_List_Add(objects, puzzle_object_create(15, 40, water_rot[rot], up_right));
+		rot = rand() % 4;
+		SSL_List_Add(objects, puzzle_object_create(50, 40, water_rot[rot], horizontal));
+		rot = rand() % 4;
+		SSL_List_Add(objects, puzzle_object_create(87, 40, water_rot[rot], up_right));
+		rot = rand() % 4;
+		SSL_List_Add(objects, puzzle_object_create(87, 75, water_rot[rot], up_left));
+		rot = rand() % 4;
+		SSL_List_Add(objects, puzzle_object_create(125, 75, water_rot[rot], horizontal));
+		rot = rand() % 4;
+		SSL_List_Add(objects, puzzle_object_create(160, 75, water_rot[rot], horizontal));
+		rot = rand() % 4;
+		SSL_List_Add(objects, puzzle_object_create(195, 75, water_rot[rot], up_right));
+		rot = rand() % 4;
+		SSL_List_Add(objects, puzzle_object_create(195, 40, water_rot[rot], up_right));
+		rot = rand() % 4;
+		SSL_List_Add(objects, puzzle_object_create(230, 40, water_rot[rot], up_right));
+		rot = rand() % 4;
+		SSL_List_Add(objects, puzzle_object_create(230, 5, water_rot[rot], up_right));
+		rot = rand() % 4;
+		SSL_List_Add(objects, puzzle_object_create(265, 5, water_rot[rot], horizontal));
+		rot = rand() % 4;
 	}
 }
 
