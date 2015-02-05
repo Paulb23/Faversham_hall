@@ -191,7 +191,24 @@ void puzzle_init(int act, int mission) {
 		start = SSL_Image_Load("../extras/resources/gui/game/water/start.png", 32, 32, game_window);
 		end = SSL_Image_Load("../extras/resources/gui/game/water/end.png", 32, 32, game_window);
 
-		SSL_List_Add(objects, puzzle_object_create(12, 12, 0, vertical));
+		SSL_List_Add(objects, puzzle_object_create(50, 180, 360, up_right));
+		SSL_List_Add(objects, puzzle_object_create(90, 180, 90, up_left));
+		SSL_List_Add(objects, puzzle_object_create(90, 145, 360, up_left));
+		SSL_List_Add(objects, puzzle_object_create(50, 145, 360, horizontal));
+		SSL_List_Add(objects, puzzle_object_create(15, 145, 270, up_right));
+		SSL_List_Add(objects, puzzle_object_create(15, 110, 360, vertical));
+		SSL_List_Add(objects, puzzle_object_create(15, 75, 360, vertical));
+		SSL_List_Add(objects, puzzle_object_create(15, 40, 360, up_right));
+		SSL_List_Add(objects, puzzle_object_create(50, 40, 360, horizontal));
+		SSL_List_Add(objects, puzzle_object_create(87, 40, 90, up_right));
+		SSL_List_Add(objects, puzzle_object_create(87, 75, 180, up_left));
+		SSL_List_Add(objects, puzzle_object_create(125, 75, 360, horizontal));
+		SSL_List_Add(objects, puzzle_object_create(160, 75, 360, horizontal));
+		SSL_List_Add(objects, puzzle_object_create(195, 75, 180, up_right));
+		SSL_List_Add(objects, puzzle_object_create(195, 40, 360, up_right));
+		SSL_List_Add(objects, puzzle_object_create(230, 40, 180, up_right));
+		SSL_List_Add(objects, puzzle_object_create(230, 5, 360, up_right));
+		SSL_List_Add(objects, puzzle_object_create(265, 5, 360, horizontal));
 	}
 }
 
@@ -376,7 +393,7 @@ void puzzle_render(int act, int mission) {
 
 	if (act == 4 && mission == 1) {
 		SSL_Image_Draw(start, 50, 210, 0, 1, SDL_FLIP_NONE, game_window);
-		SSL_Image_Draw(end, 290, 20, 270, 1, SDL_FLIP_NONE, game_window);
+		SSL_Image_Draw(end, 295, 5, 270, 1, SDL_FLIP_NONE, game_window);
 	}
 
 	int i;
