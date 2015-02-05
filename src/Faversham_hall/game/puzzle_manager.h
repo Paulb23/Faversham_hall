@@ -22,10 +22,49 @@
                                 New types
  ---------------------------------------------------------------------------*/
 
+/*!--------------------------------------------------------------------------
+  @brief    Puzzle_Object
+
+  The main puzzle object will be used to represent all puzzle objects.
+
+\----------------------------------------------------------------------------*/
+typedef struct _puzzle_object_ {
+	int x;					/**< the x position */
+	int y;					/**< the y position */
+	int rot;				/**< the rotation */
+	SSL_Image *image;		/**< the image */
+} Puzzle_Object;
+
+
 
 /*---------------------------------------------------------------------------
                             Function prototypes
  ---------------------------------------------------------------------------*/
+
+/*!--------------------------------------------------------------------------
+  @brief    Creates a new puzzle Object
+  @param	x			x position
+  @param	y			y position
+  @param	rot			rotation of the object
+  @param	image		Image of the object
+  @return new Puzzle object else -1 on error
+
+  Creates a enw puzzle object and returns it else -1 on error
+
+\-----------------------------------------------------------------------------*/
+Puzzle_Object *puzzle_object_create(int x, int y, int rot, SSL_Image *image);
+
+
+/*!--------------------------------------------------------------------------
+  @brief    Destroys a puzzle object
+  @param	object			the object to destroy
+  @return Void
+
+  destroys a puzzle object
+
+\-----------------------------------------------------------------------------*/
+void puzzle_object_destroy(Puzzle_Object *object);
+
 
 /*!--------------------------------------------------------------------------
   @brief    Validates the clue

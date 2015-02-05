@@ -31,6 +31,47 @@ static SSL_Image *paper_strip;
  ---------------------------------------------------------------------------*/
 
 /*!--------------------------------------------------------------------------
+  @brief    Creates a new puzzle Object
+  @param	x			x position
+  @param	y			y position
+  @param	rot			rotation of the object
+  @param	image		Image of the object
+  @return new Puzzle object else -1 on error
+
+  Creates a enw puzzle object and returns it else -1 on error
+
+\-----------------------------------------------------------------------------*/
+Puzzle_Object *puzzle_object_create(int x, int y, int rot, SSL_Image *image) {
+	Puzzle_Object *object = malloc(sizeof(Puzzle_Object));
+
+		if (!object) {
+			SSL_Log_Write("Failed to allocate memory for new puzzle object!");
+			return (void *)-1;
+		}
+
+		object->x = x;
+		object->y = y;
+		object->rot = rot;
+		object->image = image;
+
+	return object;
+}
+
+
+/*!--------------------------------------------------------------------------
+  @brief    Destroys a puzzle object
+  @param	object			the object to destroy
+  @return Void
+
+  destroys a puzzle object
+
+\-----------------------------------------------------------------------------*/
+void puzzle_object_destroy(Puzzle_Object *object) {
+	free(object);
+}
+
+
+/*!--------------------------------------------------------------------------
   @brief    Validates the clue
   @param	act			act number to check on
   @param	mission		mission number to check on
