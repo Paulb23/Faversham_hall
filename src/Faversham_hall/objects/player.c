@@ -51,10 +51,10 @@ Player *player_create() {
 
 	player->entity.image.current_frame = 1;
 	player->entity.image.current_row = 0;
-	player->entity.image.max_frames = 3;
+	player->entity.image.max_frames = 5;
 	player->entity.image.next_frame = 0;
 	player->entity.image.time_frame = 150;
-	player->entity.image.image = SSL_Image_Load("../extras/resources/sprites/test_sprite_ignore_me.png", 16,16,game_window);
+	player->entity.image.image = SSL_Image_Load("../extras/resources/sprites/Detective.png", 16,16,game_window);
 
 	player->entity.light = SSL_Light_Create(16, 16, 0, 0, 6, 0, SSL_Color_Create(255,255,255,255));
 
@@ -92,25 +92,25 @@ void player_move(Player *player, SSL_Tiled_Map *map) {
 		if (SSL_Keybord_Keyname_Down(UP_KEY) && SSL_Tiled_Get_TileId(map, player_tile_x, player_tile_y - 1, layer) == 0) {
 			player->destination_x = player->entity.pos.x;
 			player->destination_y = player->entity.pos.y - tile_height;
-			player->entity.image.current_row = 0;
+			player->entity.image.current_row = 2;
 			moved = 1;													// left movment
 		} else if (SSL_Keybord_Keyname_Down(LEFT_KEY) && SSL_Tiled_Get_TileId(map, player_tile_x - 1, player_tile_y, layer) == 0) {
 			player->destination_x = player->entity.pos.x - tile_width;
 			player->destination_y = player->entity.pos.y;
-			player->entity.image.current_row = 2;
+			player->entity.image.current_row = 1;
 			moved = 1;													// down movment
 		} else if (SSL_Keybord_Keyname_Down(DOWN_KEY) && SSL_Tiled_Get_TileId(map, player_tile_x, player_tile_y + 1, layer) == 0) {
 			player->destination_x = player->entity.pos.x;
 			player->destination_y = player->entity.pos.y + tile_height;
-			player->entity.image.current_row = 3;
+			player->entity.image.current_row = 0;
 			moved = 1;													// right movment
 		} else if (SSL_Keybord_Keyname_Down(RIGHT_KEY) && SSL_Tiled_Get_TileId(map, player_tile_x + 1, player_tile_y, layer) == 0) {
 			player->destination_x = player->entity.pos.x + tile_width;
 			player->destination_y = player->entity.pos.y;
-			player->entity.image.current_row = 1;
+			player->entity.image.current_row = 3;
 			moved = 1;
 		} else {														// no moment, set to idle
-			player->entity.image.current_row = 0;
+			player->entity.image.current_row = 5;
 		}
 
 		if (moved) {													// if we moved set flag and calculate next move time.
