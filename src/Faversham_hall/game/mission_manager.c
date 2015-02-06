@@ -24,7 +24,7 @@
  ---------------------------------------------------------------------------*/
 
 static const int number_of_rooms = 13;	// total number of room, and room names
-static const char room_names[13][50] = {"kitchen", "servants_quarters", "bacement_hallway", "parlor", "dining_room", "reception", "entrance", "bathroom, duchtess_beadroom", "kids_room", "library", "study", "hallway"};
+static const char room_names[13][50] = {"kitchen", "servants_quarters", "bacement_hallway", "parlor", "dining_room", "reception", "entrance", "bathroom", "duchtess_bedroom", "kids_room", "library", "study", "hallway"};
 static SSL_Hashmap *rooms;				// hashmap to store the state of the rooms
 
 static const int number_of_npc = 11;	// total number of npc, and npc names
@@ -127,6 +127,7 @@ static void act_switch(int new_act) {
 		break;
 		case 3: {
 			lock_room("kids_room");
+			lock_room("duchtess_bedroom");
 		}
 		break;
 		case 4: {
