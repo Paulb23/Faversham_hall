@@ -135,7 +135,7 @@ int valid_clue(int act, int mission) {
 		return 1;
 	}
 
-	if (act == 4 && mission == 1 && strcmp(game_get_room(), "test_map") == 0) {
+	if (act == 4 && mission == 1 && strcmp(game_get_room(), "duchtess_bedroom") == 0) {
 		return 1;
 	}
 
