@@ -109,7 +109,11 @@ void start_dialog(char *other, int act) {
 		SSL_IniFile_Load(dialog, path);
 		load_node("root");
 	} else {
-		sprintf(path, "%s%s.ini", dialog_path, "test_dialogue");
+		sprintf(path, "%s%s.ini", dialog_path, other);
+		if( access( path, F_OK ) != -1 ) {
+		} else {
+			sprintf(path, "%s%s.ini", dialog_path, "test_dialogue");
+		}
 		SSL_IniFile_Load(dialog, path);
 		load_node("root");
 	}
