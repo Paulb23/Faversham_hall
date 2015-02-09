@@ -27,7 +27,7 @@
 static int max_chars = 41;
 static int max_lines_per_page = 5;
 
-static int max_option_chars = 10;
+static int max_option_chars = 11;
 
 static char *dialog_path = "../extras/resources/dialog/";
 static SSL_IniFile *dialog;
@@ -213,7 +213,7 @@ void render_dialog() {
 		int y_inc = 10;
 
 		for (i = 0; i < option_count; i++) {
-			int number_of_op_lines = (strlen(SSL_List_Get_String(options, i)) + 10) / max_option_chars;
+			int number_of_op_lines = (strlen(SSL_List_Get_String(options, i)) ) / max_option_chars;
 
 			char buf[100];
 			if (number_of_op_lines == 0) {
@@ -225,9 +225,9 @@ void render_dialog() {
 					if (k == 0) {
 						sprintf(buf, "%i. %s", i+1, SSL_String_Substring(SSL_List_Get_String(options, i), 0, max_option_chars - 1));
 					} else {
-						sprintf(buf, "%s",SSL_String_Substring(SSL_List_Get_String(options, i), (max_option_chars * k) - 1, (max_option_chars * k) + max_option_chars));
+						sprintf(buf, "%s",SSL_String_Substring(SSL_List_Get_String(options, i), (max_option_chars * k), (max_option_chars * k) + max_option_chars));
 						if (buf == NULL) {
-							sprintf(buf, "%s",SSL_String_Substring(SSL_List_Get_String(options, i), (max_option_chars * k) - 1, strlen(SSL_List_Get_String(options, i))));
+							sprintf(buf, "%s",SSL_String_Substring(SSL_List_Get_String(options, i), (max_option_chars * k), strlen(SSL_List_Get_String(options, i))));
 						}
 					}
 					SSL_Font_Draw(225, y_inc, 0 ,SDL_FLIP_NONE, buf, (SSL_Font *)asset_manager_getFont("dialog_font"), SSL_Color_Create(255,255,255,0), game_window);
