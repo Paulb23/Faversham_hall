@@ -51,7 +51,7 @@ char *PAUSE_KEY;
 
 static int SECTION_COUNT = 2;
 
-static char *title_default = "this is the window title";
+static char *title_default = "Faversham Hall";
 static int window_width_default = 800;
 static int window_height_default = 600;
 

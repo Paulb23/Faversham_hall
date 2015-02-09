@@ -11,7 +11,7 @@ int main(int argc, char *argv[]) {
 
 	assert(load_config("../../conf/config.ini") != -1);
 
-	assert(strcmp(WINDOW_TITLE,"this is the window title") == 0);
+	assert(strcmp(WINDOW_TITLE,"Faversham Hall") == 0);
 	assert(WINDOW_WIDTH == 800);
 	assert(WINDOW_HEIGHT == 600);
 	assert(WINDOWED == 1);
