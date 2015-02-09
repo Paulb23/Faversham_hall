@@ -55,7 +55,7 @@ static void load_node(char *node) {
 		name = "companion";
 	}
 
-	number_of_lines = (strlen(text) / max_chars);
+	number_of_lines = ((strlen(text) - 1)/ max_chars);
 
 	if (number_of_lines != 0) {
 		number_of_pages = (number_of_lines / max_lines_per_page);
