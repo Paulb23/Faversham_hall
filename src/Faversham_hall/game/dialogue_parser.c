@@ -27,7 +27,7 @@
 static int max_chars = 41;
 static int max_lines_per_page = 5;
 
-static int max_option_chars = 11;
+static int max_option_chars = 10;
 
 static char *dialog_path = "../extras/resources/dialog/";
 static SSL_IniFile *dialog;
@@ -120,8 +120,7 @@ void start_dialog(char *other, int act) {
 }
 
 int update_dialog(SDL_Event event) {
-
-	if (current_page_number < number_of_pages && number_of_lines > 1) {
+	if (current_page_number < number_of_pages && number_of_lines > 1 && current_line + max_lines_per_page < number_of_lines) {
 		if (SSL_Keybord_Keyname_Pressed("_1", event)) {
 			current_line += max_lines_per_page;
 			current_page_number++;
@@ -130,7 +129,6 @@ int update_dialog(SDL_Event event) {
 		if (option_count == 0) {
 			if (SSL_Keybord_Keyname_Pressed("_1", event)) {
 				char *action = SSL_IniFile_GetString(dialog, current_node, "action", "end");
-
 				if (strcmp(action, "end") == 0) {
 					return 0;
 				} else {
@@ -215,10 +213,10 @@ void render_dialog() {
 		int y_inc = 10;
 
 		for (i = 0; i < option_count; i++) {
-			int number_of_op_lines = (strlen(SSL_List_Get_String(options, i)) + 1) / max_option_chars;
+			int number_of_op_lines = (strlen(SSL_List_Get_String(options, i)) + 10) / max_option_chars;
 
 			char buf[100];
-			if (number_of_op_lines == 1) {
+			if (number_of_op_lines == 0) {
 				sprintf(buf, "%i. %s", i+1, SSL_List_Get_String(options, i));
 				SSL_Font_Draw(225, y_inc, 0 ,SDL_FLIP_NONE, buf, (SSL_Font *)asset_manager_getFont("dialog_font"), SSL_Color_Create(255,255,255,0), game_window);
 			} else {
@@ -235,7 +233,7 @@ void render_dialog() {
 					SSL_Font_Draw(225, y_inc, 0 ,SDL_FLIP_NONE, buf, (SSL_Font *)asset_manager_getFont("dialog_font"), SSL_Color_Create(255,255,255,0), game_window);
 
 					if (k == number_of_op_lines - 2) {
-						y_inc += 25;
+						y_inc += 18;
 					}
 				}
 			}
