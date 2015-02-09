@@ -213,31 +213,18 @@ void render_dialog() {
 		int y_inc = 10;
 
 		for (i = 0; i < option_count; i++) {
-			int number_of_op_lines = (strlen(SSL_List_Get_String(options, i)) ) / max_option_chars;
-
 			char buf[100];
-			if (number_of_op_lines == 0) {
-				sprintf(buf, "%i. %s", i+1, SSL_List_Get_String(options, i));
+			if (strlen(SSL_List_Get_String(options, i)) < max_option_chars) {
+				sprintf(buf, "%i. %s", i+1, SSL_String_Substring(SSL_List_Get_String(options, i), 0, strlen(SSL_List_Get_String(options, i))));
 				SSL_Font_Draw(225, y_inc, 0 ,SDL_FLIP_NONE, buf, (SSL_Font *)asset_manager_getFont("dialog_font"), SSL_Color_Create(255,255,255,0), game_window);
 			} else {
-				int k;
-				for (k = 0; k < number_of_op_lines; k++) {
-					if (k == 0) {
-						sprintf(buf, "%i. %s", i+1, SSL_String_Substring(SSL_List_Get_String(options, i), 0, max_option_chars - 1));
-					} else {
-						sprintf(buf, "%s",SSL_String_Substring(SSL_List_Get_String(options, i), (max_option_chars * k), (max_option_chars * k) + max_option_chars));
-						if (buf == NULL) {
-							sprintf(buf, "%s",SSL_String_Substring(SSL_List_Get_String(options, i), (max_option_chars * k), strlen(SSL_List_Get_String(options, i))));
-						}
-					}
-					SSL_Font_Draw(225, y_inc, 0 ,SDL_FLIP_NONE, buf, (SSL_Font *)asset_manager_getFont("dialog_font"), SSL_Color_Create(255,255,255,0), game_window);
-
-					if (k == number_of_op_lines - 2) {
-						y_inc += 18;
-					}
-				}
+				sprintf(buf, "%i. %s", i+1, SSL_String_Substring(SSL_List_Get_String(options, i), 0, max_option_chars - 1));
+				SSL_Font_Draw(225, y_inc, 0 ,SDL_FLIP_NONE, buf, (SSL_Font *)asset_manager_getFont("dialog_font"), SSL_Color_Create(255,255,255,0), game_window);
+				y_inc+=18;
+				sprintf(buf, "%s", SSL_String_Substring(SSL_List_Get_String(options, i), max_option_chars - 1, strlen(SSL_List_Get_String(options, i))));
+				SSL_Font_Draw(225, y_inc, 0 ,SDL_FLIP_NONE, buf, (SSL_Font *)asset_manager_getFont("dialog_font"), SSL_Color_Create(255,255,255,0), game_window);
 			}
-			y_inc += 25;
+		y_inc += 25;
 		}
 	}
 }
