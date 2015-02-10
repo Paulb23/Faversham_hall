@@ -324,7 +324,6 @@ void game_init(int load) {
 
 \-----------------------------------------------------------------------------*/
 void game_clean_up(Game_States new_state) {
-	SSL_Tiled_Map_Destroy(current_map);
 	SSL_IniFile_Destroy(map_ini);
 	player_destroy(player);
 
