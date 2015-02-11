@@ -36,6 +36,8 @@ static SSL_Image *up_right;
 static SSL_Image *start;
 static SSL_Image *end;
 
+static int show_instructions;
+
 static int selected;
 static const int diary_start_y = 15;
 static const int diary_y_inc = 15;
@@ -175,6 +177,7 @@ void start_clue(int act, int mission) {
 \-----------------------------------------------------------------------------*/
 void puzzle_init(int act, int mission) {
 	selected = 0;
+	show_instructions = 1;
 	objects = SSL_List_Create();
 
 	button = SSL_Image_Load("../extras/resources/gui/game/button.png", 155, 15, game_window);
@@ -327,79 +330,89 @@ void puzzle_update(int act, int mission) {
 \-----------------------------------------------------------------------------*/
 int puzzle_update_events(SDL_Event event, int act, int mission) {
 	if (act == 1 && mission == 1) {
-		if (SSL_Keybord_Keyname_Pressed("_1", event)) {
-			puzzle_restart(act, mission);
-		}
-		if (SSL_Keybord_Keyname_Pressed("_2", event)) {
-			int result =  check_puzzle(act, mission);
-			if (result) {
+		if (show_instructions) {
+			if (SSL_Keybord_Keyname_Pressed("_1", event)) {
+				show_instructions = 0;
+			}
+		} else {
+			if (SSL_Keybord_Keyname_Pressed("_1", event)) {
 				puzzle_restart(act, mission);
 			}
-			return result;
-		}
-
-		if (SSL_Keybord_Keyname_Pressed("_a", event)) {
-			Puzzle_Object *puzzle_object = SSL_List_Get(objects, selected);
-			puzzle_object->x = 1;
-		}
-
-		if (SSL_Keybord_Keyname_Pressed("_s", event)) {
-			Puzzle_Object *puzzle_object = SSL_List_Get(objects, selected);
-			if (puzzle_object->y < diary_end_y && puzzle_object-> x == 1) {
-				puzzle_object->y += diary_y_inc;
+			if (SSL_Keybord_Keyname_Pressed("_2", event)) {
+				int result =  check_puzzle(act, mission);
+				if (result) {
+					puzzle_restart(act, mission);
+				}
+				return result;
 			}
-		}
 
-		if (SSL_Keybord_Keyname_Pressed("_w", event)) {
-			Puzzle_Object *puzzle_object = SSL_List_Get(objects, selected);
-			if (puzzle_object->y > diary_start_y && puzzle_object-> x == 1) {
-				puzzle_object->y -= diary_y_inc;
+			if (SSL_Keybord_Keyname_Pressed("_a", event)) {
+				Puzzle_Object *puzzle_object = SSL_List_Get(objects, selected);
+				puzzle_object->x = 1;
 			}
-		}
 
-		if (SSL_Keybord_Keyname_Pressed(INTERACT_KEY, event)) {
-			Puzzle_Object *puzzle_object = SSL_List_Get(objects, selected);
-			if (puzzle_object->x == 1) {
-				if (selected < SSL_List_Size(objects) - 1) {
-					selected++;
-				} else {
+			if (SSL_Keybord_Keyname_Pressed("_s", event)) {
+				Puzzle_Object *puzzle_object = SSL_List_Get(objects, selected);
+				if (puzzle_object->y < diary_end_y && puzzle_object-> x == 1) {
+					puzzle_object->y += diary_y_inc;
+				}
+			}
+
+			if (SSL_Keybord_Keyname_Pressed("_w", event)) {
+				Puzzle_Object *puzzle_object = SSL_List_Get(objects, selected);
+				if (puzzle_object->y > diary_start_y && puzzle_object-> x == 1) {
+					puzzle_object->y -= diary_y_inc;
+				}
+			}
+
+			if (SSL_Keybord_Keyname_Pressed(INTERACT_KEY, event)) {
+				Puzzle_Object *puzzle_object = SSL_List_Get(objects, selected);
+				if (puzzle_object->x == 1) {
+					if (selected < SSL_List_Size(objects) - 1) {
+						selected++;
+					} else {
+					}
 				}
 			}
 		}
-
 		return 1;
 	}
 
 	if (act == 4 && mission == 1) {
-		if (SSL_Keybord_Keyname_Pressed("_1", event)) {
-			puzzle_restart(act, mission);
-		}
-		if (SSL_Keybord_Keyname_Pressed("_2", event)) {
-			int result =  check_puzzle(act, mission);
-			if (result) {
+		if (show_instructions) {
+			if (SSL_Keybord_Keyname_Pressed("_1", event)) {
+				show_instructions = 0;
+			}
+		} else {
+			if (SSL_Keybord_Keyname_Pressed("_1", event)) {
 				puzzle_restart(act, mission);
 			}
-			return result;
-		}
-		if (SSL_Keybord_Keyname_Pressed("_w", event)) {
-			if (selected < SSL_List_Size(objects) - 1) {
-				selected++;
+			if (SSL_Keybord_Keyname_Pressed("_2", event)) {
+				int result =  check_puzzle(act, mission);
+				if (result) {
+					puzzle_restart(act, mission);
+				}
+				return result;
 			}
-		}
-		if (SSL_Keybord_Keyname_Pressed("_s", event)) {
-			if (selected != 0) {
-				selected--;
+			if (SSL_Keybord_Keyname_Pressed("_w", event)) {
+				if (selected < SSL_List_Size(objects) - 1) {
+					selected++;
+				}
 			}
-		}
+			if (SSL_Keybord_Keyname_Pressed("_s", event)) {
+				if (selected != 0) {
+					selected--;
+				}
+			}
 
-		if (SSL_Keybord_Keyname_Pressed(INTERACT_KEY, event)) {
-			Puzzle_Object *puzzle_object = SSL_List_Get(objects, selected);
-			puzzle_object->rot += 90;
-			if (puzzle_object->rot > 360) {
-				puzzle_object->rot = 90;
+			if (SSL_Keybord_Keyname_Pressed(INTERACT_KEY, event)) {
+				Puzzle_Object *puzzle_object = SSL_List_Get(objects, selected);
+				puzzle_object->rot += 90;
+				if (puzzle_object->rot > 360) {
+					puzzle_object->rot = 90;
+				}
 			}
 		}
-
 		return 1;
 	}
 
@@ -416,55 +429,82 @@ int puzzle_update_events(SDL_Event event, int act, int mission) {
   Renders the puzzle
 \-----------------------------------------------------------------------------*/
 void puzzle_render(int act, int mission) {
-	if (act == 1 && mission == 1) {
-		SSL_Image_Draw(diary_full_page, 0, 0, 0, 1, SDL_FLIP_NONE, game_window);
-		SSL_Font_Draw(5, 15, 0 ,SDL_FLIP_NONE,  "Tuesday 15 march", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
-		SSL_Font_Draw(5, 30, 0 ,SDL_FLIP_NONE,  "Tense evening. Servant", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
-		SSL_Font_Draw(5, 45, 0 ,SDL_FLIP_NONE,  "Caught the butler", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
-		SSL_Font_Draw(5, 60, 0 ,SDL_FLIP_NONE,  "Looking at my breasts", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
-		SSL_Font_Draw(5, 75, 0 ,SDL_FLIP_NONE,  "I hate him. He is", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
-		SSL_Font_Draw(5, 90, 0 ,SDL_FLIP_NONE,  "Spoiling my studying", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
-		SSL_Font_Draw(5, 105, 0 ,SDL_FLIP_NONE, "and my life. I'm", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
-		SSL_Font_Draw(5, 120, 0 ,SDL_FLIP_NONE, "Meeting my lawyer", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
-		SSL_Font_Draw(5, 135, 0 ,SDL_FLIP_NONE, "At walnut-tree inn", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
-		SSL_Font_Draw(5, 150, 0 ,SDL_FLIP_NONE, "Tomorrow at 3pm.", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
-		SSL_Font_Draw(5, 165, 0 ,SDL_FLIP_NONE, "He is in trouble.", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
-	//	SSL_Font_Draw(5, 180, 0 ,SDL_FLIP_NONE, "1234567890123456789012", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
-	//	SSL_Font_Draw(5, 195, 0 ,SDL_FLIP_NONE, "1234567890123456789012", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
-	//	SSL_Font_Draw(5, 210, 0 ,SDL_FLIP_NONE, "1234567890123456789012", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
+	if (show_instructions) {
+		if (act == 1 && mission == 1) {
+			SSL_Font_Draw(5, 15, 0 ,SDL_FLIP_NONE,  "In order to decode the diary, the correct paper", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
+			SSL_Font_Draw(5, 30, 0 ,SDL_FLIP_NONE,  "slips need to be moved over the correct lines", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
+			SSL_Font_Draw(5, 45, 0 ,SDL_FLIP_NONE,  "of the diary. Pieces will be selected in order,", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
+			SSL_Font_Draw(5, 60, 0 ,SDL_FLIP_NONE,  "use the (W,A,S) keys to control the position", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
+			SSL_Font_Draw(5, 75, 0 ,SDL_FLIP_NONE,  "of the piece. Once the selected piece is in", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
+			SSL_Font_Draw(5, 90, 0 ,SDL_FLIP_NONE,  "the correct place, press (E) to move on to the", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
+			SSL_Font_Draw(5, 105, 0 ,SDL_FLIP_NONE,  "next piece. When the puzzle is complete, take", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
+			SSL_Font_Draw(5, 120, 0 ,SDL_FLIP_NONE,  "note of the message, it might be helpful. Then", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
+			SSL_Font_Draw(5, 135, 0 ,SDL_FLIP_NONE,  "Press 2 to check the puzzle and move on", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
+
+		}
+		if (act == 4 && mission == 1) {
+			SSL_Font_Draw(5, 15, 0 ,SDL_FLIP_NONE,  "In order to solve the pipes, you must control", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
+			SSL_Font_Draw(5, 30, 0 ,SDL_FLIP_NONE,  "the flow of the water. Select the piece you", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
+			SSL_Font_Draw(5, 45, 0 ,SDL_FLIP_NONE,  "want with the (W,S) keys and then rotate the", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
+			SSL_Font_Draw(5, 60, 0 ,SDL_FLIP_NONE,  "piece in order to complete the pipe lineup with", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
+			SSL_Font_Draw(5, 75, 0 ,SDL_FLIP_NONE,  "the (E) key. Once everything is lined up to your", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
+			SSL_Font_Draw(5, 90, 0 ,SDL_FLIP_NONE,  "satisfaction press (2) to flow the water. Be", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
+			SSL_Font_Draw(5, 105, 0 ,SDL_FLIP_NONE,  "careful, though - If you don't succeed the puzzle", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
+			SSL_Font_Draw(5, 120, 0 ,SDL_FLIP_NONE,  "will reset and you will need to start again!", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
+		}
+
+		SSL_Font_Draw(180, 210, 0 ,SDL_FLIP_NONE,  "Press 1 to start...", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
+	} else {
+		if (act == 1 && mission == 1) {
+			SSL_Image_Draw(diary_full_page, 0, 0, 0, 1, SDL_FLIP_NONE, game_window);
+			SSL_Font_Draw(5, 15, 0 ,SDL_FLIP_NONE,  "Tuesday 15 march", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
+			SSL_Font_Draw(5, 30, 0 ,SDL_FLIP_NONE,  "Tense evening. Servant", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
+			SSL_Font_Draw(5, 45, 0 ,SDL_FLIP_NONE,  "Caught the butler", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
+			SSL_Font_Draw(5, 60, 0 ,SDL_FLIP_NONE,  "Looking at my breasts", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
+			SSL_Font_Draw(5, 75, 0 ,SDL_FLIP_NONE,  "I hate him. He is", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
+			SSL_Font_Draw(5, 90, 0 ,SDL_FLIP_NONE,  "Spoiling my studying", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
+			SSL_Font_Draw(5, 105, 0 ,SDL_FLIP_NONE, "and my life. I'm", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
+			SSL_Font_Draw(5, 120, 0 ,SDL_FLIP_NONE, "Meeting my lawyer", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
+			SSL_Font_Draw(5, 135, 0 ,SDL_FLIP_NONE, "At walnut-tree inn", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
+			SSL_Font_Draw(5, 150, 0 ,SDL_FLIP_NONE, "Tomorrow at 3pm.", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
+			SSL_Font_Draw(5, 165, 0 ,SDL_FLIP_NONE, "He is in trouble.", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
+		//	SSL_Font_Draw(5, 180, 0 ,SDL_FLIP_NONE, "1234567890123456789012", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
+		//	SSL_Font_Draw(5, 195, 0 ,SDL_FLIP_NONE, "1234567890123456789012", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
+		//	SSL_Font_Draw(5, 210, 0 ,SDL_FLIP_NONE, "1234567890123456789012", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
+		}
+
+		if (act == 4 && mission == 1) {
+			SSL_Image_Draw(start, 50, 210, 0, 1, SDL_FLIP_NONE, game_window);
+			SSL_Image_Draw(end, 295, 5, 270, 1, SDL_FLIP_NONE, game_window);
+		}
+
+		int i;
+		for(i = 0 ; i < SSL_List_Size(objects); i++) {
+			Puzzle_Object *puzzle_object = SSL_List_Get(objects, i);
+			SSL_Image_Draw(puzzle_object->image, puzzle_object->x, puzzle_object->y - 1, puzzle_object->rot, 0, SDL_FLIP_NONE, game_window);
+		}
+
+		if (act == 4 && mission == 1) {
+			Puzzle_Object *puzzle_object = SSL_List_Get(objects, selected);
+			SSL_Image_Draw(selected_pipe, puzzle_object->x, puzzle_object->y - 1, 0, 0, SDL_FLIP_NONE, game_window);
+		}
+
+		SSL_Image_Draw(big_button, 162, 167, 0, 1, SDL_FLIP_NONE, game_window);
+
+		if (act == 1 && mission == 1) {
+			SSL_Font_Draw(167, 170, 0 ,SDL_FLIP_NONE, "A. Move Left", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
+			SSL_Font_Draw(167, 180, 0 ,SDL_FLIP_NONE, "W. Move Up", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
+			SSL_Font_Draw(167, 190, 0 ,SDL_FLIP_NONE, "S. Move Down", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
+			SSL_Font_Draw(167, 200, 0 ,SDL_FLIP_NONE, "E. Place", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
+		}
+
+		if (act == 4 && mission == 1) {
+			SSL_Font_Draw(167, 170, 0 ,SDL_FLIP_NONE, "W. Next", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
+			SSL_Font_Draw(167, 180, 0 ,SDL_FLIP_NONE, "S. Previous", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
+			SSL_Font_Draw(167, 190, 0 ,SDL_FLIP_NONE, "E. Rotate", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
+		}
+
+		SSL_Image_Draw(button, 162, 217, 0, 1, SDL_FLIP_NONE, game_window);
+		SSL_Font_Draw(167, 220, 0 ,SDL_FLIP_NONE, "1. Restart        2. Check", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
 	}
-
-	if (act == 4 && mission == 1) {
-		SSL_Image_Draw(start, 50, 210, 0, 1, SDL_FLIP_NONE, game_window);
-		SSL_Image_Draw(end, 295, 5, 270, 1, SDL_FLIP_NONE, game_window);
-	}
-
-	int i;
-	for(i = 0 ; i < SSL_List_Size(objects); i++) {
-		Puzzle_Object *puzzle_object = SSL_List_Get(objects, i);
-		SSL_Image_Draw(puzzle_object->image, puzzle_object->x, puzzle_object->y - 1, puzzle_object->rot, 0, SDL_FLIP_NONE, game_window);
-	}
-
-	if (act == 4 && mission == 1) {
-		Puzzle_Object *puzzle_object = SSL_List_Get(objects, selected);
-		SSL_Image_Draw(selected_pipe, puzzle_object->x, puzzle_object->y - 1, 0, 0, SDL_FLIP_NONE, game_window);
-	}
-
-	SSL_Image_Draw(big_button, 162, 167, 0, 1, SDL_FLIP_NONE, game_window);
-
-	if (act == 1 && mission == 1) {
-		SSL_Font_Draw(167, 170, 0 ,SDL_FLIP_NONE, "A. Move Left", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
-		SSL_Font_Draw(167, 180, 0 ,SDL_FLIP_NONE, "W. Move Up", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
-		SSL_Font_Draw(167, 190, 0 ,SDL_FLIP_NONE, "S. Move Down", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
-		SSL_Font_Draw(167, 200, 0 ,SDL_FLIP_NONE, "E. Place", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
-	}
-
-	if (act == 4 && mission == 1) {
-		SSL_Font_Draw(167, 170, 0 ,SDL_FLIP_NONE, "W. Next", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
-		SSL_Font_Draw(167, 180, 0 ,SDL_FLIP_NONE, "S. Previous", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
-		SSL_Font_Draw(167, 190, 0 ,SDL_FLIP_NONE, "E. Rotate", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
-	}
-
-	SSL_Image_Draw(button, 162, 217, 0, 1, SDL_FLIP_NONE, game_window);
-	SSL_Font_Draw(167, 220, 0 ,SDL_FLIP_NONE, "1. Restart        2. Check", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
 }
