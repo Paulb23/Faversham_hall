@@ -1,70 +1,80 @@
 /*-------------------------------------------------------------------------*/
 /**
-   @file    state_controler.h
+   @file    credits.h
    @author  P. Batty
-   @brief   Implements a the game state controller
+   @brief   ...
 
-   This module implements the game state controller and will control
-   the state of the game.
+   This module implements...
+
 */
 /*--------------------------------------------------------------------------*/
 
-#ifndef STATE_CONTROLER_H_
-#define STATE_CONTROLER_H_
+#ifndef CREDITS_H_
+#define CREDITS_H_
 
 /*---------------------------------------------------------------------------
                                 Includes
  ---------------------------------------------------------------------------*/
 
-
+#include "SDL2/SDL.h"
 
 /*---------------------------------------------------------------------------
                                 New types
  ---------------------------------------------------------------------------*/
 
-/*!--------------------------------------------------------------------------
-  @brief    Game_States
-
-  Different states that the game can be in.
-	  ASSET_IMAGE - SSL_Image
-	  ASSET_SOUND - Mix_Chunk
-	  ASSET_FONT  - SSL_Font
-	  ASSET_MAP   - SSL_Tiled_Map
-
-\----------------------------------------------------------------------------*/
-typedef enum {
-	MAIN_MENU,
-	GAME_STATE,
-	GAME_LOAD_STATE,
-	INSTRUCTIONS_STATE,
-	CREDIT_STATE,
-	EXIT
-} Game_States;
-
-extern Game_States game_state;
 
 /*---------------------------------------------------------------------------
                             Function prototypes
  ---------------------------------------------------------------------------*/
 
 /*!--------------------------------------------------------------------------
-  @brief	Starts the game
+  @brief	initialises the credits
   @return 	Void
 
-  Starts the game.
+  inits the main menu.
 
 \-----------------------------------------------------------------------------*/
-void start_game();
+void credits_init();
 
 
 /*!--------------------------------------------------------------------------
-  @brief	Switches the game state
-  @param	new_state		The state to switch to
+  @brief	Cleans up the credits
   @return 	Void
 
-  Switches the game state
+  Cleans up the credits
 
 \-----------------------------------------------------------------------------*/
-void switch_state(Game_States new_state);
+void credits_clean_up();
+
+
+/*!--------------------------------------------------------------------------
+  @brief	Logic for the credits
+  @return 	Void
+
+  Credits logic
+
+\-----------------------------------------------------------------------------*/
+void credits_ticks();
+
+
+/*!--------------------------------------------------------------------------
+  @brief	Event handler
+  @param	event		the event to handle
+  @return 	Void
+
+  Event handler
+
+\-----------------------------------------------------------------------------*/
+void credits_handeler(SDL_Event event);
+
+
+/*!--------------------------------------------------------------------------
+  @brief	Renders the credits
+  @return 	Void
+
+  Renders the credits.
+
+\-----------------------------------------------------------------------------*/
+void credits_renderer();
 
 #endif

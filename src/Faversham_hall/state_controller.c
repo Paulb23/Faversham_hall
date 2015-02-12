@@ -79,6 +79,10 @@ void start_game() {
 					game_ticks(delta, uptime);
 					break;
 				}
+				case CREDIT_STATE: {
+					credits_ticks();
+					break;
+				}
 				case EXIT: {
 					running = 0;
 					break;
@@ -97,6 +101,10 @@ void start_game() {
 					}
 					case GAME_STATE: {
 						game_event_handle(event, uptime);
+						break;
+					}
+					case CREDIT_STATE: {
+						credits_handeler(event);
 						break;
 					}
 					case EXIT: {
@@ -128,6 +136,10 @@ void start_game() {
 			}
 			case GAME_STATE: {
 				game_render();
+				break;
+			}
+			case CREDIT_STATE: {
+				credits_renderer();
 				break;
 			}
 			case EXIT: {
@@ -168,6 +180,10 @@ void switch_state(Game_States new_state) {
 				game_clean_up(new_state);
 				break;
 			}
+			case CREDIT_STATE: {
+				credits_clean_up();
+				break;
+			}
 			case EXIT: {
 				break;
 			}
@@ -187,6 +203,10 @@ void switch_state(Game_States new_state) {
 		case GAME_LOAD_STATE: {
 			new_state = GAME_STATE;
 			game_init(1);
+			break;
+		}
+		case CREDIT_STATE: {
+			credits_init();
 			break;
 		}
 		case EXIT: {
