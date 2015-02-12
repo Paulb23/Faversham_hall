@@ -87,6 +87,10 @@ void main_menu_event_handeler(SDL_Event event) {
 		switch_state(GAME_STATE);
 	}
 
+	if (SSL_Keybord_Keyname_Pressed("_3", event)) {
+		switch_state(INSTRUCTIONS_STATE);
+	}
+
 	if (SSL_Keybord_Keyname_Pressed("_4", event)) {
 		switch_state(CREDIT_STATE);
 	}

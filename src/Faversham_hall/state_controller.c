@@ -16,6 +16,8 @@
 #include "state_controller.h"
 #include "game/game.h"
 #include "menu/main_menu.h"
+#include "menu/instructions.h"
+#include "menu/credits.h"
 #include "config.h"
 #include "window_manager.h"
 #include "SDL2/SDL.h"
@@ -79,6 +81,10 @@ void start_game() {
 					game_ticks(delta, uptime);
 					break;
 				}
+				case INSTRUCTIONS_STATE: {
+					instructions_ticks();
+					break;
+				}
 				case CREDIT_STATE: {
 					credits_ticks();
 					break;
@@ -101,6 +107,10 @@ void start_game() {
 					}
 					case GAME_STATE: {
 						game_event_handle(event, uptime);
+						break;
+					}
+					case INSTRUCTIONS_STATE: {
+						instructions_handeler(event);
 						break;
 					}
 					case CREDIT_STATE: {
@@ -138,6 +148,10 @@ void start_game() {
 				game_render();
 				break;
 			}
+			case INSTRUCTIONS_STATE: {
+				instructions_renderer();
+				break;
+			}
 			case CREDIT_STATE: {
 				credits_renderer();
 				break;
@@ -168,52 +182,59 @@ void start_game() {
 \-----------------------------------------------------------------------------*/
 void switch_state(Game_States new_state) {
 
+	if (new_state != INSTRUCTIONS_STATE && game_state != INSTRUCTIONS_STATE) {
+		if (game_state) {
+			/* clean up the previous state */
+			switch (game_state) {
+				case MAIN_MENU: {
+					main_menu_clean_up();
+					break;
+				}
+				case GAME_STATE: {
+					game_clean_up(new_state);
+					break;
+				}
+				case CREDIT_STATE: {
+					credits_clean_up();
+					break;
+				}
+				case EXIT: {
+					break;
+				}
+			}
+		}
 
-	if (game_state) {
-		/* clean up the previous state */
-		switch (game_state) {
+		/* init the new state */
+		switch (new_state) {
 			case MAIN_MENU: {
-				main_menu_clean_up();
+				main_menu_init();
 				break;
 			}
 			case GAME_STATE: {
-				game_clean_up(new_state);
+				game_init(0);
+				break;
+			}
+			case GAME_LOAD_STATE: {
+				new_state = GAME_STATE;
+				game_init(1);
 				break;
 			}
 			case CREDIT_STATE: {
-				credits_clean_up();
+				credits_init();
 				break;
 			}
 			case EXIT: {
 				break;
 			}
 		}
-	}
+	} else {
 
-	/* init the new state */
-	switch (new_state) {
-		case MAIN_MENU: {
-			main_menu_init();
-			break;
-		}
-		case GAME_STATE: {
-			game_init(0);
-			break;
-		}
-		case GAME_LOAD_STATE: {
-			new_state = GAME_STATE;
-			game_init(1);
-			break;
-		}
-		case CREDIT_STATE: {
-			credits_init();
-			break;
-		}
-		case EXIT: {
-			break;
+		if (new_state == INSTRUCTIONS_STATE) {
+			instructions_init();
+		} else {
+			instructions_clean_up();
 		}
 	}
-
 	/* switch to the new state */
 	game_state = new_state;
 }

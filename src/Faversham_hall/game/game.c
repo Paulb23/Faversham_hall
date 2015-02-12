@@ -455,6 +455,13 @@ void game_event_handle(SDL_Event event, int uptime) {
 			load_game();
 		}
 
+		/* check if the player wants instructions
+		 * and if so show them
+		 */
+		if (SSL_Keybord_Keyname_Pressed("_4", event)) {
+			switch_state(INSTRUCTIONS_STATE);
+		}
+
 		/* check if the player want to go to the main menu
 		 * and if so go to the main menu
 		 */
