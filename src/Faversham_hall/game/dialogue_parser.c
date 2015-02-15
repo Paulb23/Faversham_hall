@@ -16,6 +16,7 @@
 #include "dialogue_parser.h"
 #include "../window_manager.h"
 #include "../asset_manager.h"
+#include "mission_manager.h"
 #include "../config.h"
 #include "../../SSL/SSL.h"
 #include "SDL2\SDL.h"
@@ -150,8 +151,14 @@ void start_dialog(char *other, int act) {
 
 	// load the dialog
 	dialog = SSL_IniFIle_Create();
+
+	// exceptions to the rules
 	char path[100];
-	sprintf(path, "%s%s%i.ini", dialog_path, other, act);
+	if (strcmp(other, "dutchess") == 0 && get_current_act() == 4 && get_current_mission() == 2) {
+		sprintf(path, "%s%s%i_2.ini", dialog_path, other, act);
+	} else {
+		sprintf(path, "%s%s%i.ini", dialog_path, other, act);
+	}
 
 	// if the file for the npc + act exists load that one
 	if( access( path, F_OK ) != -1 ) {
