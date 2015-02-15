@@ -241,10 +241,8 @@ void update_act() {
 					if (game_in_dialog()) {
 						if (strcmp(game_get_talking_ai(), "butler") == 0) {
 							lock_dialog();
-						//	if (strcmp(game_get_dialog_node_name(),"chef_goes_crazy5") == 0) { // todo: update with real dialog node!
 								unlock_room("bacement_hallway");
 								mission = 1;
-						//	}
 						}
 					}
 				}
@@ -318,9 +316,7 @@ void update_act() {
 					if (game_in_dialog()) {
 						if (strcmp(game_get_talking_ai(), "dutchess") == 0) {
 							lock_dialog();
-							//	if (strcmp("chef_goes_crazy5", game_get_dialog_node_name()) == 0) { todo: update with real node
 								mission++;
-							//}
 						}
 					}
 				}
@@ -334,9 +330,10 @@ void update_act() {
 				case (2): {
 					if (game_in_dialog()) {
 						if (strcmp(game_get_talking_ai(), "dutchess") == 0) {
-							//	if (strcmp("chef_goes_crazy5", game_get_dialog_node_name()) == 0) { todo: update with real node
+							lock_dialog();
+							if (strcmp("detective_end", game_get_dialog_node_name()) == 0) {
 								act_switch(5);
-							//}
+							}
 						}
 					}
 				}
@@ -349,10 +346,8 @@ void update_act() {
 				case (0) : {
 					if (game_in_dialog()) {
 						if (strcmp(game_get_talking_ai(), "maid") == 0 || strcmp(game_get_talking_ai(), "twins") == 0) {
-						lock_dialog();
-						//	if (strcmp("chef_goes_crazy5", game_get_dialog_node_name()) == 0) { todo: update with real node
+							lock_dialog();
 							lock_npc(game_get_talking_ai());
-						//	}
 						}
 					}
 
@@ -370,9 +365,7 @@ void update_act() {
 					if (game_in_dialog()) {
 						if (strcmp(game_get_talking_ai(), "servant") == 0) {
 							lock_dialog();
-							//	if (strcmp("chef_goes_crazy5", game_get_dialog_node_name()) == 0) { todo: update with real node
-								act_switch(7);
-							//}
+							act_switch(7);
 						}
 					}
 				}
