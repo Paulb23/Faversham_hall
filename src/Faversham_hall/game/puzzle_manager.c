@@ -499,16 +499,16 @@ void puzzle_render(int act, int mission) {
 		SSL_Image_Draw(big_button, 162, 167, 0, 1, SDL_FLIP_NONE, game_window);
 
 		if (act == 1 && mission == 1) {
-			SSL_Font_Draw(167, 170, 0 ,SDL_FLIP_NONE, "A. Move Left", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
-			SSL_Font_Draw(167, 180, 0 ,SDL_FLIP_NONE, "W. Move Up", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
-			SSL_Font_Draw(167, 190, 0 ,SDL_FLIP_NONE, "S. Move Down", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
-			SSL_Font_Draw(167, 200, 0 ,SDL_FLIP_NONE, "E. Place", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
+			SSL_Font_Draw(177, 170, 0 ,SDL_FLIP_NONE, "A. Move Left", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
+			SSL_Font_Draw(177, 180, 0 ,SDL_FLIP_NONE, "W. Move Up", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
+			SSL_Font_Draw(177, 190, 0 ,SDL_FLIP_NONE, "S. Move Down", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
+			SSL_Font_Draw(177, 200, 0 ,SDL_FLIP_NONE, "E. Place", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
 		}
 
 		if (act == 4 && mission == 1) {
-			SSL_Font_Draw(167, 170, 0 ,SDL_FLIP_NONE, "W. Next", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
-			SSL_Font_Draw(167, 180, 0 ,SDL_FLIP_NONE, "S. Previous", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
-			SSL_Font_Draw(167, 190, 0 ,SDL_FLIP_NONE, "E. Rotate", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
+			SSL_Font_Draw(177, 170, 0 ,SDL_FLIP_NONE, "W. Next", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
+			SSL_Font_Draw(177, 180, 0 ,SDL_FLIP_NONE, "S. Previous", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
+			SSL_Font_Draw(177, 190, 0 ,SDL_FLIP_NONE, "E. Rotate", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
 		}
 
 		SSL_Image_Draw(button, 162, 217, 0, 1, SDL_FLIP_NONE, game_window);
