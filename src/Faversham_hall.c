@@ -113,7 +113,7 @@ int main(int argc, char *argv[]) {
 	asset_manager_addFont("test_font", SSL_Font_Load("../extras/resources/font/Calibri.ttf", 10));
 	asset_manager_addFont("ui_font", SSL_Font_Load("../extras/resources/font/8bitOperatorPlus8-Regular.ttf", 12));
 	asset_manager_addFont("ui_title_font", SSL_Font_Load("../extras/resources/font/8bitOperatorPlus8-Regular.ttf", 18));
-	asset_manager_addFont("dialog_font", SSL_Font_Load("../extras/resources/font/8bitOperatorPlus8-Regular.ttf", 14));
+	asset_manager_addFont("dialog_font", SSL_Font_Load("../extras/resources/font/alphbeta.ttf", 14));
 
 	// switch state and start game
 	switch_state(MAIN_MENU);
