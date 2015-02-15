@@ -1,0 +1,106 @@
+[root]
+name = "detective"
+text = "Er, Chef? Hello! I ..."
+action = "intro_1"
+
+[intro_1]
+name = "chef"
+text = "WHO ARE YOU TO INTERRUPT MY KITCHENS? HONESTLY, WHAT WITH THE GOINGS ON UPSTAIRS YOU WOULD THINK THIS WAS COVENT GARDEN!!"
+option_count = 3
+option_1 = "I’m sorry to interrupt, but I have a few questions about the Nanny "
+option_1_action = "things_go_badly"
+option_2 = "I’m a Detective invited to the Hall by the Dutchess"
+option_2_action = "things_go_badly"
+option_3 = "WHO ARE YOU TO QUESTION MY AUTHORITY IN THIS BUILDING?! I AM A DETECTIVE ON OFFICIAL BUSINESS AND IF YOU DON’T ANSWER MY QUESTIONS THINGS ARE GOING TO GO BADLY FOR YOU VERY QUICKLY "
+option_3_action = "things_go_well"
+
+[things_go_badly]
+name = "chef"
+text = "I DON’T RECOGNISE YOUR AUTHORITY. PLEASE DON'T TALK TO ME AGAIN UNTIL YOU CAN CONVINCE ME "
+action = "assistant_ender"
+
+[assistant_ender]
+name = "assistant"
+text = "Pssh, that went well Boss... Maybe you should try again and 'convince' him somehow!" 
+action = "end"
+
+[things_go_well]
+name = "chef"
+text = "OKAY OKAY, I HEAR YOU, NO NEED TO SHOUT! WHAT DO YOU WANT?"
+action = "what_do_you_want"
+
+[what_do_you_want]
+name = "detective"
+text = "But I, but you... *sigh*. Anyway"
+option_count = 3
+option_1 = "Do you know anything about what’s happened to the Nanny?"
+option_1_action = "chef_breaks_down"
+option_2 = "In your illustrious position here in the house, are you aware of any issues in the family. I heard talk of a scandal…"
+option_2_action = "chef_blows_up"
+option_3 = "WHAT HAPPENED TO THE GIRL. I KNOW YOU DID IT"
+option_3_action = "chef_goes_crazy"
+
+[chef_breaks_down]
+name = "chef" 
+text = "*sob* I heard… *sob* She is so sweet, I hope someone can help her… *sob* I heard moving in the night, and I heard a woman’s voice. I expect she was talking to herself, or to her diary. She liked to write. *Sob* "
+action = "you_comfort_him"
+
+[chef_blows_up]
+name = "chef" 
+text = "ISSUES!?! NO END OF ISSUES! THEY’RE ALL MAD! ALL OF THEM! I WOULD CHECK OUT THE NEWPHEW. OR THE SON-IN –LAW. I FORGET WHICH IS WHICH, THEY ALL LOOK THE SAME TO ME. ANYWAY. THERE WAS SOME SORT OF DRAMA LAST YEAR. ABOUT THE TIME THE DUCHESS’S DAUGHTER STOPPED COMING AROUND. *sob* She was always so nice *sob*, so understanding. She always praised my cooking, every day *sob*"
+action = "you_comfort_him"
+
+[chef_goes_crazy]
+name = "chef" 
+text = "I ALREADY ASKED YOU TO LEAVE ONCE!! YOU COME IN HERE, INSULT ME! HAVE SOME OF THAT! AND THAT!"
+action = "chef_goes_crazy2"
+
+
+[chef_goes_crazy2]
+name = "assistant" 
+text = "Quick, he’s throwing knives! Talk about crazy?!  Duck!!"
+action = "chef_goes_crazy3"
+
+
+[chef_goes_crazy3]
+name = "detective" 
+text = "I think he’s all out of ammunition. That was what? 4 knives? "
+action = "chef_goes_crazy4"
+
+
+[chef_goes_crazy4]
+name = "assistant" 
+text = ": Yes, I noticed one of the larger ones was missing from the block back then. Lucky for us, else he might have got one of us! He had a mean fast ball!"
+action = "chef_goes_crazy5"
+
+[chef_goes_crazy5]
+name = "detective" 
+text = "Fast knife, you mean? *chortle*. Let's go upstairs"
+action = "end"
+
+[you_comfort_him]
+name = "detective"
+text = "uuuhhmm... "
+option_count = 2
+option_1 = "Are you… OK? "
+option_1_action = "chef_is_always_ok"
+option_2 = "Get a grip, man!"
+option_2_action = "chef_goes_crazy"
+
+[chef_is_always_ok]
+name = "chef"
+text = "OF COURSE I AM! WHAT DO YOU MEAN? CHEF IS ALWAYS OKAY. WAS THERE ANYTHING ELSE?"
+action = "what_do_you_want_2"
+
+[what_do_you_want]
+name = "detective"
+text = "of course you are... *sigh*. Anyway"
+option_count = 4
+option_1 = "Do you know anything about what’s happened to the Nanny?"
+option_1_action = "chef_breaks_down"
+option_2 = "In your illustrious position here in the house, are you aware of any issues in the family. I heard talk of a scandal…"
+option_2_action = "chef_blows_up"
+option_3 = "WHAT HAPPENED TO THE GIRL. I KNOW YOU DID IT"
+option_3_action = "chef_goes_crazy"
+option_4 = "No, I think we’re OK. You seem unstable enough and those knives look awfully sharp!"
+option_4_action = "chef_goes_crazy4"
