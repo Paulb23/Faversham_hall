@@ -499,7 +499,7 @@ void draw_act() {
 				}
 				break;
 				case(2): {
-					SSL_Font_Draw(mission_x, mission_y, 0 ,SDL_FLIP_NONE, "Mission: Talk to the Dutchess!", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
+					SSL_Font_Draw(mission_x, mission_y, 0 ,SDL_FLIP_NONE, "Mission: Talk to the Duchess!", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
 				}
 				break;
 			}
