@@ -518,7 +518,7 @@ void game_render() {
 		// else check and draw info about available interactions
 		int layer = SSL_Tiled_Get_LayerIndex(current_map, "other");					// get the loading tile layer
 
-		int info_x = 2;
+		int info_x = 10;
 		int info_y = 20;
 
 		if (SSL_Tiled_Get_TileId(current_map, entity_get_tile_x((Entity *)&player->entity, current_map), entity_get_tile_y((Entity *)&player->entity, current_map), layer) == 1 && !locked_room) {
