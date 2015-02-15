@@ -410,8 +410,11 @@ void game_event_handle(SDL_Event event, int uptime) {
 			 * start the conversation
 			 */
 			if(player_character_interaction_check(event, player, current_map)) {
-				start_dialog(get_closest_ai_name(player, ai), get_current_act());
-				in_dialog = 1;
+				if (get_current_act() != 6 && get_current_act() != 8 && strcmp("servants_quarters", current_map_name) == 0) {
+				} else {
+					start_dialog(get_closest_ai_name(player, ai), get_current_act());
+					in_dialog = 1;
+				}
 			}
 
 			/* check for clue interaction and if so
@@ -525,7 +528,10 @@ void game_render() {
 			SSL_Font_Draw(info_x, info_y, 0 ,SDL_FLIP_NONE, "Press E to load", (SSL_Font *)asset_manager_getFont("test_font"), SSL_Color_Create(255,255,255,0), game_window);
 		}
 		if (SSL_Tiled_Get_TileId(current_map, entity_get_tile_x((Entity *)&player->entity, current_map), entity_get_tile_y((Entity *)&player->entity, current_map), layer) == 4) {
-			SSL_Font_Draw(info_x, info_y, 0 ,SDL_FLIP_NONE, "Press E to Talk", (SSL_Font *)asset_manager_getFont("test_font"), SSL_Color_Create(255,255,255,0), game_window);
+			if (get_current_act() != 6 && get_current_act() != 8 && strcmp("servants_quarters", current_map_name) == 0) {
+			} else {
+				SSL_Font_Draw(info_x, info_y, 0 ,SDL_FLIP_NONE, "Press E to Talk", (SSL_Font *)asset_manager_getFont("test_font"), SSL_Color_Create(255,255,255,0), game_window);
+			}
 		}
 		if (valid_clue(get_current_act(), get_current_mission()) && SSL_Tiled_Get_TileId(current_map, entity_get_tile_x((Entity *)&player->entity, current_map), entity_get_tile_y((Entity *)&player->entity, current_map), layer) == 3) {
 			SSL_Font_Draw(info_x, info_y, 0 ,SDL_FLIP_NONE, "Press E to collect", (SSL_Font *)asset_manager_getFont("test_font"), SSL_Color_Create(255,255,255,0), game_window);
