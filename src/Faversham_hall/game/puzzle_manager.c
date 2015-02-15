@@ -26,6 +26,7 @@ static SSL_Image *diary_full_page;
 static SSL_Image *big_button;
 static SSL_Image *button;
 static SSL_Image *paper_strip;
+static SSL_Image *selected_paper_strip;
 static SSL_List  *objects;
 
 static SSL_Image *horizontal;
@@ -185,6 +186,7 @@ void puzzle_init(int act, int mission) {
 
 	if (act == 1 && mission == 1) {
 		diary_full_page = SSL_Image_Load("../extras/resources/gui/game/diary_full_page.png", 320 / 2, WINDOW_RES_HEIGHT, game_window);
+		selected_paper_strip = SSL_Image_Load("../extras/resources/gui/game/paper/selector.png", 155, 13, game_window);
 
 		int start_y = 15;
 		int y_inc = 15;
@@ -482,6 +484,11 @@ void puzzle_render(int act, int mission) {
 		for(i = 0 ; i < SSL_List_Size(objects); i++) {
 			Puzzle_Object *puzzle_object = SSL_List_Get(objects, i);
 			SSL_Image_Draw(puzzle_object->image, puzzle_object->x, puzzle_object->y - 1, puzzle_object->rot, 0, SDL_FLIP_NONE, game_window);
+		}
+
+		if (act == 1 && mission == 1) {
+			Puzzle_Object *puzzle_object = SSL_List_Get(objects, selected);
+			SSL_Image_Draw(selected_paper_strip, puzzle_object->x, puzzle_object->y - 1, 0, 0, SDL_FLIP_NONE, game_window);
 		}
 
 		if (act == 4 && mission == 1) {
