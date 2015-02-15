@@ -53,7 +53,8 @@ static int load_libaries() {
 		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "SDL Mixer", "FATAL: Could not start SDL Mixer!", NULL);
 		return 1;
 	}
-	Mix_OpenAudio(22050, AUDIO_S16SYS, 10, 1024);
+	Mix_OpenAudio(22050, AUDIO_S16SYS, 2, 1024);
+	Mix_VolumeMusic(50);
 
 	if(SSL_Init() == 0) {
 		SSL_Log_Write("FATAL: Could not start SSL!");

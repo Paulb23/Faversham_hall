@@ -26,6 +26,8 @@
 
 static SSL_Image *background;
 static SSL_Image *title;
+static Mix_Music *music;
+
 
 /*---------------------------------------------------------------------------
                             Function codes
@@ -41,6 +43,8 @@ static SSL_Image *title;
 void main_menu_init() {
 	background = SSL_Image_Load("../extras/resources/gui/menu/main_menu_background.png",WINDOW_RES_WIDTH, WINDOW_RES_HEIGHT, game_window);
 	title = SSL_Image_Load("../extras/resources/gui/menu/title.png",WINDOW_RES_WIDTH, WINDOW_RES_HEIGHT, game_window);
+	music = Mix_LoadMUS("../extras/resources/audio/music/menu.wav");
+	Mix_PlayMusic(music, -1);
 }
 
 

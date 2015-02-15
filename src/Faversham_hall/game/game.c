@@ -53,6 +53,7 @@ static SSL_Image *ui_background;	/**< the ui background */
 static SSL_Image *pause_background;	/**< the pause background */
 
 static int paused;					/**< are we paused */
+static Mix_Music *music;
 
 
 /*----------------------------------
@@ -60,6 +61,16 @@ static int paused;					/**< are we paused */
  ----------------------------------*/
 
 static void load_level(char *map_name) {
+
+	// load music
+	if (music) {
+		Mix_FreeMusic(music);
+	}
+	char path[100] = "";
+	sprintf(path, "../extras/resources/audio/music/%s.wav", map_name);
+	music = Mix_LoadMUS(path);
+	Mix_PlayMusic(music, -1);
+
 	if (strcmp(map_name,"reception") == 0 && get_current_act() == 8) {
 		map_name = "reception_accuse";
 	}
