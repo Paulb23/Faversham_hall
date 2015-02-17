@@ -104,6 +104,7 @@ void credits_renderer() {
 	SSL_Font_Draw(50, 140, 0 ,SDL_FLIP_NONE, "SDL 2, SDL_IMAGE, SDL_MIXER, SDL_TTF", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
 	SSL_Font_Draw(65, 155, 0 ,SDL_FLIP_NONE, "grandchaos9000 For the font", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
 	SSL_Font_Draw(65, 170, 0 ,SDL_FLIP_NONE, "Kevin MacLeod For the music", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
+	SSL_Font_Draw(65, 185, 0 ,SDL_FLIP_NONE, "opengameart.org for the Sfx", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
 
 	SSL_Font_Draw(145, 225, 0 ,SDL_FLIP_NONE, "Press 1 to Continue..", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
 }
