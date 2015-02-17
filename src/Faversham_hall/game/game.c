@@ -54,7 +54,7 @@ static SSL_Image *pause_background;	/**< the pause background */
 
 static int paused;					/**< are we paused */
 static Mix_Music *music;
-
+static Mix_Chunk *load_sfx;
 
 /*----------------------------------
      Loads the level
@@ -127,6 +127,15 @@ static void load_next_level() {
 		locked_room = 1;
 		return;
 	}
+
+	// play door sound
+	if (load_sfx) {
+		Mix_FreeChunk(load_sfx);
+	}
+	char buf[100] = "";
+	sprintf(buf, "../extras/resources/audio/sfx/load_room_%i.wav", (rand() % 5) + 1);
+	load_sfx = Mix_LoadWAV(buf);
+	Mix_PlayChannel(-1, load_sfx, 0);
 
 	load_level(SSL_IniFile_GetString(map_ini, pos, "load", "test_map"));					// load the level
 

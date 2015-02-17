@@ -37,6 +37,9 @@ static SSL_Image *up_right;
 static SSL_Image *start;
 static SSL_Image *end;
 
+static Mix_Chunk *puzzle_complete_sfx;
+static Mix_Chunk *puzzle_fail_sfx;
+
 static int show_instructions;
 
 static int selected;
@@ -56,6 +59,7 @@ static int check_puzzle(int act, int mission) {
 			if (puzzle_object->y == diary_y_inc * diary_order[i]) {
 
 			} else {
+				Mix_PlayChannel(-1, puzzle_fail_sfx, 0);
 				return 1;
 			}
 
@@ -69,12 +73,14 @@ static int check_puzzle(int act, int mission) {
 			if (puzzle_object->rot == water_order[i]) {
 
 			} else {
+				Mix_PlayChannel(-1, puzzle_fail_sfx, 0);
 				return 1;
 			}
 
 		}
 	}
 
+	Mix_PlayChannel(-1, puzzle_complete_sfx, 0);
 	return 0;
 }
 
@@ -177,6 +183,18 @@ void start_clue(int act, int mission) {
 
 \-----------------------------------------------------------------------------*/
 void puzzle_init(int act, int mission) {
+	if (puzzle_complete_sfx) {
+		Mix_FreeChunk(puzzle_complete_sfx);
+		puzzle_complete_sfx = NULL;
+	}
+	puzzle_complete_sfx = Mix_LoadWAV("../extras/resources/audio/sfx/puzzle_complete.wav");
+
+	if (puzzle_fail_sfx) {
+		Mix_FreeChunk(puzzle_fail_sfx);
+		puzzle_fail_sfx = NULL;
+	}
+	puzzle_fail_sfx = Mix_LoadWAV("../extras/resources/audio/sfx/puzzle_fail.wav");
+
 	selected = 0;
 	show_instructions = 1;
 	objects = SSL_List_Create();

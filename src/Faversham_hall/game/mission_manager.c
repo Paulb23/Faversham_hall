@@ -34,6 +34,7 @@ static SSL_Hashmap *npcs;				// hashmap to store the npc states
 static int act;							// current act
 static int mission;						// current mission
 static char *clue_found;				// last clue to be found
+static Mix_Chunk *act_complete_sfx;
 
 
 /*----------------------------------
@@ -182,6 +183,8 @@ void act_init() {
 	npcs = SSL_Hashmap_Create();	// create and unlock all npcs
 	unlock_all_npcs();
 
+	act_complete_sfx = Mix_LoadWAV("../extras/resources/audio/sfx/new_mission.wav");
+
 	act_switch(act);				// switch to the stating act
 	clue_found = "none";
 }
@@ -197,6 +200,7 @@ void act_init() {
 void act_clean_up() {
 	SSL_Hashmap_Destroy(rooms);
 	SSL_Hashmap_Destroy(npcs);
+	Mix_FreeChunk(act_complete_sfx);
 }
 
 
@@ -234,6 +238,8 @@ int is_npc_locked(char *npc) {
 
 \-----------------------------------------------------------------------------*/
 void update_act() {
+	int prev_mission = mission;
+
 	switch (act) {
 		case 0: {
 			switch (mission) {
@@ -420,6 +426,10 @@ void update_act() {
 			}
 		}
 		break;
+	}
+
+	if (prev_mission != mission) {
+		Mix_PlayChannel(-1, act_complete_sfx, 0);
 	}
 }
 
