@@ -66,6 +66,7 @@ static int windowed_default = 1;
 static int borderless_default = 0;
 
 static int music_volume_default = 50;
+static int sfx_volume_default = 100;
 
 
 static char *up_key_default = "_w";
@@ -109,12 +110,14 @@ static void print_game_block(FILE *file) {
 	"windowed = %i\t; 0 = full screen    1 = windowed\n"
 	"borderless = %i\t; 0 = border    1 = no borders\n"
 	"music_volume = %i\t; music volume\n"
+	"sfx_volume = %i\t ; sfx volume\n"
 	,max_ticks_per_second_default
 	,smooth_texture_scaling_default
 	,vsync_default
 	,windowed_default
 	,borderless_default
 	,music_volume_default
+	,sfx_volume_default
 	);
 }
 
@@ -260,6 +263,13 @@ static void read_game_section(SSL_IniFile *ini) {
 		SSL_Log_Write("Error: ini missing music volume, reverting to default!");
 	}
 	Mix_VolumeMusic(music_volume);
+
+	music_volume = SSL_IniFile_GetInt(ini, "game", "sfx_volume", (int)-1);
+	if (music_volume == -1) {
+		music_volume = sfx_volume_default;
+		SSL_Log_Write("Error: ini missing sfx volume, reverting to default!");
+	}
+	Mix_Volume(-1, music_volume);
 }
 
 /*----------------------------------
