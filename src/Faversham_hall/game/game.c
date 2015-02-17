@@ -49,6 +49,8 @@ static int locked_dialog;			/**< can we leave the dialog */
 static int in_puzzle;				/**< are we in a puzzle */
 static char *puzzle;				/**< name of the puzzle currently solving */
 
+static int end_game = 0;
+
 static SSL_Image *ui_background;	/**< the ui background */
 static SSL_Image *pause_background;	/**< the pause background */
 
@@ -298,6 +300,7 @@ static void update_player_status() {
 void game_init(int load) {
 	dialog_init();	// set up the dialog
 	current_floor = 0;
+	end_game = 0;
 
 	map_ini = load_ini("start_map");	// get the start_map ini and read it
 	current_floor = SSL_IniFile_GetInt(map_ini, "00", "floor", 0);
@@ -375,19 +378,23 @@ void game_ticks(double delta, int uptime) {
 	// update animations
 	update_animation();
 
-	// if we are not paused
-	if (!paused) {
-		if (!in_puzzle) {
-			update_player();
-			update_player_status();
+	if (end_game == 0) {
+		// if we are not paused
+		if (!paused) {
+			if (!in_puzzle) {
+				update_player();
+				update_player_status();
 
-			update_camrea();
-			update_act();
+				update_camrea();
+				update_act();
+			} else {
+				puzzle_update(get_current_act(), get_current_mission());
+			}
 		} else {
-			puzzle_update(get_current_act(), get_current_mission());
+			// psued code here
 		}
 	} else {
-		// psued code here
+
 	}
 
 	// set background draw color
@@ -406,97 +413,104 @@ void game_ticks(double delta, int uptime) {
 \-----------------------------------------------------------------------------*/
 void game_event_handle(SDL_Event event, int uptime) {
 
-	// if we are not paused
-	if (!paused) {
+	if (end_game == 0) {
+		// if we are not paused
+		if (!paused) {
 
-		if (in_dialog) {
-			in_dialog = update_dialog(event);
-		} else if (in_puzzle) {
-			in_puzzle = puzzle_update_events(event, get_current_act(), get_current_mission());
-			if (in_puzzle == 0) {
-				puzzle_clean_up(get_current_act(), get_current_mission());
-				found_clue(puzzle);
+			if (in_dialog) {
+				in_dialog = update_dialog(event);
+			} else if (in_puzzle) {
+				in_puzzle = puzzle_update_events(event, get_current_act(), get_current_mission());
+				if (in_puzzle == 0) {
+					puzzle_clean_up(get_current_act(), get_current_mission());
+					found_clue(puzzle);
+				}
+			} else {
+
+				/* check for loading and if so
+				 * load the map and set up the player
+				 */
+				if(player_check_load(event, player, current_map) && !player->moving) {
+					load_next_level();
+				}
+
+				/* check for character interaction and if so
+				 * start the conversation
+				 */
+				if(player_character_interaction_check(event, player, current_map)) {
+					if (get_current_act() != 6 && get_current_act() != 8 && strcmp("servants_quarters", current_map_name) == 0) {
+					} else {
+						start_dialog(get_closest_ai_name(player, ai), get_current_act());
+						in_dialog = 1;
+					}
+				}
+
+				/* check for clue interaction and if so
+				 * start the puzzle
+				 */
+				if (player_clue_interaction_check(event, player, current_map) && valid_clue(get_current_act(), get_current_mission())) {
+					start_clue(get_current_act(), get_current_mission());
+				}
+
+				/* check if the player want to pause
+				 * and if so pause
+				 */
+				if (SSL_Keybord_Keyname_Pressed(PAUSE_KEY, event)) {
+					paused = 1;
+				}
+
+				// unlock the dialog when it has ended
+				unlock_dialog();
 			}
 		} else {
+			// paused code heere
 
-			/* check for loading and if so
-			 * load the map and set up the player
+			/* check if the player want to unpause
+			 * and if so unpause
 			 */
-			if(player_check_load(event, player, current_map) && !player->moving) {
-				load_next_level();
+			if (SSL_Keybord_Keyname_Pressed(PAUSE_KEY, event) || SSL_Keybord_Keyname_Pressed("_1", event)) {
+				paused = 0;
 			}
 
-			/* check for character interaction and if so
-			 * start the conversation
+			/* check if the player want to save
+			 * and if so save
 			 */
-			if(player_character_interaction_check(event, player, current_map)) {
-				if (get_current_act() != 6 && get_current_act() != 8 && strcmp("servants_quarters", current_map_name) == 0) {
-				} else {
-					start_dialog(get_closest_ai_name(player, ai), get_current_act());
-					in_dialog = 1;
-				}
+			if (SSL_Keybord_Keyname_Pressed("_2", event)) {
+				save_game();
 			}
 
-			/* check for clue interaction and if so
-			 * start the puzzle
+			/* check if the player want to load
+			 * and if so load
 			 */
-			if (player_clue_interaction_check(event, player, current_map) && valid_clue(get_current_act(), get_current_mission())) {
-				start_clue(get_current_act(), get_current_mission());
+			if (SSL_Keybord_Keyname_Pressed("_3", event)) {
+				load_game();
 			}
 
-			/* check if the player want to pause
-			 * and if so pause
+			/* check if the player wants instructions
+			 * and if so show them
 			 */
-			if (SSL_Keybord_Keyname_Pressed(PAUSE_KEY, event)) {
-				paused = 1;
+			if (SSL_Keybord_Keyname_Pressed("_4", event)) {
+				switch_state(INSTRUCTIONS_STATE);
 			}
 
-			// unlock the dialog when it has ended
-			unlock_dialog();
+			/* check if the player want to go to the main menu
+			 * and if so go to the main menu
+			 */
+			if (SSL_Keybord_Keyname_Pressed("_5", event)) {
+				switch_state(MAIN_MENU);
+			}
+
+			/** if the user want to exit
+			 * exit the game
+			 */
+			if (SSL_Keybord_Keyname_Pressed("_6", event)) {
+				switch_state(EXIT);
+			}
 		}
 	} else {
-		// paused code heere
 
-		/* check if the player want to unpause
-		 * and if so unpause
-		 */
-		if (SSL_Keybord_Keyname_Pressed(PAUSE_KEY, event) || SSL_Keybord_Keyname_Pressed("_1", event)) {
-			paused = 0;
-		}
-
-		/* check if the player want to save
-		 * and if so save
-		 */
-		if (SSL_Keybord_Keyname_Pressed("_2", event)) {
-			save_game();
-		}
-
-		/* check if the player want to load
-		 * and if so load
-		 */
-		if (SSL_Keybord_Keyname_Pressed("_3", event)) {
-			load_game();
-		}
-
-		/* check if the player wants instructions
-		 * and if so show them
-		 */
-		if (SSL_Keybord_Keyname_Pressed("_4", event)) {
-			switch_state(INSTRUCTIONS_STATE);
-		}
-
-		/* check if the player want to go to the main menu
-		 * and if so go to the main menu
-		 */
-		if (SSL_Keybord_Keyname_Pressed("_5", event)) {
-			switch_state(MAIN_MENU);
-		}
-
-		/** if the user want to exit
-		 * exit the game
-		 */
-		if (SSL_Keybord_Keyname_Pressed("_6", event)) {
-			switch_state(EXIT);
+		if (SSL_Keybord_Keyname_Pressed("_1", event)) {
+			switch_state(CREDIT_STATE);
 		}
 	}
 }
@@ -576,6 +590,26 @@ void game_render() {
 		SSL_Font_Draw(118, 110, 0 ,SDL_FLIP_NONE, "4. Instructions", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
 		SSL_Font_Draw(118, 130, 0 ,SDL_FLIP_NONE, "5. Main Menu", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
 		SSL_Font_Draw(118, 150, 0 ,SDL_FLIP_NONE, "6. Exit", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
+	}
+
+	if (end_game > 0) {
+
+	}
+}
+
+
+/*!--------------------------------------------------------------------------
+  @brief	Ends the game
+  @return 	Void
+
+  Ends the game
+
+\-----------------------------------------------------------------------------*/
+void game_end() {
+	if (strcmp(get_closest_ai_name(player, ai), "dutchess") == 0) {
+		end_game = 1;
+	} else {
+		end_game = 2;
 	}
 }
 

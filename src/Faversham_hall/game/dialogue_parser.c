@@ -156,6 +156,10 @@ void start_dialog(char *other, int act) {
 	char path[100];
 	if (strcmp(other, "dutchess") == 0 && get_current_act() == 4 && get_current_mission() == 2) {
 		sprintf(path, "%s%s%i_2.ini", dialog_path, other, act);
+	} else if (act == 10) {
+		sprintf(path, "%saccuse_%s.ini", dialog_path, other);
+	} else if (act == 11) {
+		sprintf(path, "%sGeneral_finale.ini", dialog_path);
 	} else {
 		sprintf(path, "%s%s%i.ini", dialog_path, other, act);
 	}

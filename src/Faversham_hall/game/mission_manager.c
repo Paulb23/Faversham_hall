@@ -15,6 +15,7 @@
  ---------------------------------------------------------------------------*/
 
 #include "mission_manager.h"
+#include "dialogue_parser.h"
 #include "game.h"
 #include "../window_manager.h"
 #include "../asset_manager.h"
@@ -420,9 +421,38 @@ void update_act() {
 		case (9) : {
 			switch (mission) {
 				case (0): {
-					// accuse
+					if (game_in_dialog()) {
+						if (strcmp(game_get_dialog_node_name(), "accuse") == 0) {
+							mission++;
+						}
+					}
 				}
 				break;
+				case (1): {
+					lock_dialog();
+					if (strcmp(game_get_dialog_node_name(), "accuse") == 0) {
+						start_dialog(game_get_talking_ai(), 10);
+					}
+					if (strcmp(game_get_dialog_node_name(), "ending2") == 0){
+						mission++;
+					}
+					if (strcmp(game_get_dialog_node_name(), "ending9") == 0){
+						mission = 3;
+					}
+				}
+				break;
+				case (2): {
+					if (strcmp(game_get_dialog_node_name(), "ending2") == 0){
+						start_dialog(game_get_talking_ai(), 11);
+					}
+					if (strcmp(game_get_dialog_node_name(), "ending2") == 0){
+						game_end();
+					}
+				}
+				break;
+				case (3): {
+					game_end();
+				}
 			}
 		}
 		break;
