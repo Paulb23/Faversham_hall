@@ -101,6 +101,9 @@ static void load_node(char *node) {
 
 	// load in the new portrait
 	char buf[100];
+	if (strcmp("dutchess", name) == 0) {
+		name = "duchess";
+	}
 	sprintf(buf, "../extras/resources/portraits/%s.png" ,name);
 	portait = SSL_Image_Load(buf, 100, 140, game_window);
 }
