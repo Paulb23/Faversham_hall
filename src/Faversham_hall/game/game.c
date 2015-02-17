@@ -53,6 +53,7 @@ static int end_game = 0;
 
 static SSL_Image *ui_background;	/**< the ui background */
 static SSL_Image *pause_background;	/**< the pause background */
+static SSL_Image *end_background;	/**< the end background */
 
 static int paused;					/**< are we paused */
 static Mix_Music *music;
@@ -326,6 +327,7 @@ void game_init(int load) {
 	// load the ui
 	ui_background = SSL_Image_Load("../extras/resources/gui/game/ui.png", WINDOW_RES_WIDTH, WINDOW_RES_HEIGHT, game_window);
 	pause_background = SSL_Image_Load("../extras/resources/gui/game/pause.png", WINDOW_RES_WIDTH, WINDOW_RES_HEIGHT, game_window);
+	end_background = SSL_Image_Load("../extras/resources/gui/game/end.png", WINDOW_RES_WIDTH, WINDOW_RES_HEIGHT, game_window);
 
 	// set up the mission counter
 	act_init();
@@ -544,7 +546,9 @@ void game_render() {
 	}
 	//if we are in dialog draw it
 	if (in_dialog) {
-		render_dialog();
+		if (end_game == 0) {
+			render_dialog();
+		}
 	} else if (in_puzzle) {
 		puzzle_render(get_current_act(), get_current_mission());
 	} else {
@@ -593,7 +597,13 @@ void game_render() {
 	}
 
 	if (end_game > 0) {
-
+		SSL_Image_Draw(end_background, 0, 0, 0, 1, SDL_FLIP_NONE, game_window);
+		if (end_game == 2) {
+			SSL_Font_Draw(118, 70, 0 ,SDL_FLIP_NONE, "You Lose!", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
+		} else {
+			SSL_Font_Draw(118, 70, 0 ,SDL_FLIP_NONE, "You Win!", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
+		}
+		SSL_Font_Draw(155, 145, 0 ,SDL_FLIP_NONE, "1. Continue", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
 	}
 }
 
@@ -606,6 +616,7 @@ void game_render() {
 
 \-----------------------------------------------------------------------------*/
 void game_end() {
+	in_dialog = 0;
 	if (strcmp(get_closest_ai_name(player, ai), "dutchess") == 0) {
 		end_game = 1;
 	} else {

@@ -442,10 +442,14 @@ void update_act() {
 				}
 				break;
 				case (2): {
-					if (strcmp(game_get_dialog_node_name(), "ending2") == 0){
-						start_dialog(game_get_talking_ai(), 11);
-					}
-					if (strcmp(game_get_dialog_node_name(), "ending2") == 0){
+					if (game_in_dialog()) {
+						if (strcmp(game_get_dialog_node_name(), "ending2") == 0){
+							start_dialog(game_get_talking_ai(), 11);
+						}
+						if (strcmp(game_get_dialog_node_name(), "ending2") == 0){
+							game_end();
+						}
+					} else {
 						game_end();
 					}
 				}
