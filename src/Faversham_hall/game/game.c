@@ -88,8 +88,10 @@ static void load_level(char *map_name) {
 	// destory the old list
 	if (ai) {
 		SSL_List_Destroy(ai);
+		ai = NULL;
 	}
 	ai = SSL_List_Create();			// set up ai
+	printf(" ");
 	load_ai(current_map, ai);
 
 	if (get_current_act() != 5 && get_current_act() != 6 && get_current_act() != 8) {

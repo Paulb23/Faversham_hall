@@ -131,44 +131,44 @@ void load_ai(SSL_Tiled_Map *map, SSL_List *list) {
 				switch(tile_id) {
 					case 1: {
 						ai = ai_create("butler");
-						break;
 					}
+					break;
 					case 2: {
 						ai = ai_create("chef");
-						break;
 					}
+					break;
 					case 3: {
 						ai = ai_create("maid");
-						break;
 					}
+					break;
 					case 4: {
 						ai = ai_create("dutchess");
-						break;
 					}
+					break;
 					case 5: {
 						ai = ai_create("nephew");
-						break;
 					}
+					break;
 					case 6: {
 						ai = ai_create("soninlaw");
-						break;
 					}
+					break;
 					case 7: {
 						ai = ai_create("twins");
-						break;
 					}
+					break;
 					case 8: {
 						ai = ai_create("nanny");
-						break;
 					}
+					break;
 					case 9: {
 						ai = ai_create("servant");
-						break;
 					}
+					break;
 					case 10: {
 						ai = ai_create("companion");
-						break;
 					}
+					break;
 				}
 				if (tile_id == 9 && get_current_act() != 6 && get_current_act() != 8) {
 
