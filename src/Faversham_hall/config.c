@@ -15,6 +15,7 @@
 #include "config.h"
 #include "../SSL/SSL.h"
 #include "SDL2/SDL.h"
+#include "SDL2/SDL_Mixer.h"
 
 
 /*---------------------------------------------------------------------------
@@ -64,6 +65,8 @@ static int vsync_default = 0;
 static int windowed_default = 1;
 static int borderless_default = 0;
 
+static int music_volume_default = 50;
+
 
 static char *up_key_default = "_w";
 static char *down_key_default = "_s";
@@ -105,11 +108,13 @@ static void print_game_block(FILE *file) {
 	"vsync = %i\t; 0 = off    1 = on\n"
 	"windowed = %i\t; 0 = full screen    1 = windowed\n"
 	"borderless = %i\t; 0 = border    1 = no borders\n"
+	"music_volume = %i\t; music volume\n"
 	,max_ticks_per_second_default
 	,smooth_texture_scaling_default
 	,vsync_default
 	,windowed_default
 	,borderless_default
+	,music_volume_default
 	);
 }
 
@@ -248,6 +253,13 @@ static void read_game_section(SSL_IniFile *ini) {
 		BORDERLESS = borderless_default;
 		SSL_Log_Write("Error: ini missing borderless, reverting to default!");
 	}
+
+	int music_volume = SSL_IniFile_GetInt(ini, "game", "music_volume", (int)-1);
+	if (music_volume == -1) {
+		music_volume = music_volume_default;
+		SSL_Log_Write("Error: ini missing music volume, reverting to default!");
+	}
+	Mix_VolumeMusic(music_volume);
 }
 
 /*----------------------------------
