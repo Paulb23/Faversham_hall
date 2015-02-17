@@ -338,9 +338,7 @@ void update_act() {
 					if (game_in_dialog()) {
 						if (strcmp(game_get_talking_ai(), "dutchess") == 0) {
 							lock_dialog();
-							if (strcmp("detective_end", game_get_dialog_node_name()) == 0) {
-								act_switch(5);
-							}
+							act_switch(5);
 						}
 					}
 				}
