@@ -44,6 +44,11 @@ char *LEFT_KEY;
 char *RIGHT_KEY;
 char *INTERACT_KEY;
 char *PAUSE_KEY;
+char *MUTE_KEY;
+int  MUSIC_VOL;
+int  SFX_VOL;
+
+int MUTE;
 
 
 /*----------------------------------
@@ -75,6 +80,7 @@ static char *left_key_default = "_a";
 static char *right_key_default = "_d";
 static char *interact_key_default = "_e";
 static char *pause_key_defualt = "_esc";
+static char *mute_key_defualt = "_m";
 
 
 /*----------------------------------
@@ -134,12 +140,14 @@ static void print_key_block(FILE *file) {
 	"right_key = %s\t; movement right key\n"
 	"interact_key = %s\t; interaction key\n"
 	"pause_key = %s\t; pause key\n"
+	"mute_key = %s\t ; the mute key\n"
 	,up_key_default
 	,down_key_default
 	,left_key_default
 	,right_key_default
 	,interact_key_default
 	,pause_key_defualt
+	,mute_key_defualt
 	);
 }
 
@@ -257,19 +265,19 @@ static void read_game_section(SSL_IniFile *ini) {
 		SSL_Log_Write("Error: ini missing borderless, reverting to default!");
 	}
 
-	int music_volume = SSL_IniFile_GetInt(ini, "game", "music_volume", (int)-1);
-	if (music_volume == -1) {
-		music_volume = music_volume_default;
+	MUSIC_VOL = SSL_IniFile_GetInt(ini, "game", "music_volume", (int)-1);
+	if (MUSIC_VOL == -1) {
+		MUSIC_VOL = music_volume_default;
 		SSL_Log_Write("Error: ini missing music volume, reverting to default!");
 	}
-	Mix_VolumeMusic(music_volume);
+	Mix_VolumeMusic(MUSIC_VOL);
 
-	music_volume = SSL_IniFile_GetInt(ini, "game", "sfx_volume", (int)-1);
-	if (music_volume == -1) {
-		music_volume = sfx_volume_default;
+	SFX_VOL = SSL_IniFile_GetInt(ini, "game", "sfx_volume", (int)-1);
+	if (SFX_VOL == -1) {
+		SFX_VOL = sfx_volume_default;
 		SSL_Log_Write("Error: ini missing sfx volume, reverting to default!");
 	}
-	Mix_Volume(-1, music_volume);
+	Mix_Volume(-1, SFX_VOL);
 }
 
 /*----------------------------------
@@ -307,9 +315,15 @@ static void read_key_section(SSL_IniFile *ini) {
 	}
 
 	PAUSE_KEY = SSL_IniFile_GetString(ini, "keys", "pause_key", (char *)-1);
-	if (INTERACT_KEY == (char *)-1) {
-		INTERACT_KEY = pause_key_defualt;
+	if (PAUSE_KEY == (char *)-1) {
+		PAUSE_KEY = pause_key_defualt;
 		SSL_Log_Write("Error: ini missing pause_key, reverting to default!");
+	}
+
+	MUTE_KEY = SSL_IniFile_GetString(ini, "keys", "mute_key", (char *)-1);
+	if (MUTE_KEY == (char *)-1) {
+		MUTE_KEY = mute_key_defualt;
+		SSL_Log_Write("Error: ini missing mute_key, reverting to default!");
 	}
 }
 
