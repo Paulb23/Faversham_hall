@@ -518,6 +518,20 @@ void game_event_handle(SDL_Event event, int uptime) {
 			switch_state(CREDIT_STATE);
 		}
 	}
+
+
+	if (SSL_Keybord_Keyname_Pressed(MUTE_KEY, event)) {
+		if (MUTE == 0) {
+			Mix_VolumeMusic(0);
+			Mix_Volume(-1, 0);
+			MUTE = 1;
+		} else {
+			Mix_VolumeMusic(MUSIC_VOL);
+			Mix_Volume(-1, SFX_VOL);
+			MUTE = 0;
+		}
+	}
+
 }
 
 

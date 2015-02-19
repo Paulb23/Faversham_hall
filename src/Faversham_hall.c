@@ -83,6 +83,8 @@ static int setup_game() {
 		return 1;
 	}
 
+	MUTE = 0;
+
 	return 0;
 }
 

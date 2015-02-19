@@ -18,7 +18,7 @@
 
 
 
-/*---------------------------------------------------------------------------
+/*---------------------------------------------------------------------------mute_key = _m ; the mute key
                                 New types
  ---------------------------------------------------------------------------*/
 
@@ -45,6 +45,11 @@ extern char *LEFT_KEY;				/**< the left moment key */
 extern char *RIGHT_KEY;				/**< the right moment key */
 extern char *INTERACT_KEY;			/**< the interact moment key */
 extern char *PAUSE_KEY;				/**< the interact moment key */
+extern char *MUTE_KEY;				/**< the interact mute key */
+
+extern int	MUTE;					/**< is the game muted */
+extern int  MUSIC_VOL;				/**< the music volume */
+extern int  SFX_VOL;				/**< the sfx volume */
 
 
 /*---------------------------------------------------------------------------

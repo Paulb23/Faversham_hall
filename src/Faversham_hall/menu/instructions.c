@@ -81,6 +81,18 @@ void instructions_handeler(SDL_Event event) {
 	if (SSL_Keybord_Keyname_Pressed("_1", event)) {
 		switch_state(state);
 	}
+
+	if (SSL_Keybord_Keyname_Pressed(MUTE_KEY, event)) {
+		if (MUTE == 0) {
+			Mix_VolumeMusic(0);
+			Mix_Volume(-1, 0);
+			MUTE = 1;
+		} else {
+			Mix_VolumeMusic(MUSIC_VOL);
+			Mix_Volume(-1, SFX_VOL);
+			MUTE = 0;
+		}
+	}
 }
 
 
