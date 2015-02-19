@@ -59,6 +59,67 @@ static int paused;					/**< are we paused */
 static Mix_Music *music;
 static Mix_Chunk *load_sfx;
 
+
+/*----------------------------------
+     Saves the game
+ ----------------------------------*/
+
+void save_game() {
+	SSL_IniFile *save = load_ini("start_map");	// open the ini
+
+	char buf[100];	// buffer for ints
+
+												// set the data
+	SSL_IniFile_Set(save, "11", "load", current_map_name);
+
+	itoa(player->entity.pos.x / SSL_Tiled_Get_Tile_Width(current_map), buf, 10);
+	SSL_IniFile_Set(save, "11", "startX", buf);
+
+	itoa(player->entity.pos.y / SSL_Tiled_Get_Tile_Height(current_map), buf, 10);
+	SSL_IniFile_Set(save, "11", "startY", buf);
+
+	itoa(get_current_act(), buf, 10);
+	SSL_IniFile_Set(save, "11", "start_act", buf);
+
+	itoa(get_current_mission(), buf, 10);
+	SSL_IniFile_Set(save, "11", "start_mission", buf);
+
+											// save the data
+	FILE *file = fopen("../extras/resources/maps/loading/start_map.ini", "wb");
+	fprintf(file, ";DO NOT DELETE THIS CONTAINS THE FISRT MAP TO LOAD AND AND THE PLAYERS POSITION \n"
+				  ";COULD BE USED FOR SAVES! \n\n"
+				  "[00]\n"
+				  "load = \"%s\" \n"
+				  "floor = %i \n"
+				  "startX = %i \n"
+				  "startY = %i \n"
+				  "start_act = %i \n"
+				  "start_mission = %i \n\n\n"
+				  "[11]\n"
+				  "load = \"%s\" \n"
+				  "floor = %i \n"
+				  "startX = %i \n"
+				  "startY = %i \n"
+				  "start_act = %i \n"
+				  "start_mission = %i \n\n\n"
+				   , SSL_IniFile_GetString(save, "00", "load", "bacement_hallway")
+				   , SSL_IniFile_GetInt(save, "00", "floor", 0)
+				   , SSL_IniFile_GetInt(save, "00", "startX", 2)
+				   , SSL_IniFile_GetInt(save, "00", "startY", 11)
+				   , SSL_IniFile_GetInt(save, "00", "start_act", 0)
+				   , SSL_IniFile_GetInt(save, "00", "start_mission", 0)
+				   , SSL_IniFile_GetString(save, "11", "load", "bacement_hallway")
+				   , SSL_IniFile_GetInt(save, "11", "floor", 0)
+				   , SSL_IniFile_GetInt(save, "11", "startX", 2)
+				   , SSL_IniFile_GetInt(save, "11", "startY", 11)
+				   , SSL_IniFile_GetInt(save, "11", "start_act", 0)
+				   , SSL_IniFile_GetInt(save, "11", "start_mission", 0)
+				   );
+    fclose(file);
+	SSL_IniFile_Destroy(save);	// free the memory
+}
+
+
 /*----------------------------------
      Loads the level
  ----------------------------------*/
@@ -132,7 +193,7 @@ static void load_next_level() {
 		locked_room = 1;
 		return;
 	}
-
+	save_game();
 	// play door sound
 	if (load_sfx) {
 		Mix_FreeChunk(load_sfx);
@@ -156,66 +217,6 @@ static void load_next_level() {
 	SSL_Tiled_Add_Light(current_map, player->entity.light);
 	in_dialog = 0;
 	locked_dialog = 0;
-}
-
-
-/*----------------------------------
-     Saves the game
- ----------------------------------*/
-
-void save_game() {
-	SSL_IniFile *save = load_ini("start_map");	// open the ini
-
-	char buf[100];	// buffer for ints
-
-												// set the data
-	SSL_IniFile_Set(save, "11", "load", current_map_name);
-
-	itoa(player->entity.pos.x / SSL_Tiled_Get_Tile_Width(current_map), buf, 10);
-	SSL_IniFile_Set(save, "11", "startX", buf);
-
-	itoa(player->entity.pos.y / SSL_Tiled_Get_Tile_Height(current_map), buf, 10);
-	SSL_IniFile_Set(save, "11", "startY", buf);
-
-	itoa(get_current_act(), buf, 10);
-	SSL_IniFile_Set(save, "11", "start_act", buf);
-
-	itoa(get_current_mission(), buf, 10);
-	SSL_IniFile_Set(save, "11", "start_mission", buf);
-
-											// save the data
-	FILE *file = fopen("../extras/resources/maps/loading/start_map.ini", "wb");
-	fprintf(file, ";DO NOT DELETE THIS CONTAINS THE FISRT MAP TO LOAD AND AND THE PLAYERS POSITION \n"
-				  ";COULD BE USED FOR SAVES! \n\n"
-				  "[00]\n"
-				  "load = \"%s\" \n"
-				  "floor = %i \n"
-				  "startX = %i \n"
-				  "startY = %i \n"
-				  "start_act = %i \n"
-				  "start_mission = %i \n\n\n"
-				  "[11]\n"
-				  "load = \"%s\" \n"
-				  "floor = %i \n"
-				  "startX = %i \n"
-				  "startY = %i \n"
-				  "start_act = %i \n"
-				  "start_mission = %i \n\n\n"
-				   , SSL_IniFile_GetString(save, "00", "load", "bacement_hallway")
-				   , SSL_IniFile_GetInt(save, "00", "floor", 0)
-				   , SSL_IniFile_GetInt(save, "00", "startX", 2)
-				   , SSL_IniFile_GetInt(save, "00", "startY", 11)
-				   , SSL_IniFile_GetInt(save, "00", "start_act", 0)
-				   , SSL_IniFile_GetInt(save, "00", "start_mission", 0)
-				   , SSL_IniFile_GetString(save, "11", "load", "bacement_hallway")
-				   , SSL_IniFile_GetInt(save, "11", "floor", 0)
-				   , SSL_IniFile_GetInt(save, "11", "startX", 2)
-				   , SSL_IniFile_GetInt(save, "11", "startY", 11)
-				   , SSL_IniFile_GetInt(save, "11", "start_act", 0)
-				   , SSL_IniFile_GetInt(save, "11", "start_mission", 0)
-				   );
-    fclose(file);
-	SSL_IniFile_Destroy(save);	// free the memory
 }
 
 
