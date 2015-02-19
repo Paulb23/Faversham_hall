@@ -133,7 +133,7 @@ static void act_switch(int new_act) {
 		}
 		break;
 		case 4: {
-			lock_room("entrance");
+
 		}
 		break;
 		case 5: {
@@ -320,6 +320,10 @@ void update_act() {
 		case (4): {
 			switch (mission) {
 				case (0) : {
+					if (strcmp(game_get_room(), "hallway") == 0) {
+						lock_room("entrance");
+					}
+
 					if (game_in_dialog()) {
 						if (strcmp(game_get_talking_ai(), "dutchess") == 0) {
 							lock_dialog();
