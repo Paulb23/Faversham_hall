@@ -356,6 +356,7 @@ void update_act() {
 					if (game_in_dialog()) {
 						if (strcmp(game_get_talking_ai(), "maid") == 0 || strcmp(game_get_talking_ai(), "twins") == 0) {
 							lock_dialog();
+							lights_on();
 							lock_npc(game_get_talking_ai());
 						}
 					}
@@ -374,10 +375,11 @@ void update_act() {
 					if (game_in_dialog()) {
 						if (strcmp(game_get_talking_ai(), "servant") == 0) {
 							lock_dialog();
+							lock_npc(game_get_talking_ai());
 						}
 					}
 
-					if (strcmp(game_get_room(), "bacement_hallway") == 0) {
+					if (strcmp(game_get_room(), "bacement_hallway") == 0 && is_npc_locked("servant")) {
 						act_switch(7);
 					}
 				}
