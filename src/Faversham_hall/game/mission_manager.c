@@ -375,11 +375,14 @@ void update_act() {
 					if (game_in_dialog()) {
 						if (strcmp(game_get_talking_ai(), "servant") == 0) {
 							lock_dialog();
-							lock_npc(game_get_talking_ai());
+							lights_on();
+							mission++;
 						}
 					}
-
-					if (strcmp(game_get_room(), "bacement_hallway") == 0 && is_npc_locked("servant")) {
+				}
+				break;
+				case (1): {
+					if (strcmp(game_get_room(), "bacement_hallway") == 0) {
 						act_switch(7);
 					}
 				}
@@ -562,6 +565,10 @@ void draw_act() {
 			switch(mission) {
 				case (0) : {
 					SSL_Font_Draw(mission_x, mission_y, 0 ,SDL_FLIP_NONE, "Mission: Follow the footprints!", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
+				}
+				break;
+				case (1) : {
+					SSL_Font_Draw(mission_x, mission_y, 0 ,SDL_FLIP_NONE, "Mission: Talk to everyone!", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
 				}
 				break;
 			}
