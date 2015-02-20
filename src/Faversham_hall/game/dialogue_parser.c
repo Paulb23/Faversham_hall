@@ -163,6 +163,8 @@ void start_dialog(char *other, int act) {
 		sprintf(path, "%saccuse_%s.ini", dialog_path, other);
 	} else if (act == 11) {
 		sprintf(path, "%sGeneral_finale.ini", dialog_path);
+	} else if (act == 12){
+		sprintf(path, "%sAssistant_dialogue.ini", dialog_path);
 	} else {
 		sprintf(path, "%s%s%i.ini", dialog_path, other, act);
 	}
