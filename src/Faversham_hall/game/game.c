@@ -643,6 +643,18 @@ void game_end() {
 
 
 /*!--------------------------------------------------------------------------
+  @brief	Sets the player in the dialog
+  @return 	Void
+
+  Sets the player in the dialog
+
+\-----------------------------------------------------------------------------*/
+void set_in_dialog() {
+	in_dialog = 1;
+}
+
+
+/*!--------------------------------------------------------------------------
   @brief	Gets weatherer are in dialog
   @return 	1 on true else 0
 

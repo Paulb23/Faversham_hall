@@ -273,6 +273,15 @@ void update_act() {
 				break;
 				case (1): {
 					if (strcmp(clue_found,"diary") == 0) {
+						start_dialog("assistant", 12);
+						set_in_dialog();
+						lock_dialog();
+						mission++;
+					}
+				}
+				break;
+				case (2): {
+					if (game_in_dialog() == 0) {
 						act_switch(2);
 					}
 				}
