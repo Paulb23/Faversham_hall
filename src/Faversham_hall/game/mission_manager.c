@@ -365,7 +365,6 @@ void update_act() {
 					if (game_in_dialog()) {
 						if (strcmp(game_get_talking_ai(), "maid") == 0 || strcmp(game_get_talking_ai(), "twins") == 0) {
 							lock_dialog();
-							lights_on();
 							lock_npc(game_get_talking_ai());
 						}
 					}
