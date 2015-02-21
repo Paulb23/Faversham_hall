@@ -108,8 +108,9 @@ void instructions_renderer() {
 	SSL_Font_Draw(90, 20, 0 ,SDL_FLIP_NONE, "Use the W A S D keys to", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
 	SSL_Font_Draw(90, 35, 0 ,SDL_FLIP_NONE, "move around the mansion", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
 
-	SSL_Font_Draw(90, 70, 0 ,SDL_FLIP_NONE, "Use the E key to interact", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
-	SSL_Font_Draw(90, 70, 0 ,SDL_FLIP_NONE, "Use the E key to interact", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
+	SSL_Font_Draw(90, 60, 0 ,SDL_FLIP_NONE, "Press M To Mute", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
+
+	SSL_Font_Draw(90, 80, 0 ,SDL_FLIP_NONE, "Use the E key to interact", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
 
 	SSL_Font_Draw(90, 100, 0 ,SDL_FLIP_NONE, "Use the 1 - 9 keys to make", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
 	SSL_Font_Draw(90, 115, 0 ,SDL_FLIP_NONE, "selections / choices", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(0,0,0,255), game_window);
