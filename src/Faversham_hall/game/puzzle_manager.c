@@ -457,9 +457,11 @@ void puzzle_render(int act, int mission) {
 			SSL_Font_Draw(5, 60, 0 ,SDL_FLIP_NONE,  "use the (W,A,S) keys to control the position", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
 			SSL_Font_Draw(5, 75, 0 ,SDL_FLIP_NONE,  "of the piece. Once the selected piece is in", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
 			SSL_Font_Draw(5, 90, 0 ,SDL_FLIP_NONE,  "the correct place, press (E) to move on to the", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
-			SSL_Font_Draw(5, 105, 0 ,SDL_FLIP_NONE,  "next piece. When the puzzle is complete, take", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
-			SSL_Font_Draw(5, 120, 0 ,SDL_FLIP_NONE,  "note of the message, it might be helpful. Then", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
-			SSL_Font_Draw(5, 135, 0 ,SDL_FLIP_NONE,  "Press 2 to check the puzzle and move on", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
+			SSL_Font_Draw(5, 105, 0 ,SDL_FLIP_NONE,  "next piece. work out the correct place, use ", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
+			SSL_Font_Draw(5, 120, 0 ,SDL_FLIP_NONE,  "the letter clue to match the gap in the slip", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
+			SSL_Font_Draw(5, 135, 0 ,SDL_FLIP_NONE,  "to the correct word. When the puzzle is complete,", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
+			SSL_Font_Draw(5, 150, 0 ,SDL_FLIP_NONE,  "take note of the message, it might be helpful.", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
+			SSL_Font_Draw(5, 165, 0 ,SDL_FLIP_NONE,  "Then Press 2 to check the puzzle and move on", (SSL_Font *)asset_manager_getFont("ui_font"), SSL_Color_Create(255,255,255,0), game_window);
 
 		}
 		if (act == 4 && mission == 1) {
